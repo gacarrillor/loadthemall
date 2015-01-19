@@ -1,6 +1,7 @@
 # Load Them All
 QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
 
+![Load Them All][1]
 
 Available filters are:
 
@@ -81,3 +82,6 @@ Code contributors:
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 
 See the changelog at https://github.com/gacarrillor/loadthemall/blob/master/changelog.txt
+
+
+[1]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/loadthemall1.png
