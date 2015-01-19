@@ -1,0 +1,87 @@
+Changes:
+
+2.3 (20150118):
+  * The alphanumeric filter supports boolean operators || (or) and && (and).
+      Example: The expression "Ae || Ar || As || B[ers]" will load all map layer
+          that have Ae, Ar, As, Be, Br or Bs in their file names. 
+      Note 1: && has higher priority, i.e., "a || b && c " becomes "(a || b) && c" 
+      Note 2: Boolean operators are combined with match modes, i.e., the expression
+          "a || b" with a match mode 'Starts with' becomes "^a || ^b" and will find 
+          all layers whose file names START WITH "a" or "b".
+  Case insensitive option for the alphanumeric filter (Configuration tab).
+  Accent insensitive option for the alphanumeric filter. This option requires the 
+      Python lib 'unidecode' and can be activated in the Configuration tab.
+  Performance improvement in alphanumeric filter. RE patterns are compiled and reused.
+  * New bounding box based filter for raster and vector files. The
+      bounding box can be load from the current extent or specified by hand.
+      Raster and vector layers are checked if their spatial extent intersects 
+      with the specified bounding box or if they lay inside of it. 
+      This operation (intersects/contains) can be specified in the dialog.
+  * Modified class filter structure to easily support more filters. I (Soeren) have
+      removed the combined filter class and replaced it with a filter list,
+      that can handle any number of filters. It is assured in the code that
+      the bounding box filter is applied after the alphanumeric and the
+      geometry/raster type filter, since the check of the raster and vector
+      layers extent may take a while.
+  Bug fix: Similar to the bug fixed in v.2.2 related to trailing slashes, the same bug
+      was occurring on Windows with backslashes (e.g., "c:\folder\").      
+  (*: Contribution by Söeren Gebbert)
+
+2.2 (20150108):
+  Load Them All window is no longer modal. Now you can interact with other QGIS tools 
+      while your Load Them All window is open.
+  Programmatically switching "CRS for new layers" to "useProjection" to avoid opening 
+      dialogs for definig the CRS manually. After loading layers, the option is set 
+      back to its original status. (Taken from http://pyqgis.blogspot.com/)
+  Messages in done dialogs were adjusted to account for different situations: 0 layers 
+      loaded, 1 layer loaded, various layers loaded. Messages now also include how many
+      layers were loaded succesfully out of all possible layers to load, e.g. 
+      "5 out of 9 layers were loaded succesfully," which means 4 were not valid layers.
+  XML removed as vector format because it causes nasty bugs and, after all, it's 
+      rarely used as a vector format (at least by me :D.) I recommend using GML, KML 
+      or others. 
+  Bug fix: A bug was ocurring when a layer was not valid and attempted to load. 
+  Bug fix: A bug was ocurring when the base path contained a trailing slash, e.g., 
+      "/abc/def/" The bug was related to exceeding the number of recursions allowed 
+      (1000), since paths compared never matched: "/abc/def/" vs. "/abc/def"      
+  Bug fix: A bug was ocurring when running the plugin for the first time. It was 
+      related to a QSettings value that didn't exist yet: 
+      "/Load_Them_All/vector/path". Line 21 of Base_LoadThemAllDialog.py
+      "Error: unable to convert a QVariant of type 0 to a QMetaType of type 10"
+
+2.1 (20141127): 
+  Groups are properly nested according to the directory structure (contribution by 
+      David Bakeman.)
+          
+2.0 (20131220):
+  Migration to QGIS 2.0
+  
+1.5 (20120328):
+  GPX format correctly handled by considering track, route and waypoints (problem
+      reported by Arnaud LE BRETON).
+
+1.4 (20110311):
+  New option: Do not load empty vector layers.
+  Now it is possible to select "All listed formats" from the format filter.
+  New vector and raster formats added.
+
+1.3.1 (20110307):
+  Use QSettings locale instead of QLocale system locale.
+  Set the icon() method in __init__.py to show the plugin icon in the manage window.
+  Disable "Add groups" option in QGis v.1.6 since there are some bugs caused by 
+      nested groups addition
+
+1.3 (20101025):
+  Avoided a legendInterface bug in QGIS 1.4 related to setLayerVisible().
+
+1.2 (20101021):
+  Use of the setRenderFlag method to avoid refreshing the canvas unnecessarily.
+  A new dialog included when there are no files to load.
+
+1.1 (20101020):
+  Reported by Milena Nowotarska:
+    Handle of special characters in directories and alphanumeric filters.
+    Save settings on tab switches.
+
+1.0 (20101018):
+  First version

@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/plugins/loadthemall" >
+    <file>logo_80x94.png</file>
+    <file>dir.png</file>
+    <file>icon.png</file>
+  </qresource>
+</RCC>
