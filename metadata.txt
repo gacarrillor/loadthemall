@@ -44,7 +44,7 @@ changelog=changelog=2.3 (20150118):
           ......layers extent may take a while.
       ...Bug fix: Similar to the bug fixed in v.2.2 related to trailing slashes, the 
           ......same bug was occurring on Windows (e.g., "c:\folder\").      
-      ...(*: Contribution by Söeren Gebbert)
+      ...(*: Contribution by Sören Gebbert)
 
     2.2 (20150108):
       ...Load Them All window is no longer modal. Now you can interact with other QGIS  
