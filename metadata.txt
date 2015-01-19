@@ -119,8 +119,8 @@ changelog=changelog=2.3 (20150118):
 tags=layers,vector,raster,toc,legend,directory,recursively,filter,load,shapefile
 
 homepage=http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
-tracker=http://hub.qgis.org/projects/loadthemall
-repository=http://websvn.tuxfamily.org/listing.php?repname=tuxgis/geotux&path=/trunk/loadthemall/
+tracker=https://github.com/gacarrillor/loadthemall/issues
+repository=https://github.com/gacarrillor/loadthemall
 
 
 ; path to a icon within the plugin folder
