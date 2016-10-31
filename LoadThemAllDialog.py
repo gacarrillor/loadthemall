@@ -285,7 +285,12 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
     settings.setValue( "groups", self.chkGroups.isChecked() )
     settings.setValue( "layersOff", self.chkLayersOff.isChecked() )
     settings.setValue( "doNotEmpty", self.chkDoNotEmpty.isChecked() )
-    settings.setValue( "sort", self.chkSort.isChecked() )
+
+    sortChecked = self.chkSort.isChecked()
+    settings.setValue( "sort", sortChecked )
+    self.chkReverseSort.setEnabled( sortChecked )
+    settings.setValue( "reverseSortEnabled", sortChecked )
+
     settings.setValue( "reverseSort", self.chkReverseSort.isChecked() )
     settings.setValue( "isDoneDialog", self.chkIsDoneDialog.isChecked() )
     settings.setValue( "caseInsensitive", self.chkCaseInsensitive.isChecked() )
@@ -406,6 +411,10 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
         self.chkReverseSort.setChecked( settings.value( "reverseSort", type=bool ) )
     else:
         self.chkReverseSort.setChecked( False )
+    if not settings.value( "reverseSortEnabled" ) is None:
+        self.chkReverseSort.setEnabled( settings.value( "reverseSortEnabled", type=bool ) )
+    else:
+        self.chkReverseSort.setEnabled( True )
     if not settings.value( "isDoneDialog" ) is None:
         self.chkIsDoneDialog.setChecked( settings.value( "isDoneDialog", type=bool ) )
     else:

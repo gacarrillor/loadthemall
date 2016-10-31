@@ -14,7 +14,16 @@
    <string>Load Them All - v.2.3</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
     <number>9</number>
    </property>
    <item>
@@ -192,7 +201,16 @@
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0,0">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>9</number>
+         </property>
+         <property name="topMargin">
+          <number>9</number>
+         </property>
+         <property name="rightMargin">
+          <number>9</number>
+         </property>
+         <property name="bottomMargin">
           <number>9</number>
          </property>
          <item>
@@ -206,7 +224,7 @@
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>10</height>
+             <height>13</height>
             </size>
            </property>
           </spacer>
@@ -272,14 +290,57 @@
          <item>
           <widget class="QCheckBox" name="chkSort">
            <property name="text">
-            <string>Sort layers when loading</string>
+            <string>Sort loaded layers</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chkReverseSort">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>25</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="chkReverseSort">
+             <property name="text">
+              <string>Reverse sort order</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkCaseInsensitive">
            <property name="text">
-            <string>Reverse sort order</string>
+            <string>Ignore case in the alphanumeric filter</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkAccentInsensitive">
+           <property name="toolTip">
+            <string>This option requires the Python lib 'unidecode'</string>
+           </property>
+           <property name="text">
+            <string>Ignore accents in the alphanumeric filter</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -337,29 +398,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chkCaseInsensitive">
-           <property name="text">
-            <string>Ignore case in the alphanumeric filter</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="chkAccentInsensitive">
-           <property name="toolTip">
-            <string>This option requires the Python lib 'unidecode'</string>
-           </property>
-           <property name="text">
-            <string>Ignore accents in the alphanumeric filter</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
           <spacer name="verticalSpacer_2">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -370,7 +408,7 @@
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>10</height>
+             <height>13</height>
             </size>
            </property>
           </spacer>
@@ -632,7 +670,7 @@
             <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v.2.1)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v.2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>

@@ -4,7 +4,8 @@ import locale
 from PyQt4.QtCore import SIGNAL, QCoreApplication
 from PyQt4.QtGui import QApplication, QMessageBox
 
-from qgis.core import QgsVectorLayer, QgsMapLayer
+from qgis.core import ( QgsVectorLayer, QgsRasterLayer, QgsMapLayer, QgsProject,
+                        QgsMapLayerRegistry )
 
 from Filter import *
 
@@ -21,7 +22,10 @@ class LoadFiles():
 
     # Configuration parameters
     self.bGroups = bGroups
-    if self.bGroups: self.groups = Group( baseDir, self.iface )
+    if self.bGroups:
+      self.tree = Tree( baseDir )
+    else:
+      self.tree = Tree( baseDir, False ) # Don't create a parent group
     self.bLayersOff = bLayersOff
     self.bDoNotEmpty = bDoNotEmpty
     self.bSort = bSort
@@ -82,22 +86,38 @@ class LoadFiles():
         layersLoaded = 0
 
         if self.bSort:
-          # In Python 3 we should use key=locale.strxfrm instead of cmp=locale.strcoll for performance
-          self.lstFilesToLoad = sorted( self.lstFilesToLoad, cmp=locale.strcoll, reverse=not self.bReverseSort )
+          if self.bGroups:
+            # In Python 3 we should use key=locale.strxfrm instead of
+            #  cmp=locale.strcoll for performance
+            self.lstFilesToLoad = sorted( self.lstFilesToLoad, cmp=locale.strcoll, reverse=self.bReverseSort )
+          else:
+            # Get basenames and order them (otherwise folders will distort order)
+            tmpDict = { path: os.path.splitext( os.path.basename( path ) )[ 0 ] for path in self.lstFilesToLoad }
+            # We revert the order to load single layers from the back, so any
+            #  new layer will be added to the top of the layer tree
+            sortedPairs = sorted( tmpDict.items(), key=lambda x: x[1], cmp=locale.strcoll, reverse=not self.bReverseSort )
+            self.lstFilesToLoad = [ pair[0] for pair in sortedPairs ]
 
         for layerPath in self.lstFilesToLoad:
           if self.progressBar.parent().processStatus == False: return #The process was canceled
 
           # Finally add the layer and apply the options the user chose
-          if self.bGroups: self.groups.addGroup( os.path.dirname( layerPath ) )
-          ml = self.addLayer( layerPath, os.path.splitext( os.path.basename( layerPath ) )[ 0 ] )
+          if self.bGroups:
+            group = self.tree.addGroup( os.path.dirname( layerPath ) )
+          ml = self.createLayer( layerPath, os.path.splitext( os.path.basename( layerPath ) )[ 0 ] )
           if ml:
-              layersLoaded += 1
-              if self.bLayersOff: self.iface.legendInterface().setLayerVisible( ml, False )
-              if self.bGroups: self.groups.orderLayer( ml, layerPath )
+            layersLoaded += 1
+            if self.bGroups:
+              self.tree.addLayerToGroup( ml, group )
+            else:
+              self.tree.addLayer( ml, self.bLayersOff )
 
           step += 1
           self.progressBar.setValue( step )
+
+        if self.bGroups and self.bLayersOff: # Parent group must be invisible
+          self.tree.setParentInvisible()
+
         self.iface.mapCanvas().setRenderFlag( True ) # Finish the loading process
 
         if self.bIsDoneDialog:
@@ -133,7 +153,7 @@ class LoadFiles():
         QCoreApplication.translate( "Load Them All", "Change those parameters and try again." ),
         QMessageBox.Ok )
 
-  def addLayer( self, layerPath, layerBaseName ):
+  def createLayer( self, layerPath, layerBaseName ):
     """ To be overriden by subclasses """
     pass
 
@@ -154,10 +174,10 @@ class LoadVectors( LoadFiles ):
     self.getFilesToLoad()
     self.loadLayers()
 
-  def addLayer( self, layerPath, layerBaseName ):
-    """ Add a vector layer """
+  def createLayer( self, layerPath, layerBaseName ):
+    """ Create a vector layer """
     provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
-    return self.iface.addVectorLayer( layerPath, layerBaseName, provider )
+    return QgsVectorLayer( layerPath, layerBaseName, provider )
 
   def isEmptyLayer( self, layerPath ):
     """ Check whether a vector layer has not features """
@@ -182,86 +202,58 @@ class LoadRasters( LoadFiles ):
     self.getFilesToLoad()
     self.loadLayers()
 
-  def addLayer( self, layerPath, layerBaseName ):
-    """ Add a raster layer """
-    return self.iface.addRasterLayer( layerPath, layerBaseName )
+  def createLayer( self, layerPath, layerBaseName ):
+    """ Create a raster layer """
+    return QgsRasterLayer( layerPath, layerBaseName )
 
   def isEmptyLayer( self, layerPath ):
     """ Do not check this on raster layers """
     return False
 
-class Group():
-  """ Class to deal with layer groups """
-  def __init__( self, bDir, iface ):
-    self.dicGroups = {} # layerDir : index
-    self.toc = iface.legendInterface()
-    self.baseDir = bDir
-    #iface.connect( self.toc, SIGNAL( "groupIndexChanged(int old, int new)" ), self.updateIndexes )
 
-  #def updateIndexes( self, old, new ):
-    #indexOfOld = self.dicGroups.values().index( old )
-    #keyOfNew = self.dicGroups.keys()[ indexOfOld ]
-    #self.dicGroups[ keyOfNew ] = new
+class Tree():
+  """ Class to manage QGIS layer tree calls  """
+  def __init__( self, baseDir, createParentGroup=True ):
+    self.baseDir = baseDir
 
-  def addGroup( self, path ):
-    """ Add a group based on a layer's directory """
-    if path not in self.dicGroups:
-      if path != self.baseDir:
-        dpath = os.path.dirname(path)
-        self.addGroup(dpath)
-        name = os.path.split( path )[ 1 ] # Get the last dir in the path
-        index = self.toc.addGroup( name, True, self.dicGroups[ dpath ] )
-        self.dicGroups[ path ] = index
-      else:
-        name = os.path.split( path )[ 1 ] # Get the last dir in the path
-        index = self.toc.addGroup( name )
-        self.dicGroups[ path ] = index
-
-  def orderLayer( self, mapLayer, layerPath ):
-    """ Put a layer in its group """
-    layerDir = os.path.dirname( layerPath )
-    self.toc.moveLayer( mapLayer,  self.getGroupIndex( layerDir ) )
-
-  def getGroupIndex( self, layerDir ):
-    """ Convenient method to get a group index based on the built dictionary """
-    return self.dicGroups[ layerDir ]
-
-
-class Group2():
-  """ Class to deal with layer groups """
-  def __init__( self, bDir, iface ):
-    self.dicGroups = {} # layerDir : index
-    self.toc = iface.legendInterface()
-    self.baseDir = bDir
-    #iface.connect( self.toc, SIGNAL( "groupIndexChanged(int old, int new)" ), self.updateIndexes )
-
-  #def updateIndexes( self, old, new ):
-    #indexOfOld = self.dicGroups.values().index( old )
-    #keyOfNew = self.dicGroups.keys()[ indexOfOld ]
-    #self.dicGroups[ keyOfNew ] = new
+    self.root = QgsProject.instance().layerTreeRoot()
+    if createParentGroup:
+      # Initialize root to match the base dir and build root group in ToC
+      baseGroupName = os.path.split( baseDir )[ 1 ]
+      group = self.root.findGroup( baseGroupName )
+      if not group:
+        group = self.root.insertGroup( 0, baseGroupName )
+      self.root = group
 
   def addGroup( self, path ):
-    """ Add a group based on a layer's directory """
-    if path not in self.dicGroups:
-      if path != self.baseDir:
-        dpath = os.path.dirname(path)
-        self.addGroup(dpath)
-        name = os.path.split( path )[ 1 ] # Get the last dir in the path
+    """ Add a group based on a layer's directory.
+        If parent groups don't exist, it creates all of them until base dir.
+    """
+    if path != self.baseDir:
+      previousPath = os.path.dirname( path )
+      previousGroup = self.addGroup( previousPath )
 
-        index = self.toc.addGroup( name, True, self.dicGroups[ dpath ] )
-        self.dicGroups[ path ] = index
-      else:
-        name = os.path.split( path )[ 1 ] # Get the last dir in the path
-        index = self.toc.addGroup( name )
-        self.dicGroups[ path ] = index
+      lastDir = os.path.split( path )[ 1 ] # Get the last dir in the path
+      group = previousGroup.findGroup( lastDir )
+      if not group:
+        group = previousGroup.addGroup( lastDir )
+      return group
 
-  def orderLayer( self, mapLayer, layerPath ):
-    """ Put a layer in its group """
-    layerDir = os.path.dirname( layerPath )
-    self.toc.moveLayer( mapLayer,  self.getGroupIndex( layerDir ) )
+    else:
+      return self.root
 
-  def getGroupIndex( self, layerDir ):
-    """ Convenient method to get a group index based on the built dictionary """
-    return self.dicGroups[ layerDir ]
+  def addLayerToGroup( self, layer, group ):
+    """ Add a layer to its corresponding group """
+    QgsMapLayerRegistry.instance().addMapLayer( layer, False )
+    group.addLayer( layer )
 
+  def addLayer( self, layer, notVisible ):
+    """ Add a layer to the root of the layer tree """
+    QgsMapLayerRegistry.instance().addMapLayer( layer, False )
+    addedLayer = self.root.insertLayer( 0, layer )
+    if notVisible:
+      addedLayer.setVisible( 0 )
+
+  def setParentInvisible( self ):
+    self.root.setVisible( 0 )
 
