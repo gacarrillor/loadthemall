@@ -191,7 +191,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0,0">
          <property name="margin">
           <number>9</number>
          </property>
@@ -266,6 +266,20 @@
            </property>
            <property name="checked">
             <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkSort">
+           <property name="text">
+            <string>Sort layers when loading</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chkReverseSort">
+           <property name="text">
+            <string>Reverse sort order</string>
            </property>
           </widget>
          </item>
@@ -681,8 +695,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>389</x>
+     <y>503</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -697,8 +711,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>389</x>
+     <y>503</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_LoadThemAll.ui'
 #
-# Created: Sun Jan 18 11:07:18 2015
-#      by: PyQt4 UI code generator 4.9.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +11,16 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_LoadThemAll(object):
     def setupUi(self, LoadThemAll):
@@ -120,6 +128,12 @@ class Ui_LoadThemAll(object):
         self.chkIsDoneDialog.setChecked(True)
         self.chkIsDoneDialog.setObjectName(_fromUtf8("chkIsDoneDialog"))
         self.verticalLayout_2.addWidget(self.chkIsDoneDialog)
+        self.chkSort = QtGui.QCheckBox(self.tabConfiguration)
+        self.chkSort.setObjectName(_fromUtf8("chkSort"))
+        self.verticalLayout_2.addWidget(self.chkSort)
+        self.chkReverseSort = QtGui.QCheckBox(self.tabConfiguration)
+        self.chkReverseSort.setObjectName(_fromUtf8("chkReverseSort"))
+        self.verticalLayout_2.addWidget(self.chkReverseSort)
         self.groupBox = QtGui.QGroupBox(self.tabConfiguration)
         self.groupBox.setMinimumSize(QtCore.QSize(0, 60))
         self.groupBox.setMaximumSize(QtCore.QSize(315, 80))
@@ -272,33 +286,35 @@ class Ui_LoadThemAll(object):
         QtCore.QMetaObject.connectSlotsByName(LoadThemAll)
 
     def retranslateUi(self, LoadThemAll):
-        LoadThemAll.setWindowTitle(QtGui.QApplication.translate("LoadThemAll", "Load Them All - v.2.3", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBoxGeometryTypeFilter.setTitle(QtGui.QApplication.translate("LoadThemAll", "Geometry type filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkPolygon.setText(QtGui.QApplication.translate("LoadThemAll", "Polygon", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkPoint.setText(QtGui.QApplication.translate("LoadThemAll", "Point", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkLine.setText(QtGui.QApplication.translate("LoadThemAll", "Line", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabVector), QtGui.QApplication.translate("LoadThemAll", "Vector", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBoxRasterTypeFilter.setTitle(QtGui.QApplication.translate("LoadThemAll", "Raster type filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkGray.setText(QtGui.QApplication.translate("LoadThemAll", "Gray or Undefined", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkPalette.setText(QtGui.QApplication.translate("LoadThemAll", "Palette", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkMultiband.setText(QtGui.QApplication.translate("LoadThemAll", "Multiband", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRaster), QtGui.QApplication.translate("LoadThemAll", "Raster", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkGroups.setText(QtGui.QApplication.translate("LoadThemAll", "Create groups based on directories\' names", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkLayersOff.setText(QtGui.QApplication.translate("LoadThemAll", "Turn off the loaded layers", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkDoNotEmpty.setText(QtGui.QApplication.translate("LoadThemAll", "Do not load empty vector layers ", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkIsDoneDialog.setText(QtGui.QApplication.translate("LoadThemAll", "Show a dialog when the process is done", None, QtGui.QApplication.UnicodeUTF8))
-        self.txtNumLayersToConfirm.setText(QtGui.QApplication.translate("LoadThemAll", "50", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_6.setText(QtGui.QApplication.translate("LoadThemAll", "Number of layers to show you a confirmation dialog before the loading", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkCaseInsensitive.setText(QtGui.QApplication.translate("LoadThemAll", "Ignore case in the alphanumeric filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkAccentInsensitive.setToolTip(QtGui.QApplication.translate("LoadThemAll", "This option requires the Python lib \'unidecode\'", None, QtGui.QApplication.UnicodeUTF8))
-        self.chkAccentInsensitive.setText(QtGui.QApplication.translate("LoadThemAll", "Ignore accents in the alphanumeric filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabConfiguration), QtGui.QApplication.translate("LoadThemAll", "Configuration", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("LoadThemAll", "The <i>Load Them All</i> plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnHelp.setText(QtGui.QApplication.translate("LoadThemAll", "Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_5.setText(QtGui.QApplication.translate("LoadThemAll", "Feel free to report bugs, suggest improvements or say hello at geotux_tuxman@linuxmail.org ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("LoadThemAll", "Copyright (C) 2010-2015 Germán Carrillo", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("LoadThemAll", "<i>Licensed under the terms of GNU GPL 2</i>", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_7.setText(QtGui.QApplication.translate("LoadThemAll", "<html><head/><body><p><span style=\" font-style:italic;\">Code contributors:</span><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;David Bakeman (v.2.1)<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Soeren Gebbert (v.2.3)</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAbout), QtGui.QApplication.translate("LoadThemAll", "About", None, QtGui.QApplication.UnicodeUTF8))
+        LoadThemAll.setWindowTitle(_translate("LoadThemAll", "Load Them All - v.2.3", None))
+        self.groupBoxGeometryTypeFilter.setTitle(_translate("LoadThemAll", "Geometry type filter", None))
+        self.chkPolygon.setText(_translate("LoadThemAll", "Polygon", None))
+        self.chkPoint.setText(_translate("LoadThemAll", "Point", None))
+        self.chkLine.setText(_translate("LoadThemAll", "Line", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabVector), _translate("LoadThemAll", "Vector", None))
+        self.groupBoxRasterTypeFilter.setTitle(_translate("LoadThemAll", "Raster type filter", None))
+        self.chkGray.setText(_translate("LoadThemAll", "Gray or Undefined", None))
+        self.chkPalette.setText(_translate("LoadThemAll", "Palette", None))
+        self.chkMultiband.setText(_translate("LoadThemAll", "Multiband", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabRaster), _translate("LoadThemAll", "Raster", None))
+        self.chkGroups.setText(_translate("LoadThemAll", "Create groups based on directories\' names", None))
+        self.chkLayersOff.setText(_translate("LoadThemAll", "Turn off the loaded layers", None))
+        self.chkDoNotEmpty.setText(_translate("LoadThemAll", "Do not load empty vector layers ", None))
+        self.chkIsDoneDialog.setText(_translate("LoadThemAll", "Show a dialog when the process is done", None))
+        self.chkSort.setText(_translate("LoadThemAll", "Sort layers when loading", None))
+        self.chkReverseSort.setText(_translate("LoadThemAll", "Reverse sort order", None))
+        self.txtNumLayersToConfirm.setText(_translate("LoadThemAll", "50", None))
+        self.label_6.setText(_translate("LoadThemAll", "Number of layers to show you a confirmation dialog before the loading", None))
+        self.chkCaseInsensitive.setText(_translate("LoadThemAll", "Ignore case in the alphanumeric filter", None))
+        self.chkAccentInsensitive.setToolTip(_translate("LoadThemAll", "This option requires the Python lib \'unidecode\'", None))
+        self.chkAccentInsensitive.setText(_translate("LoadThemAll", "Ignore accents in the alphanumeric filter", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabConfiguration), _translate("LoadThemAll", "Configuration", None))
+        self.label_4.setText(_translate("LoadThemAll", "The <i>Load Them All</i> plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.", None))
+        self.btnHelp.setText(_translate("LoadThemAll", "Help", None))
+        self.label_5.setText(_translate("LoadThemAll", "Feel free to report bugs, suggest improvements or say hello at geotux_tuxman@linuxmail.org ", None))
+        self.label.setText(_translate("LoadThemAll", "Copyright (C) 2010-2015 Germán Carrillo", None))
+        self.label_3.setText(_translate("LoadThemAll", "<i>Licensed under the terms of GNU GPL 2</i>", None))
+        self.label_7.setText(_translate("LoadThemAll", "<html><head/><body><p><span style=\" font-style:italic;\">Code contributors:</span><br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;David Bakeman (v.2.1)<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Soeren Gebbert (v.2.3)</p></body></html>", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAbout), _translate("LoadThemAll", "About", None))
 
 import resources_rc

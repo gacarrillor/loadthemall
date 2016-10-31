@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_Base_LoadThemAll.ui'
 #
-# Created: Sat Jan 17 22:37:29 2015
-#      by: PyQt4 UI code generator 4.9.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +11,16 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_Base_LoadThemAll(object):
     def setupUi(self, Base_LoadThemAll):
@@ -139,21 +147,21 @@ class Ui_Base_LoadThemAll(object):
         QtCore.QMetaObject.connectSlotsByName(Base_LoadThemAll)
 
     def retranslateUi(self, Base_LoadThemAll):
-        Base_LoadThemAll.setWindowTitle(QtGui.QApplication.translate("Base_LoadThemAll", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Format ", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnBaseDir.setToolTip(QtGui.QApplication.translate("Base_LoadThemAll", "Select a base directory", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBoxAlphanumeric.setTitle(QtGui.QApplication.translate("Base_LoadThemAll", "Alphanumeric filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Filter string", None, QtGui.QApplication.UnicodeUTF8))
-        self.radStarts.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Starts with", None, QtGui.QApplication.UnicodeUTF8))
-        self.radAny.setText(QtGui.QApplication.translate("Base_LoadThemAll", "In any position", None, QtGui.QApplication.UnicodeUTF8))
-        self.radEnds.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Ends with", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBoxBoundingBox.setTitle(QtGui.QApplication.translate("Base_LoadThemAll", "Bounding box filter", None, QtGui.QApplication.UnicodeUTF8))
-        self.txtYMax.setPlaceholderText(QtGui.QApplication.translate("Base_LoadThemAll", "North", None, QtGui.QApplication.UnicodeUTF8))
-        self.txtXMin.setPlaceholderText(QtGui.QApplication.translate("Base_LoadThemAll", "West", None, QtGui.QApplication.UnicodeUTF8))
-        self.txtXMax.setPlaceholderText(QtGui.QApplication.translate("Base_LoadThemAll", "East", None, QtGui.QApplication.UnicodeUTF8))
-        self.txtYMin.setPlaceholderText(QtGui.QApplication.translate("Base_LoadThemAll", "South", None, QtGui.QApplication.UnicodeUTF8))
-        self.radContains.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Contains", None, QtGui.QApplication.UnicodeUTF8))
-        self.radIntersects.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Intersects", None, QtGui.QApplication.UnicodeUTF8))
-        self.btnLoadExtent.setText(QtGui.QApplication.translate("Base_LoadThemAll", "Map extent", None, QtGui.QApplication.UnicodeUTF8))
+        Base_LoadThemAll.setWindowTitle(_translate("Base_LoadThemAll", "Dialog", None))
+        self.label_2.setText(_translate("Base_LoadThemAll", "Format ", None))
+        self.btnBaseDir.setToolTip(_translate("Base_LoadThemAll", "Select a base directory", None))
+        self.groupBoxAlphanumeric.setTitle(_translate("Base_LoadThemAll", "Alphanumeric filter", None))
+        self.label_3.setText(_translate("Base_LoadThemAll", "Filter string", None))
+        self.radStarts.setText(_translate("Base_LoadThemAll", "Starts with", None))
+        self.radAny.setText(_translate("Base_LoadThemAll", "In any position", None))
+        self.radEnds.setText(_translate("Base_LoadThemAll", "Ends with", None))
+        self.groupBoxBoundingBox.setTitle(_translate("Base_LoadThemAll", "Bounding box filter", None))
+        self.txtYMax.setPlaceholderText(_translate("Base_LoadThemAll", "North", None))
+        self.txtXMin.setPlaceholderText(_translate("Base_LoadThemAll", "West", None))
+        self.txtXMax.setPlaceholderText(_translate("Base_LoadThemAll", "East", None))
+        self.txtYMin.setPlaceholderText(_translate("Base_LoadThemAll", "South", None))
+        self.radContains.setText(_translate("Base_LoadThemAll", "Contains", None))
+        self.radIntersects.setText(_translate("Base_LoadThemAll", "Intersects", None))
+        self.btnLoadExtent.setText(_translate("Base_LoadThemAll", "Map extent", None))
 
 import resources_rc
