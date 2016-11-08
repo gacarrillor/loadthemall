@@ -25,13 +25,14 @@ except AttributeError:
 class Ui_Base_LoadThemAll(object):
     def setupUi(self, Base_LoadThemAll):
         Base_LoadThemAll.setObjectName(_fromUtf8("Base_LoadThemAll"))
-        Base_LoadThemAll.resize(375, 347)
+        Base_LoadThemAll.resize(375, 367)
         self.gridLayout = QtGui.QGridLayout(Base_LoadThemAll)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         spacerItem = QtGui.QSpacerItem(20, 15, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem, 2, 1, 1, 1)
         self.cboFormats = QtGui.QComboBox(Base_LoadThemAll)
+        self.cboFormats.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContentsOnFirstShow)
         self.cboFormats.setObjectName(_fromUtf8("cboFormats"))
         self.gridLayout.addWidget(self.cboFormats, 1, 1, 1, 1)
         self.label_2 = QtGui.QLabel(Base_LoadThemAll)

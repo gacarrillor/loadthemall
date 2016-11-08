@@ -45,7 +45,7 @@ class LoadFiles():
     for root, dirs, files in os.walk( self.baseDir.decode("utf-8") ):
      	for file in files:
           QApplication.processEvents() # ProgressBar in busy mode
-          if self.progressBar.parent().processStatus == False: return #The process was canceled
+          if self.progressBar.parent().parent().processStatus == False: return #The process was canceled
 
           extension = str.lower( str( os.path.splitext( file )[ 1 ] ) )
           if extension in self.extension:
@@ -67,7 +67,7 @@ class LoadFiles():
 
   def loadLayers( self ):
     """ Load the layer to the map """
-    if self.progressBar.parent().processStatus == False: return #The process was canceled
+    if self.progressBar.parent().parent().processStatus == False: return #The process was canceled
     numLayers = len( self.lstFilesToLoad )
 
     if numLayers > 0:
@@ -99,7 +99,7 @@ class LoadFiles():
             self.lstFilesToLoad = [ pair[0] for pair in sortedPairs ]
 
         for layerPath in self.lstFilesToLoad:
-          if self.progressBar.parent().processStatus == False: return #The process was canceled
+          if self.progressBar.parent().parent().processStatus == False: return #The process was canceled
 
           # Finally add the layer and apply the options the user chose
           if self.bGroups:

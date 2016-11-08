@@ -63,7 +63,7 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
       self.cboFormats.addItem( "JPEG JFIF (*.jpg, *.jpeg)", [".jpg", ".jpeg"] )
       self.cboFormats.addItem( "Graphics Interchange Format (*.gif)", [".gif"] )
       self.cboFormats.addItem( "X11 PixMap Format (*.xpm)", [".xpm"] )
-      self.cboFormats.addItem( "MS Windows Device Independent Bitmap (*.bmp)", [".bmp"] )
+      self.cboFormats.addItem( "Bitmap image file (*.bmp)", [".bmp"] )
       self.cboFormats.addItem( "PCIDSK Database File (*.pix)", [".pix"] )
       self.cboFormats.addItem( "PCRaster Raster File (*.map)", [".map"] )
       self.cboFormats.addItem( "ILWIS Raster Map (*.mpr, *.mpl)", [".mpr", ".mpl"] )

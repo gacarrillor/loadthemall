@@ -5,9 +5,9 @@ LoadThemAll
 A QGIS plugin
 Loads files stored in a directory structure recursively, based on several filters
                              -------------------
-begin                : 2010-10-03 
+begin                : 2010-10-03
 copyright            : (C) 2010 by Germán Carrillo (GeoTux)
-email                : geotux_tuxman@linuxmail.org 
+email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,8 +21,8 @@ email                : geotux_tuxman@linuxmail.org
 """
 import os
 
-from PyQt4.QtCore import ( QTranslator, SIGNAL, QObject, QFileInfo, QCoreApplication, 
-    QLocale, QSettings )
+from PyQt4.QtCore import ( Qt, QTranslator, SIGNAL, QObject, QFileInfo,
+    QCoreApplication, QLocale, QSettings )
 from PyQt4.QtGui import QIcon, QAction
 from qgis.core import QgsApplication
 
@@ -30,33 +30,39 @@ import resources_rc # Initialize Qt resources from file resources_rc.py
 
 from LoadThemAllDialog import LoadThemAllDialog
 
-class LoadThemAll: 
+class LoadThemAll:
   def __init__( self, iface ):
     # Save reference to the QGIS interface
     self.iface = iface
 
     self.installTranslator()
 
-  def initGui( self ):  
+  def initGui( self ):
     # Create action that will start plugin configuration
     self.action = QAction(QIcon( ":/plugins/loadthemall/icon.png"), \
         "Load them all...", self.iface.mainWindow() )
     # connect the action to the run method
-    QObject.connect( self.action, SIGNAL( "triggered()" ), self.run ) 
+    QObject.connect( self.action, SIGNAL( "triggered()" ), self.run )
 
     # Add toolbar button and menu item
     self.iface.addToolBarIcon( self.action )
     self.iface.addPluginToMenu( "&Load them all", self.action )
+
+
+    self.dockWidget = LoadThemAllDialog( self.iface.mainWindow(), self.iface )
+    self.iface.addDockWidget( Qt.RightDockWidgetArea, self.dockWidget )
 
   def unload(self):
     # Remove the plugin menu item and icon
     self.iface.removePluginMenu( "&Load them all", self.action )
     self.iface.removeToolBarIcon( self.action )
 
+    self.dockWidget.close()
+    self.iface.removeDockWidget( self.dockWidget )
+
   # run method that performs all the real work
-  def run(self): 
-    dlg = LoadThemAllDialog( self.iface.mainWindow(), self.iface ) 
-    dlg.show()
+  def run(self):
+    self.dockWidget.show()
 
   def installTranslator( self ):
     userPluginPath = os.path.join( os.path.dirname( str( QgsApplication.qgisUserDbFilePath() ) ), "python/plugins/loadthemall" )

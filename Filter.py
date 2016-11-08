@@ -33,8 +33,8 @@ class AlphanumericFilter( Filter ):
   def apply( self, layerPath ):
     """ Apply an alphanumeric filter """
     if not self.regExpPattern: # We build a RE pattern only once and then reuse it
-      self.regExpPattern = self.getRegExpPattern() 
-      
+      self.regExpPattern = self.getRegExpPattern()
+
     layerBaseName = os.path.splitext( os.path.basename( layerPath ) )[0]
     layerBaseName = layerBaseName.lower() if self.caseInsensitive else layerBaseName
     if self.accentInsensitive:
@@ -44,7 +44,7 @@ class AlphanumericFilter( Filter ):
       except ImportError, NameError:
         pass # This error is handled in LoadThemAllDialog
 
-    return True if self.regExpPattern.search( layerBaseName ) else False   
+    return True if self.regExpPattern.search( layerBaseName ) else False
 
   def getRegExpPattern( self ):
     regExpString = ''
@@ -56,7 +56,7 @@ class AlphanumericFilter( Filter ):
       andTerm = self.normalizeText( andTerm )
       orList = andTerm.split("||")
       newOrList = []
-      
+
       for orTerm in orList:
         orTerm = self.normalizeText( orTerm )
         if self.matchType == 'StartsWith':
@@ -65,18 +65,18 @@ class AlphanumericFilter( Filter ):
           newOrList.append( ''.join( [ orTerm, '$' ] ) )
         else: # "anyPosition"
           newOrList.append( orTerm )
-          
+
       tmp = '|' if len( orList ) > 1 else '' # If there's 1+ 'or' (||) operator...
       newAndList.append( tmp.join( newOrList ) )
-      
+
     if len( andList ) > 1: # Is there at least an 'and' (&&) operator?
       newAndList = [''.join( ['(', andElem, ')'] ) for andElem in newAndList]
       # .*?, not .*: https://docs.python.org/2/howto/regex.html#greedy-versus-non-greedy
       regExpString = '.*?'.join( newAndList ) # .*? is our and RE operator
     else:
-      regExpString = ''.join( newAndList ) 
+      regExpString = ''.join( newAndList )
 
-    regExpString = regExpString.lower() if self.caseInsensitive else regExpString  
+    regExpString = regExpString.lower() if self.caseInsensitive else regExpString
     if self.accentInsensitive:
       try:
         from unidecode import unidecode
@@ -84,7 +84,7 @@ class AlphanumericFilter( Filter ):
       except ImportError:
         pass # This error is handled in LoadThemAllDialog
 
-    return re.compile( regExpString ) 
+    return re.compile( regExpString )
 
   def normalizeText( self, text ):
     text = text.strip()
@@ -97,7 +97,7 @@ class BoundingBoxFilter( Filter ):
   """ Filter based a bounding box """
   def __init__( self, layerType, boundingBox, method ):
     """Constructor
-      
+
       :param layerType: "raster" or "vector"
       :type string:
       :param boundingBox: The bounding box for selection
@@ -110,7 +110,7 @@ class BoundingBoxFilter( Filter ):
 
   def apply( self, layerPath ):
     """ Apply the bounding box filter """
-    
+
     if self.layerType == "vector":
         provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
         bbox = QgsVectorLayer( layerPath, '', provider ).extent()
@@ -158,6 +158,7 @@ class RasterTypeFilter( TypeFilter ):
     if 'GrayOrUndefined' in itemTypes: self.lstFilterItems.append( 0 )
     if 'Palette' in itemTypes: self.lstFilterItems.append( 1 )
     if 'Multiband' in itemTypes: self.lstFilterItems.append( 2 )
+    if 'ColorLayer' in itemTypes: self.lstFilterItems.append( 3 )
 
   def getItemType( self, layerPath ):
     """ Get the layer's raster type """
@@ -168,20 +169,20 @@ class FilterList( Filter ):
   """Manage a list of filters"""
   def reset( self ):
     self.filterList = []
-      
+
   def __init__( self ):
     self.reset()
-      
+
   def addFilter( self, filter ):
     self.filterList.append( filter )
-      
+
   def apply( self,  layerPath ):
     if not self.filterList:
       return NoFilter().apply( layerPath ) # No filter was specified
-    
+
     for filter in self.filterList:
       check = filter.apply( layerPath )
       if check is False:
-        return check    
+        return check
     return True
 

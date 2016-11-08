@@ -21,21 +21,20 @@ email                : geotux_tuxman@linuxmail.org
 """
 
 from PyQt4.QtCore import SIGNAL, QSettings
-from PyQt4.QtGui import QDialog, QDialogButtonBox, QMessageBox
+from PyQt4.QtGui import QDockWidget, QMessageBox
 
 from qgis.core import QGis, QgsRectangle
 from qgis.gui import QgsMessageBar
 
 from LoadFiles import *
 from Base_LoadThemAllDialog import Base_LoadThemAllDialog
-from Ui_LoadThemAll import Ui_LoadThemAll
+from Ui_DockWidget import Ui_DockWidget
 
-class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
+class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
   def __init__( self, parent, iface ):
-    QDialog.__init__( self, parent )
+    QDockWidget.__init__( self, parent )
     self.setupUi( self )
 
-    self.setModal( False )
     self.iface = iface
     self.parent = parent
     self.dlgBase = None # It permits to reuse a base dialog
@@ -44,17 +43,8 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
     self.currentTab = 'a' # a:another, v:vector, r:raster
 
     self.updateControls()
-    self.buttonOk = self.buttonBox.button( QDialogButtonBox.Ok )
     self.progressBar.setMinimum( 0 )
     self.processStatus = True # To handle a dialog cancel event
-
-    # Avoid legendInterface's related bug for QGIS version lesser than 1.5
-    if QGis.QGIS_VERSION[0:3] < "1.5":
-      self.chkLayersOff.setChecked( False )
-      self.chkLayersOff.setEnabled( False )
-    if QGis.QGIS_VERSION[0:3] == "1.6": # The groups are a mess in v.1.6
-      self.chkGroups.setChecked( False )
-      self.chkGroups.setEnabled( False )
 
     self.connect( self.tabWidget, SIGNAL( "currentChanged(int)" ), self.tabChanged )
     self.connect( self.chkGroups, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
@@ -67,6 +57,7 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
     self.connect( self.chkCaseInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.chkAccentInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.btnHelp, SIGNAL( "clicked()" ), self.help )
+    self.btnLoadLayers.clicked.connect( self.load )
 
   def updateControls( self ):
     """ Read stored settings and put them into the appropriate tab """
@@ -203,11 +194,12 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
 
         elif self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
           if self.groupBoxRasterTypeFilter.isChecked() and \
-              not ( self.chkGray.isChecked() and self.chkPalette.isChecked() and self.chkMultiband.isChecked() ) :
+              not ( self.chkGray.isChecked() and self.chkPalette.isChecked() and self.chkMultiband.isChecked() and self.chkColorLayer.isChecked() ):
             lstItemTypes = []
             if self.chkGray.isChecked(): lstItemTypes.append( 'GrayOrUndefined' )
             if self.chkPalette.isChecked(): lstItemTypes.append( 'Palette' )
             if self.chkMultiband.isChecked(): lstItemTypes.append( 'Multiband' )
+            if self.chkColorLayer.isChecked(): lstItemTypes.append( 'ColorLayer' )
 
             if not lstItemTypes:
               QMessageBox.warning( self.parent, "Load Them All",
@@ -245,16 +237,16 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
           self.tr( "Please select an existing directory." ),
           QMessageBox.Ok, QMessageBox.Ok )
 
-  def accept( self ):
-    """ Protect the Ok button and apply """
+  def load( self ):
+    """ Protect the Load Layers button and apply """
     settings = QSettings()
     # Take the "CRS for new layers" config, overwrite it while loading layers and...
     oldProjValue = settings.value( "/Projections/defaultBehaviour", "prompt", type=str )
     settings.setValue( "/Projections/defaultBehaviour", "useProject" )
 
-    self.buttonOk.setEnabled( False )
+    self.btnLoadLayers.setEnabled( False )
     self.apply()
-    self.buttonOk.setEnabled( True )
+    self.btnLoadLayers.setEnabled( True )
 
     # ... then set the "CRS for new layers" back
     settings.setValue( "/Projections/defaultBehaviour", oldProjValue )
@@ -266,17 +258,12 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
     import webbrowser
     webbrowser.open( "http://geotux.tuxfamily.org/index.php/en/component/k2/item/264-plugin-load-them-all-para-quantum-gis" )
 
-  def reject( self ):
-    """ To allow the closeEvent be sent after a click on the Cancel button """
-    self.close()
-
   def closeEvent(self, e):
     """ Do some actions before closing the dialog """
     self.processStatus = False
     settings = QSettings()
     settings.setValue( "/Load_Them_All/currentTab", self.tabWidget.currentIndex() )
     self.saveSettings()
-    e.accept()
 
   def saveConfigTabSettings( self ):
     """ The configuration tab is special, so it needs to save parameters separately """
@@ -336,6 +323,7 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
       settings.setValue( "GrayOrUndefined", self.chkGray.isChecked() )
       settings.setValue( "Palette", self.chkPalette.isChecked() )
       settings.setValue( "Multiband", self.chkMultiband.isChecked() )
+      settings.setValue( "ColorLayer", self.chkColorLayer.isChecked() )
       settings.endGroup()
 
   def restoreBaseSettings( self, settings ):
@@ -456,6 +444,7 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
       else:
           self.chkPolygon.setChecked( False )
       settings.endGroup()
+      self.btnLoadLayers.setEnabled( True )
 
     elif self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
       settings.beginGroup( "/Load_Them_All/raster")
@@ -477,5 +466,12 @@ class LoadThemAllDialog( QDialog, Ui_LoadThemAll ):
           self.chkMultiband.setChecked( settings.value( "Multiband", type=bool ) )
       else:
           self.chkMultiband.setChecked( False )
+      if not settings.value( "ColorLayer" ) is None:
+          self.chkColorLayer.setChecked( settings.value( "ColorLayer", type=bool ) )
+      else:
+          self.chkColorLayer.setChecked( False )
       settings.endGroup()
+      self.btnLoadLayers.setEnabled( True )
+    else:
+      self.btnLoadLayers.setEnabled( False )
 
