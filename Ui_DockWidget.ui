@@ -540,9 +540,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-130</y>
+             <y>-124</y>
              <width>319</width>
-             <height>477</height>
+             <height>471</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -718,7 +718,7 @@
                  <number>0</number>
                 </property>
                 <property name="leftMargin">
-                 <number>20</number>
+                 <number>9</number>
                 </property>
                 <item>
                  <spacer name="verticalSpacer_3">

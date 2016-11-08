@@ -256,7 +256,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
   def help( self ):
     """ Open a browser to get help """
     import webbrowser
-    webbrowser.open( "http://geotux.tuxfamily.org/index.php/en/component/k2/item/264-plugin-load-them-all-para-quantum-gis" )
+    webbrowser.open( "https://github.com/gacarrillor/loadthemall/blob/master/README.md" )
 
   def closeEvent(self, e):
     """ Do some actions before closing the dialog """

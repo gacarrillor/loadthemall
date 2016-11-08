@@ -17,7 +17,7 @@ Available filters are:
   Choose which geometry type you want to load: 'Point', 'Line', or 'Polygon'.
 * **Raster type**:
 
-  Choose which raster type you want to load: 'Gray or undefined', 'Palette', or 'Multiband'.
+  Choose which raster type you want to load: 'Gray or undefined', 'Palette', 'Multiband', or 'Color Layer'.
 
 
 
@@ -26,14 +26,15 @@ There are several options for you to configure how layers should be loaded to QG
 * **Groups**: Whether or not to create groups based on directories' names. When groups are created, they reflect the directory structure, i.e., groups are nested if necessary.
 * **Turn off layers**: Make loaded layers invisible (it improves performance).
 * **Do not load empty layers**.
+* **Sort (or reverse sort) loaded layers**.
 * **Ignore case in the alphanumeric filter**.
 * **Ignore accents in the alphanumeric filter**.
 
-The plugin supports the following file extensions: 
+The plugin supports the following file extensions:
 * Vectors
-  * ESRI Shapefile (*.shp)", [".shp"] 
-  * Mapinfo File (*.mif, *.tab)", [".mif", ".tab"] 
-  * Microstation DGN (*.dgn)", [".dgn"] 
+  * ESRI Shapefile (*.shp)", [".shp"]
+  * Mapinfo File (*.mif, *.tab)", [".mif", ".tab"]
+  * Microstation DGN (*.dgn)", [".dgn"]
   * VRT - Virtual Datasource (*.vrt)
   * Comma Separated Value (*.csv)
   * Geography Markup Language (*.gml)
@@ -44,8 +45,8 @@ The plugin supports the following file extensions:
   * SQLite (*.sqlite)
   * Arc/Info ASCII Coverage (*.e00)
   * AutoCAD DXF (*.dxf)
-   
-  
+
+
 * Rasters
   * Virtual Raster (*.vrt)
   * GeoTIFF (*.tif, *.tiff)
@@ -63,7 +64,7 @@ The plugin supports the following file extensions:
   * GMT NetCDF Grid Format (*.nc)
   * GRIdded Binary (*.grb)
   * Idrisi Raster A.1 (*.rst)
-  * Golden Software ASCII Grid (*.grd) 
+  * Golden Software ASCII Grid (*.grd)
   * R Object Data Store (*.rda)
   * Vexcel MFF Raster (*.hdr)
   * USGS Optional ASCII DEM (*.dem)
@@ -72,11 +73,11 @@ The plugin supports the following file extensions:
   * SAGA GIS Binary Grid (*.sdat)
 
 
-LICENSE: GPL v.2.0
+LICENSE: GPL v2.0
 
-Code contributors: 
-* David Bakeman
-* Sören Gebbert
+Code contributors:
+* David Bakeman (v2.1 and v2.4)
+* Sören Gebbert (v2.3)
 
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
