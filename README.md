@@ -85,4 +85,4 @@ More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blog
 See the changelog at https://github.com/gacarrillor/loadthemall/blob/master/changelog.txt
 
 
-[1]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/loadthemall1.png
+[1]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/LoadThemAll_v2_4.png
