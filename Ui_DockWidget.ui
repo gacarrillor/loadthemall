@@ -276,12 +276,12 @@
              <x>0</x>
              <y>0</y>
              <width>319</width>
-             <height>380</height>
+             <height>352</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0,0">
+             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0">
               <property name="leftMargin">
                <number>15</number>
               </property>
@@ -353,25 +353,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="chkIsDoneDialog">
-                <property name="maximumSize">
-                 <size>
-                  <width>315</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Show a dialog when the process is done</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QCheckBox" name="chkSort">
                 <property name="text">
-                 <string>Sort loaded layers</string>
+                 <string>Sort loaded layers by name</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -540,7 +524,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-124</y>
+             <y>0</y>
              <width>319</width>
              <height>471</height>
             </rect>
@@ -885,6 +869,13 @@
        <widget class="QPushButton" name="btnLoadLayers">
         <property name="text">
          <string>Load layers</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnCancel">
+        <property name="text">
+         <string>Cancel</string>
         </property>
        </widget>
       </item>

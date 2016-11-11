@@ -52,12 +52,13 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.connect( self.chkDoNotEmpty, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.chkSort, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.chkReverseSort, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkIsDoneDialog, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.txtNumLayersToConfirm, SIGNAL( "editingFinished()" ), self.saveConfigTabSettings )
     self.connect( self.chkCaseInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.chkAccentInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
     self.connect( self.btnHelp, SIGNAL( "clicked()" ), self.help )
     self.btnLoadLayers.clicked.connect( self.load )
+    self.btnCancel.setVisible( False )
+    self.btnCancel.clicked.connect( self.cancelLoad )
 
   def updateControls( self ):
     """ Read stored settings and put them into the appropriate tab """
@@ -111,7 +112,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       bDoNotEmpty = self.chkDoNotEmpty.isChecked()
       bSort = self.chkSort.isChecked()
       bReverseSort = self.chkReverseSort.isChecked()
-      bIsDoneDialog = self.chkIsDoneDialog.isChecked()
       bCaseInsensitive = self.chkCaseInsensitive.isChecked()
       bAccentInsensitive = self.chkAccentInsensitive.isChecked()
       n = int( self.txtNumLayersToConfirm.text() )
@@ -189,8 +189,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
             filterList.addFilter(filter)
 
           LoadVectors( baseDir, extension, self.iface, self.progressBar, bGroups,
-              bLayersOff, bDoNotEmpty, bSort, bReverseSort, bIsDoneDialog,
-              numLayersToConfirm, filterList )
+              bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
+              filterList )
 
         elif self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
           if self.groupBoxRasterTypeFilter.isChecked() and \
@@ -219,8 +219,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
             filterList.addFilter(filter)
 
           LoadRasters( baseDir, extension, self.iface, self.progressBar, bGroups,
-              bLayersOff, bDoNotEmpty, bSort, bReverseSort, bIsDoneDialog,
-              numLayersToConfirm, filterList )
+              bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
+              filterList )
 
         if bAccentInsensitive and bAlphanumericFilter:
           try:
@@ -239,19 +239,31 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
 
   def load( self ):
     """ Protect the Load Layers button and apply """
+    self.processStatus = True # To handle a dialog cancel event
+
     settings = QSettings()
     # Take the "CRS for new layers" config, overwrite it while loading layers and...
     oldProjValue = settings.value( "/Projections/defaultBehaviour", "prompt", type=str )
     settings.setValue( "/Projections/defaultBehaviour", "useProject" )
 
-    self.btnLoadLayers.setEnabled( False )
+    self.btnLoadLayers.setVisible( False )
+    self.btnCancel.setVisible( True )
     self.apply()
-    self.btnLoadLayers.setEnabled( True )
+    self.btnCancel.setVisible( False )
+    self.btnLoadLayers.setVisible( True )
 
     # ... then set the "CRS for new layers" back
     settings.setValue( "/Projections/defaultBehaviour", oldProjValue )
 
     self.saveSettings()
+
+  def cancelLoad( self ):
+    self.processStatus = False # To handle a dialog cancel event
+    self.progressBar.reset()
+    self.progressBar.setMaximum( 100 )
+    self.progressBar.setValue( 0 )
+    self.iface.messageBar().pushMessage( "Load Them All",
+      "You have just cancelled the loading process.", duration=15 )
 
   def help( self ):
     """ Open a browser to get help """
@@ -260,7 +272,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
 
   def closeEvent(self, e):
     """ Do some actions before closing the dialog """
-    self.processStatus = False
     settings = QSettings()
     settings.setValue( "/Load_Them_All/currentTab", self.tabWidget.currentIndex() )
     self.saveSettings()
@@ -279,7 +290,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     settings.setValue( "reverseSortEnabled", sortChecked )
 
     settings.setValue( "reverseSort", self.chkReverseSort.isChecked() )
-    settings.setValue( "isDoneDialog", self.chkIsDoneDialog.isChecked() )
     settings.setValue( "caseInsensitive", self.chkCaseInsensitive.isChecked() )
     settings.setValue( "accentInsensitive", self.chkAccentInsensitive.isChecked() )
     n = int( self.txtNumLayersToConfirm.text() )
@@ -403,10 +413,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
         self.chkReverseSort.setEnabled( settings.value( "reverseSortEnabled", type=bool ) )
     else:
         self.chkReverseSort.setEnabled( True )
-    if not settings.value( "isDoneDialog" ) is None:
-        self.chkIsDoneDialog.setChecked( settings.value( "isDoneDialog", type=bool ) )
-    else:
-        self.chkIsDoneDialog.setChecked( True )
     if not settings.value( "caseInsensitive" ) is None:
         self.chkCaseInsensitive.setChecked( settings.value( "caseInsensitive", type=bool ) )
     else:
