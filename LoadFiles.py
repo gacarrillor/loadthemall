@@ -199,6 +199,7 @@ class LoadVectors( LoadFiles ):
     self.filterList = filterList
     if self.getFilesToLoad():
       self.loadLayers()
+    self.tree.checkAndRemoveParentGroup()
 
   def createLayer( self, layerPath, layerBaseName ):
     """ Create a vector layer """
@@ -226,6 +227,7 @@ class LoadRasters( LoadFiles ):
     self.filterList = filterList
     if self.getFilesToLoad():
       self.loadLayers()
+    self.tree.checkAndRemoveParentGroup()
 
   def createLayer( self, layerPath, layerBaseName ):
     """ Create a raster layer """
@@ -242,6 +244,7 @@ class Tree():
     self.baseDir = baseDir
 
     self.root = QgsProject.instance().layerTreeRoot()
+    self.createParentGroup = createParentGroup
     if createParentGroup:
       # Initialize root to match the base dir and build root group in ToC
       baseGroupName = os.path.split( baseDir )[ 1 ]
@@ -281,4 +284,10 @@ class Tree():
 
   def setParentInvisible( self ):
     self.root.setVisible( 0 )
+
+  def checkAndRemoveParentGroup( self ):
+    """ Remove the created root group if layers weren't added to it """
+    if self.createParentGroup:
+      if len( self.root.children() ) == 0:
+        QgsProject.instance().layerTreeRoot().removeChildNode( self.root )
 
