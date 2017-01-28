@@ -13,13 +13,14 @@ from Filter import *
 class LoadFiles():
   """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
-      bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm ):
+      bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, dataType ):
     self.extension = extension
     self.baseDir = baseDir
     self.progressBar = progressBar
     self.filterList = FilterList()
     self.iface = iface
     self.lstFilesToLoad = []
+    self.dataType = dataType
 
     # Configuration parameters
     self.bGroups = bGroups
@@ -72,11 +73,16 @@ class LoadFiles():
           if extension in self.extension:
             layerPath = os.path.join( self.decodeName( root ), file_ )
 
-            if extension == ".gpx":
-              layerPaths.extend([layerPath + "?type=" + t for t in ["track","route","waypoint"]])
-            else:
+            if self.dataType == 'vector':
+              layer = QgsVectorLayer( layerPath, "", "ogr" )
+              if layer:
+                if len( layer.dataProvider().subLayers() ) > 1:
+                  for subLayer in layer.dataProvider().subLayers():
+                    layerPaths.extend( [ u"{}|layername={}".format( layerPath, subLayer.split(":")[1] ) ] )
+                else:
+                  layerPaths.append( layerPath )
+            else: #'raster'
               layerPaths.append( layerPath )
-
 
     for path in layerPaths:
       QApplication.processEvents()
@@ -132,7 +138,12 @@ class LoadFiles():
           # Finally add the layer and apply the options the user chose
           if self.bGroups:
             group = self.tree.addGroup( os.path.dirname( layerPath ) )
-          ml = self.createLayer( layerPath, os.path.splitext( os.path.basename( layerPath ) )[ 0 ] )
+
+          baseName = os.path.basename( layerPath )
+          layerName = os.path.splitext( baseName )[ 0 ]
+          if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
+            layerName = u"".join( [layerName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+          ml = self.createLayer( layerPath, layerName )
           if ml:
             layersLoaded += 1
             if self.bGroups:
@@ -194,7 +205,7 @@ class LoadVectors( LoadFiles ):
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
       bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
-      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm )
+      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, 'vector' )
 
     self.filterList = filterList
     if self.getFilesToLoad():
@@ -203,13 +214,13 @@ class LoadVectors( LoadFiles ):
 
   def createLayer( self, layerPath, layerBaseName ):
     """ Create a vector layer """
-    provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
-    return QgsVectorLayer( layerPath, layerBaseName, provider )
+    #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
+    return QgsVectorLayer( layerPath, layerBaseName, 'ogr' )
 
   def isEmptyLayer( self, layerPath ):
     """ Check whether a vector layer has not features """
-    provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
-    layer = QgsVectorLayer( layerPath, 'layerName', provider )
+    #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
+    layer = QgsVectorLayer( layerPath, 'layerName', 'ogr' )
     if layer.type() == QgsMapLayer.VectorLayer:
       if layer.featureCount() == 0:
         return True
@@ -222,7 +233,7 @@ class LoadRasters( LoadFiles ):
       bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
       filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
-      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm )
+      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, 'raster' )
 
     self.filterList = filterList
     if self.getFilesToLoad():

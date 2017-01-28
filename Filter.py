@@ -35,7 +35,11 @@ class AlphanumericFilter( Filter ):
     if not self.regExpPattern: # We build a RE pattern only once and then reuse it
       self.regExpPattern = self.getRegExpPattern()
 
-    layerBaseName = os.path.splitext( os.path.basename( layerPath ) )[0]
+    baseName = os.path.basename( layerPath )
+    layerBaseName = os.path.splitext( baseName )[ 0 ]
+    if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
+      layerBaseName = u"".join( [layerBaseName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+
     layerBaseName = layerBaseName.lower() if self.caseInsensitive else layerBaseName
     if self.accentInsensitive:
       try:
@@ -112,8 +116,8 @@ class BoundingBoxFilter( Filter ):
     """ Apply the bounding box filter """
 
     if self.layerType == "vector":
-        provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
-        bbox = QgsVectorLayer( layerPath, '', provider ).extent()
+        #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
+        bbox = QgsVectorLayer( layerPath, '', 'ogr' ).extent()
     else:
         bbox = QgsRasterLayer( layerPath, '' ).extent()
 
@@ -148,8 +152,8 @@ class GeometryTypeFilter( TypeFilter ):
 
   def getItemType( self, layerPath ):
     """ Get the layer's geometry type """
-    provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
-    return QgsVectorLayer( layerPath, '', provider).geometryType()
+    #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
+    return QgsVectorLayer( layerPath, '', 'ogr').geometryType()
 
 class RasterTypeFilter( TypeFilter ):
   """ Filter based on the layer's raster type """

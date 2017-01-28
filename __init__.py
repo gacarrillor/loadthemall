@@ -5,9 +5,9 @@ LoadThemAll
 A QGIS plugin
 Loads files stored in a directory structure recursively, based on several filters
                              -------------------
-begin                : 2010-10-03 
+begin                : 2010-10-03
 copyright            : (C) 2010 by Germán Carrillo (GeoTux)
-email                : geotux_tuxman@linuxmail.org 
+email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 
 /***************************************************************************
@@ -20,14 +20,14 @@ email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
  This script initializes the plugin, making it known to QGIS.
 """
-def name(): 
-  return "Load Them All" 
+def name():
+  return "Load Them All"
 
 def description():
   return "Loads files stored in a directory structure recursively, based on several filters"
 
-def version(): 
-  return "Version 2.4" 
+def version():
+  return "Version 2.5"
 
 def qgisMinimumVersion():
   return "2.0"
@@ -38,9 +38,9 @@ def icon():
 def authorName():
   return "Germán Carrillo"
 
-def classFactory(iface): 
+def classFactory(iface):
   # load LoadThemAll class from file LoadThemAll
-  from LoadThemAll import LoadThemAll 
+  from LoadThemAll import LoadThemAll
   return LoadThemAll(iface)
 
 

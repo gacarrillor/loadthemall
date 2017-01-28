@@ -173,7 +173,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>319</width>
+             <width>283</width>
              <height>455</height>
             </rect>
            </property>
@@ -275,7 +275,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>319</width>
+             <width>315</width>
              <height>352</height>
             </rect>
            </property>
@@ -732,7 +732,7 @@
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>Copyright (C) 2010-2016 Germán Carrillo</string>
+                   <string>Copyright (C) 2010-2017 Germán Carrillo</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>

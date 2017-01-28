@@ -17,7 +17,10 @@ about=QGIS plugin that recursively loads vector and raster layers stored in a di
 
 ; start of optional metadata
 
-changelog=2.4 (20161111):
+changelog=2.5 (20170128):
+      ...* Added support for vector sublayers (e.g., from GML or GPX files).
+
+    2.4 (20161111):
       ...* New option to sort (or reverse sort) loaded layers. Thanks to David Bakeman for
       ......the idea and the code!
       ...* Load Them All is now a QGIS dock widget.
