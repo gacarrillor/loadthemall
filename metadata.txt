@@ -3,7 +3,7 @@
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
 
-version=2.4
+version=2.5
 qgisMinimumVersion=2.0
 
 ; not used yet, will allow to put a plugin in the right menu
