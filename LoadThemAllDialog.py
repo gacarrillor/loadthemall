@@ -136,7 +136,10 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
           if self.dlgBase.radAny.isChecked(): matchType = 'Any'
           if self.dlgBase.radEnds.isChecked(): matchType = 'EndsWith'
 
-          filter = AlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive )
+          if self.dlgBase.chkInvertAlphanumeric.isChecked():
+            filter = InvertedAlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive )
+          else:
+            filter = AlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive )
           filterList.addFilter( filter )
           bAlphanumericFilter = True
 
@@ -302,6 +305,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     settings.setValue( "path", self.dlgBase.txtBaseDir.text() )
     settings.setValue( "extension", self.dlgBase.cboFormats.currentIndex() )
     settings.setValue( "alphaNumericFilter", self.dlgBase.groupBoxAlphanumeric.isChecked() )
+    settings.setValue( "invertAlphaNumericFilter", self.dlgBase.chkInvertAlphanumeric.isChecked() )
     settings.setValue( "filterText", self.dlgBase.txtFilter.text() )
     settings.setValue( "boundingBoxFilter", self.dlgBase.groupBoxBoundingBox.isChecked() )
     if self.dlgBase.radStarts.isChecked(): settings.setValue( "matchType", 'StartsWith' )
@@ -350,6 +354,10 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
         self.dlgBase.groupBoxAlphanumeric.setChecked( settings.value( "alphaNumericFilter", type=bool ) )
     else:
         self.dlgBase.groupBoxAlphanumeric.setChecked( False )
+    if not settings.value( "invertAlphaNumericFilter" ) is None:
+        self.dlgBase.chkInvertAlphanumeric.setChecked( settings.value( "invertAlphaNumericFilter", type=bool ) )
+    else:
+        self.dlgBase.chkInvertAlphanumeric.setChecked( False )
     if not settings.value( "filterText") is None:
         self.dlgBase.txtFilter.setText( settings.value( "filterText", type=str) )
     else:

@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_Base_LoadThemAll(object):
     def setupUi(self, Base_LoadThemAll):
         Base_LoadThemAll.setObjectName(_fromUtf8("Base_LoadThemAll"))
-        Base_LoadThemAll.resize(375, 367)
+        Base_LoadThemAll.resize(375, 395)
         self.gridLayout = QtGui.QGridLayout(Base_LoadThemAll)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
@@ -55,6 +55,9 @@ class Ui_Base_LoadThemAll(object):
         self.groupBoxAlphanumeric.setObjectName(_fromUtf8("groupBoxAlphanumeric"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBoxAlphanumeric)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.chkInvertAlphanumeric = QtGui.QCheckBox(self.groupBoxAlphanumeric)
+        self.chkInvertAlphanumeric.setObjectName(_fromUtf8("chkInvertAlphanumeric"))
+        self.verticalLayout_2.addWidget(self.chkInvertAlphanumeric)
         self.formLayout_2 = QtGui.QFormLayout()
         self.formLayout_2.setObjectName(_fromUtf8("formLayout_2"))
         self.label_3 = QtGui.QLabel(self.groupBoxAlphanumeric)
@@ -152,6 +155,7 @@ class Ui_Base_LoadThemAll(object):
         self.label_2.setText(_translate("Base_LoadThemAll", "Format ", None))
         self.btnBaseDir.setToolTip(_translate("Base_LoadThemAll", "Select a base directory", None))
         self.groupBoxAlphanumeric.setTitle(_translate("Base_LoadThemAll", "Alphanumeric filter", None))
+        self.chkInvertAlphanumeric.setText(_translate("Base_LoadThemAll", "Invert filter (i.e., prepend a logic NOT)", None))
         self.label_3.setText(_translate("Base_LoadThemAll", "Filter string", None))
         self.radStarts.setText(_translate("Base_LoadThemAll", "Starts with", None))
         self.radAny.setText(_translate("Base_LoadThemAll", "In any position", None))

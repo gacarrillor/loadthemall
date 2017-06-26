@@ -97,6 +97,16 @@ class AlphanumericFilter( Filter ):
     return text
 
 
+class InvertedAlphanumericFilter( Filter ):
+  """ Prepend a logic NOT to an Alphanumeric filter """
+  def __init__( self, matchType, filterText, caseInsensitive, accentInsensitive ):
+    self.filter = AlphanumericFilter( matchType, filterText, caseInsensitive, accentInsensitive )
+
+  def apply( self, layerPath ):
+    """ Invert Alphanumeric filter result """
+    return not self.filter.apply( layerPath )
+
+
 class BoundingBoxFilter( Filter ):
   """ Filter based a bounding box """
   def __init__( self, layerType, boundingBox, method ):

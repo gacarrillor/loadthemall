@@ -9,6 +9,7 @@ Available filters are:
 
   Enter a filter text and choose among the modes 'Start with', 'Any position', or 'Ends with' to find files by name.
   You can use the logical operators || (or) and && (and), and even combine them. && has more priority, so the expression "a || b && c" becomes "(a || b) && c".
+  Additionally, you can invert the Alphanumeric filter, i.e., prepend a logic NOT to it, allowing you to invert the original filter result.
 * **Bounding box**:
 
   Enter coordinates by hand or get the current map extent. Choose the spatial filter: 'Contains' or 'Intersects'.
