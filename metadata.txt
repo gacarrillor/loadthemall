@@ -3,7 +3,7 @@
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
 
-version=2.5
+version=2.6
 qgisMinimumVersion=2.0
 
 ; not used yet, will allow to put a plugin in the right menu
@@ -17,7 +17,11 @@ about=QGIS plugin that recursively loads vector and raster layers stored in a di
 
 ; start of optional metadata
 
-changelog=2.5 (20170128):
+changelog=2.6 (20170703):
+      ...* New 'Invert Alphanumeric filter' option to prepend a logic NOT to the whole
+      ......alphanumeric expression.
+
+    2.5 (20170128):
       ...* Added support for vector sublayers (e.g., from GML or GPX files).
 
     2.4 (20161111):

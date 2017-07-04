@@ -1,5 +1,9 @@
 Changes:
 
+2.6 (20170703):
+  * New 'Invert Alphanumeric filter' option to prepend a logic NOT to the whole
+      alphanumeric expression.
+
 2.5 (20170128):
   * Added support for vector sublayers (e.g., from GML or GPX files).
 
