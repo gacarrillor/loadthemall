@@ -166,6 +166,13 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
               QMessageBox.Ok, QMessageBox.Ok )
             return
 
+        if self.dlgBase.groupBoxDateModified.isChecked():
+          datetime = self.dlgBase.dtDateTime.dateTime()
+          comparison = self.dlgBase.cboDateComparison.itemData( self.dlgBase.cboDateComparison.currentIndex() )
+
+          filter = DateModifiedFilter( comparison, datetime )
+          filterList.addFilter( filter )
+
         if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
           if self.groupBoxGeometryTypeFilter.isChecked() and \
               not ( self.chkPoint.isChecked() and self.chkLine.isChecked() and self.chkPolygon.isChecked() ) :

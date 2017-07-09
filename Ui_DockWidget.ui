@@ -66,7 +66,7 @@
              <x>0</x>
              <y>0</y>
              <width>319</width>
-             <height>427</height>
+             <height>570</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -75,7 +75,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>345</height>
+                <height>488</height>
                </size>
               </property>
               <widget class="QWidget" name="page"/>
@@ -173,8 +173,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>283</width>
-             <height>455</height>
+             <width>319</width>
+             <height>598</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
@@ -183,7 +183,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>345</height>
+                <height>488</height>
                </size>
               </property>
               <widget class="QWidget" name="page_7"/>
@@ -275,7 +275,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>315</width>
+             <width>319</width>
              <height>352</height>
             </rect>
            </property>

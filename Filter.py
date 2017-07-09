@@ -1,5 +1,7 @@
 import os, re
+import time
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsRectangle
+from PyQt4.QtCore import QDateTime
 
 class Filter():
   """ Class to encapsulate filters behavior """
@@ -135,6 +137,24 @@ class BoundingBoxFilter( Filter ):
         return self.boundingBox.contains( bbox )
     else:
         return self.boundingBox.intersects( bbox )
+
+
+class DateModifiedFilter( Filter ):
+  """ Filter based on date modified file metadata """
+  def __init__( self, comparison, datetime ):
+    self.comparison = comparison
+    self.datetime = datetime
+
+  def apply( self, layerPath ):
+    """ Apply date modifier filter """
+    dateModified = QDateTime().fromString( time.ctime( os.path.getmtime( layerPath ) ) )
+
+    if self.comparison == 'before':
+      return dateModified < self.datetime
+    elif self.comparison == 'after':
+      return dateModified > self.datetime
+    else: #'day'
+      return dateModified.date() == self.datetime.date()
 
 
 class TypeFilter( Filter ):

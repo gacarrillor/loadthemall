@@ -11,8 +11,10 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
     self.setupUi( self )
     self.isVector = isVector # To know if it should be started with vector parameters
     self.loadFormats( self.isVector )
+    self.loadDateComparisons()
     self.connect( self.btnBaseDir, SIGNAL( "clicked()" ), self.selectDir )
     self.connect( self.btnLoadExtent, SIGNAL( "clicked()" ), self.updateExtentFromCanvas )
+    self.cboDateComparison.currentIndexChanged.connect( self.updateDateFormat )
     self.iface = iface
 
   def selectDir( self ):
@@ -78,6 +80,18 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
       self.cboFormats.addItem( "Magellan topo (*.blx)", [".blx"] )
       self.cboFormats.addItem( "Rasterlite (*.sqlite)", [".sqlite"] )
       self.cboFormats.addItem( "SAGA GIS Binary Grid (*.sdat)", [".sdat"] )
+
+  def loadDateComparisons( self ):
+    self.cboDateComparison.addItem( self.tr( "Before" ), "before" )
+    self.cboDateComparison.addItem( self.tr( "Exact date" ), "day" )
+    self.cboDateComparison.addItem( self.tr( "After" ), "after" )
+
+  def updateDateFormat( self, index ):
+    comparison = self.cboDateComparison.itemData( index )
+    if comparison == 'day':
+      self.dtDateTime.setDisplayFormat( "ddd dd MMM yyyy" )
+    else: # 'before' or 'after'
+      self.dtDateTime.setDisplayFormat( "ddd dd MMM yyyy hh:mm AP" )
 
   def keyPressEvent( self, e ):
     """ Handle the ESC key to avoid only the base dialog being closed """
