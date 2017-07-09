@@ -26,7 +26,7 @@
     <message>
         <location filename="Ui_Base_LoadThemAll.ui" line="85"/>
         <source>Invert filter (i.e., prepend a logic NOT)</source>
-        <translation>Invertir filtro (es decir, anteponer un NOT)</translation>
+        <translation>Invertir filtro (anteponer un NOT)</translation>
     </message>
     <message>
         <location filename="Ui_Base_LoadThemAll.ui" line="94"/>
@@ -105,6 +105,21 @@
         <source>Select a base directory</source>
         <translation type="obsolete">Selecciona un directorio base</translation>
     </message>
+    <message>
+        <location filename="Base_LoadThemAllDialog.py" line="85"/>
+        <source>Before</source>
+        <translation>Antes de</translation>
+    </message>
+    <message>
+        <location filename="Base_LoadThemAllDialog.py" line="86"/>
+        <source>Exact date</source>
+        <translation>Fecha exacta</translation>
+    </message>
+    <message>
+        <location filename="Base_LoadThemAllDialog.py" line="87"/>
+        <source>After</source>
+        <translation>Después de</translation>
+    </message>
 </context>
 <context>
     <name>DockWidget</name>
@@ -141,7 +156,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="154"/>
         <source>Raster</source>
-        <translation>Ráster</translation>
+        <translation>Raster</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="196"/>
@@ -241,7 +256,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="649"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda :D en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
         <location filename="Ui_DockWidget.ui" line="735"/>

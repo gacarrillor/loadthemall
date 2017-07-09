@@ -1,6 +1,6 @@
 
 from PyQt4.QtCore import QSettings, Qt, SIGNAL
-from PyQt4.QtGui import QDialog, QFileDialog
+from PyQt4.QtGui import QApplication, QDialog, QFileDialog
 
 from Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
 
@@ -82,9 +82,9 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
       self.cboFormats.addItem( "SAGA GIS Binary Grid (*.sdat)", [".sdat"] )
 
   def loadDateComparisons( self ):
-    self.cboDateComparison.addItem( self.tr( "Before" ), "before" )
-    self.cboDateComparison.addItem( self.tr( "Exact date" ), "day" )
-    self.cboDateComparison.addItem( self.tr( "After" ), "after" )
+    self.cboDateComparison.addItem( QApplication.translate( "Base_LoadThemAllDialog", "Before" ), "before" )
+    self.cboDateComparison.addItem( QApplication.translate( "Base_LoadThemAllDialog", "Exact date" ), "day" )
+    self.cboDateComparison.addItem( QApplication.translate( "Base_LoadThemAllDialog", "After" ), "after" )
 
   def updateDateFormat( self, index ):
     comparison = self.cboDateComparison.itemData( index )
