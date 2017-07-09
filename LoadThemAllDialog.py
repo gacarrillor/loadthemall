@@ -20,11 +20,11 @@ email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import SIGNAL, QSettings
-from PyQt4.QtGui import QDockWidget, QMessageBox
-
 from qgis.core import QGis, QgsRectangle
 from qgis.gui import QgsMessageBar
+
+from PyQt4.QtCore import SIGNAL, QSettings, QDateTime
+from PyQt4.QtGui import QDockWidget, QMessageBox
 
 from LoadFiles import *
 from Base_LoadThemAllDialog import Base_LoadThemAllDialog
@@ -315,6 +315,9 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     settings.setValue( "invertAlphaNumericFilter", self.dlgBase.chkInvertAlphanumeric.isChecked() )
     settings.setValue( "filterText", self.dlgBase.txtFilter.text() )
     settings.setValue( "boundingBoxFilter", self.dlgBase.groupBoxBoundingBox.isChecked() )
+    settings.setValue( "dateModifiedFilter", self.dlgBase.groupBoxDateModified.isChecked() )
+    settings.setValue( "dateComparisonType", self.dlgBase.cboDateComparison.currentIndex() )
+    settings.setValue( "comparisonDate", str( self.dlgBase.dtDateTime.dateTime().toString() ) )
     if self.dlgBase.radStarts.isChecked(): settings.setValue( "matchType", 'StartsWith' )
     if self.dlgBase.radAny.isChecked(): settings.setValue( "matchType", 'Any' )
     if self.dlgBase.radEnds.isChecked(): settings.setValue( "matchType", 'EndsWith' )
@@ -397,6 +400,20 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     if not settings.value( "boundingBoxMethod" ) is None:
         if str(settings.value( "boundingBoxMethod" )) == 'contains': self.dlgBase.radContains.setChecked( True )
         if str(settings.value( "boundingBoxMethod" )) == 'intersects': self.dlgBase.radIntersects.setChecked( True )
+
+
+    if not settings.value( "dateModifiedFilter" ) is None:
+        self.dlgBase.groupBoxDateModified.setChecked( settings.value( "dateModifiedFilter", type=bool ) )
+    else:
+        self.dlgBase.groupBoxDateModified.setChecked( False )
+    if not settings.value( "dateComparisonType" ) is None:
+        self.dlgBase.cboDateComparison.setCurrentIndex( settings.value( "dateComparisonType", type=int )  )
+    else:
+        self.dlgBase.cboDateComparison.setCurrentIndex( 0 )
+    if not settings.value( "comparisonDate" ) is None:
+        self.dlgBase.dtDateTime.setDateTime( QDateTime().fromString( settings.value( "comparisonDate", type=str ) ) )
+    else:
+        self.dlgBase.dtDateTime.setDateTime( QDateTime().currentDateTime() )
 
   def restoreControls( self ):
     """ Read Qt settings and restore controls """
