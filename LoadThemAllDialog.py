@@ -274,6 +274,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.progressBar.setValue( 0 )
     self.iface.messageBar().pushMessage( "Load Them All",
       "You have just cancelled the loading process.", duration=15 )
+    self.btnCancel.setVisible( False )
+    self.btnLoadLayers.setVisible( True )
 
   def help( self ):
     """ Open a browser to get help """
