@@ -259,16 +259,16 @@ class Tree():
     if createParentGroup:
       # Initialize root to match the base dir and build root group in ToC
       baseGroupName = os.path.split( baseDir )[ 1 ]
-      group = self.root.findGroup( baseGroupName )
+      group = self.root.findGroup( baseGroupName.decode("utf-8") )
       if not group:
-        group = self.root.insertGroup( 0, baseGroupName )
+        group = self.root.insertGroup( 0, baseGroupName.decode("utf-8") )
       self.root = group
 
   def addGroup( self, path ):
     """ Add a group based on a layer's directory.
         If parent groups don't exist, it creates all of them until base dir.
     """
-    if path != self.baseDir:
+    if path != self.baseDir.decode("utf-8"):
       previousPath = os.path.dirname( path )
       previousGroup = self.addGroup( previousPath )
 
