@@ -13,6 +13,9 @@ Available filters are:
 * **Bounding box**:
 
   Enter coordinates by hand or get the current map extent. Choose the spatial filter: 'Contains' or 'Intersects'.
+* **Date modified**:
+
+  Filter files by their latest modification date, using comparisons like 'before', 'after' and 'exact date'.
 * **Geometry type**:
 
   Choose which geometry type you want to load: 'Point', 'Line', or 'Polygon'.

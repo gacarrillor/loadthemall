@@ -27,7 +27,7 @@ def description():
   return "Loads files stored in a directory structure recursively, based on several filters"
 
 def version():
-  return "Version 2.6"
+  return "Version 2.7"
 
 def qgisMinimumVersion():
   return "2.0"

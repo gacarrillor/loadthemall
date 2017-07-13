@@ -1,5 +1,9 @@
 Changes:
 
+2.7 (20170713):
+  * New 'Date modified' filter to load files according to their latest
+      modification date.
+
 2.6 (20170703):
   * New 'Invert Alphanumeric filter' option to prepend a logic NOT to the whole
       alphanumeric expression.
