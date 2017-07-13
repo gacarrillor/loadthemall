@@ -147,7 +147,7 @@ class DateModifiedFilter( Filter ):
 
   def apply( self, layerPath ):
     """ Apply date modifier filter """
-    dateModified = QDateTime().fromString( time.ctime( os.path.getmtime( layerPath ) ) )
+    dateModified = QDateTime().fromString( time.ctime( os.path.getmtime( layerPath.split( '|layername=' )[0] ) ) )
 
     if self.comparison == 'before':
       return dateModified < self.datetime
