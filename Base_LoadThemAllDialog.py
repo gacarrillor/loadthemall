@@ -1,8 +1,7 @@
+from qgis.PyQt.QtCore import QSettings, Qt
+from qgis.PyQt.QtWidgets import QApplication, QDialog, QFileDialog
 
-from PyQt4.QtCore import QSettings, Qt, SIGNAL
-from PyQt4.QtGui import QApplication, QDialog, QFileDialog
-
-from Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
+from .Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
 
 class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
   """ A generic class to be reused in vector and raster dialogs """
@@ -12,8 +11,8 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
     self.isVector = isVector # To know if it should be started with vector parameters
     self.loadFormats( self.isVector )
     self.loadDateComparisons()
-    self.connect( self.btnBaseDir, SIGNAL( "clicked()" ), self.selectDir )
-    self.connect( self.btnLoadExtent, SIGNAL( "clicked()" ), self.updateExtentFromCanvas )
+    self.btnBaseDir.clicked.connect( self.selectDir )
+    self.btnLoadExtent.clicked.connect( self.updateExtentFromCanvas )
     self.cboDateComparison.currentIndexChanged.connect( self.updateDateFormat )
     self.iface = iface
 
@@ -22,24 +21,24 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
     settings = QSettings()
     if self.isVector:
       path = QFileDialog.getExistingDirectory( self, self.tr( "Select a base directory" ),
-        settings.value( "/Load_Them_All/vector/path", "", type=str ), QFileDialog.ShowDirsOnly )
-    else:
-      path = QFileDialog.getExistingDirectory( self, self.tr( "Select a base directory" ),
-        settings.value( "/Load_Them_All/raster/path", "", type=str ), QFileDialog.ShowDirsOnly )
+        settings.value( "/Load_Them_All/vector/path", "", type=str ) if self.isVector else settings.value( "/Load_Them_All/raster/path", "", type=str ),
+        QFileDialog.ShowDirsOnly )
+
     if path: self.txtBaseDir.setText( path )
 
   def updateExtentFromCanvas( self ):
       canvas = self.iface.mapCanvas()
       boundBox = canvas.extent()
-      self.txtXMin.setText( unicode( boundBox.xMinimum() ) )
-      self.txtYMin.setText( unicode( boundBox.yMinimum() ) )
-      self.txtXMax.setText( unicode( boundBox.xMaximum() ) )
-      self.txtYMax.setText( unicode( boundBox.yMaximum() ) )
+      self.txtXMin.setText( str(boundBox.xMinimum()) )
+      self.txtYMin.setText( str(boundBox.yMinimum()) )
+      self.txtXMax.setText( str(boundBox.xMaximum()) )
+      self.txtYMax.setText( str(boundBox.yMaximum()) )
 
   def loadFormats( self, isVector ):
     """ Fill the comboBox with file formats """
     if isVector:
-      self.cboFormats.addItem( "All listed formats (*.*)", [".shp", ".mif", ".tab", ".dgn", ".vrt", ".csv", ".gml", ".gpx", ".kml", ".geojson", ".gmt", ".sqlite", ".e00", ".dxf"] )
+      self.cboFormats.addItem( "All listed formats (*.*)", [".gpkg", ".shp", ".mif", ".tab", ".dgn", ".vrt", ".csv", ".gml", ".gpx", ".kml", ".geojson", ".gmt", ".sqlite", ".e00", ".dxf"] )
+      self.cboFormats.addItem( "GeoPackage (*.gpkg)", [".gpkg"] )
       self.cboFormats.addItem( "ESRI Shapefile (*.shp)", [".shp"] )
       self.cboFormats.addItem( "Mapinfo File (*.mif, *.tab)", [".mif", ".tab"] )
       self.cboFormats.addItem( "Microstation DGN (*.dgn)", [".dgn"] )
@@ -97,4 +96,3 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
     """ Handle the ESC key to avoid only the base dialog being closed """
     if ( e.key() == Qt.Key_Escape ):
       e.ignore()
-

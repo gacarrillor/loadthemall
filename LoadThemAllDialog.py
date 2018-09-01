@@ -20,15 +20,23 @@ email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 """
 
-from qgis.core import QGis, QgsRectangle
+from qgis.core import QgsRectangle
 from qgis.gui import QgsMessageBar
 
-from PyQt4.QtCore import SIGNAL, QSettings, QDateTime
-from PyQt4.QtGui import QDockWidget, QMessageBox
+from qgis.PyQt.QtCore import QSettings, QDateTime
+from qgis.PyQt.QtWidgets import QDockWidget, QMessageBox
 
-from LoadFiles import *
-from Base_LoadThemAllDialog import Base_LoadThemAllDialog
-from Ui_DockWidget import Ui_DockWidget
+from .Filter import (
+    AlphanumericFilter,
+    BoundingBoxFilter,
+    DateModifiedFilter,
+    GeometryTypeFilter,
+    InvertedAlphanumericFilter,
+    RasterTypeFilter
+)
+from .LoadFiles import *
+from .Base_LoadThemAllDialog import Base_LoadThemAllDialog
+from .Ui_DockWidget import Ui_DockWidget
 
 class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
   def __init__( self, parent, iface ):
@@ -46,16 +54,16 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.progressBar.setMinimum( 0 )
     self.processStatus = True # To handle a dialog cancel event
 
-    self.connect( self.tabWidget, SIGNAL( "currentChanged(int)" ), self.tabChanged )
-    self.connect( self.chkGroups, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkLayersOff, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkDoNotEmpty, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkSort, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkReverseSort, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.txtNumLayersToConfirm, SIGNAL( "editingFinished()" ), self.saveConfigTabSettings )
-    self.connect( self.chkCaseInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.chkAccentInsensitive, SIGNAL( "stateChanged(int)" ), self.saveConfigTabSettings )
-    self.connect( self.btnHelp, SIGNAL( "clicked()" ), self.help )
+    self.tabWidget.currentChanged.connect( self.tabChanged )
+    self.chkGroups.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkLayersOff.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkDoNotEmpty.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkSort.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkReverseSort.stateChanged.connect( self.saveConfigTabSettings )
+    self.txtNumLayersToConfirm.editingFinished.connect( self.saveConfigTabSettings )
+    self.chkCaseInsensitive.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkAccentInsensitive.stateChanged.connect( self.saveConfigTabSettings )
+    self.btnHelp.clicked.connect( self.help )
     self.btnLoadLayers.clicked.connect( self.load )
     self.btnCancel.setVisible( False )
     self.btnCancel.clicked.connect( self.cancelLoad )
@@ -68,25 +76,15 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     else:
         self.tabWidget.setCurrentIndex( 0 )
 
-    if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
-      self.currentTab = 'v'
-      self.dlgBase = Base_LoadThemAllDialog( True, self.iface )
-      self.stackedWidgetVector.addWidget( self.dlgBase )
-      self.stackedWidgetVector.setCurrentWidget( self.dlgBase )
-    elif self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
-      self.currentTab = 'r'
-      self.dlgBase = Base_LoadThemAllDialog( False, self.iface )
-      self.stackedWidgetRaster.addWidget( self.dlgBase )
-      self.stackedWidgetRaster.setCurrentWidget( self.dlgBase )
-    else:
-      self.currentTab = 'a'
-    self.restoreControls()
+    self.configureTabs( self.tabWidget.currentIndex() )
 
   def tabChanged( self, index ):
     """ Save settings from the previous tab and prepare the current one """
     self.progressBar.setValue( 0 )
     self.saveSettings() # Save the previous tab settings if it was vector or raster
+    self.configureTabs(index)
 
+  def configureTabs( self, index ):
     if self.tabWidget.tabText( index ) == "Vector":
       self.currentTab = 'v'
       self.dlgBase = Base_LoadThemAllDialog( True, self.iface )
@@ -99,6 +97,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       self.stackedWidgetRaster.setCurrentWidget( self.dlgBase )
     else:
       self.currentTab = 'a'
+
     self.restoreControls()
 
   def apply( self ):
@@ -119,7 +118,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       numLayersToConfirm = n
       bAlphanumericFilter = False
 
-      baseDir = unicode( self.dlgBase.txtBaseDir.text() ).encode("utf-8")
+      baseDir = self.dlgBase.txtBaseDir.text() # TODO: Adjusted, does it break here?
       # Remove trailing (back)slashes to avoid problemas when comparing paths
       baseDir = baseDir[:-1] if len(baseDir) > 1 and baseDir[-1]=="/" else baseDir
       baseDir = baseDir[:-1] if len(baseDir) > 1 and baseDir[-1]=="\\" else baseDir
@@ -127,11 +126,11 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       bBoundingBoxFilter = False
       filterList = FilterList()
 
-      if os.path.exists( baseDir.decode("utf-8") ):
+      if os.path.exists( baseDir ):
         extension = self.dlgBase.cboFormats.itemData( self.dlgBase.cboFormats.currentIndex() )
 
-        if self.dlgBase.groupBoxAlphanumeric.isChecked() and self.dlgBase.txtFilter.text() <> "":
-          filterText = unicode( self.dlgBase.txtFilter.text() ).encode("utf-8")
+        if self.dlgBase.groupBoxAlphanumeric.isChecked() and self.dlgBase.txtFilter.text() != "":
+          filterText = self.dlgBase.txtFilter.text()
           if self.dlgBase.radStarts.isChecked(): matchType = 'StartsWith'
           if self.dlgBase.radAny.isChecked(): matchType = 'Any'
           if self.dlgBase.radEnds.isChecked(): matchType = 'EndsWith'
@@ -144,14 +143,14 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
           bAlphanumericFilter = True
 
         if self.dlgBase.groupBoxBoundingBox.isChecked():
-          if  self.dlgBase.txtXMin.text() <> "" and self.dlgBase.txtYMin.text() <> "" and \
-            self.dlgBase.txtXMax.text() <> "" and self.dlgBase.txtYMax.text() <> "":
+          if self.dlgBase.txtXMin.text().strip() != "" and self.dlgBase.txtYMin.text().strip() != "" and \
+            self.dlgBase.txtXMax.text().strip() != "" and self.dlgBase.txtYMax.text().strip() != "":
             try:
               xMin = float( self.dlgBase.txtXMin.text() )
               yMin = float( self.dlgBase.txtYMin.text() )
               xMax = float( self.dlgBase.txtXMax.text() )
               yMax = float( self.dlgBase.txtYMax.text() )
-            except ValueError:
+            except ValueError as e:
               QMessageBox.warning( self.parent, "Load Them All",
                 self.tr( "The bounding box coordinates are not correct!\n" ) +
                 self.tr( "Please adjust the bounding box settings." ),
@@ -235,7 +234,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
         if bAccentInsensitive and bAlphanumericFilter:
           try:
             from unidecode import unidecode
-          except :
+          except ImportError as e:
             self.iface.messageBar().pushMessage( self.tr( "Accents were not ignored!" ),
               self.tr( "You have chosen to ignore accents in the alphanumeric filter, but first") +
               self.tr(" you need to install the Python library 'unidecode'."),
@@ -514,4 +513,3 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       self.btnLoadLayers.setEnabled( True )
     else:
       self.btnLoadLayers.setEnabled( False )
-

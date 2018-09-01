@@ -159,9 +159,15 @@
           </item>
           <item>
            <widget class="QLineEdit" name="txtYMax">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>125</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
@@ -194,9 +200,15 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLineEdit" name="txtXMin">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>125</width>
+              <width>150</width>
               <height>16777215</height>
              </size>
             </property>
@@ -212,9 +224,15 @@
           </item>
           <item>
            <widget class="QLineEdit" name="txtXMax">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>125</width>
+              <width>150</width>
               <height>16777215</height>
              </size>
             </property>
@@ -247,9 +265,15 @@
           </item>
           <item>
            <widget class="QLineEdit" name="txtYMin">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>125</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
@@ -370,8 +394,5 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
  <connections/>
 </ui>

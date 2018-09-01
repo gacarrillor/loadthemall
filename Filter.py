@@ -1,7 +1,7 @@
 import os, re
 import time
 from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsRectangle
-from PyQt4.QtCore import QDateTime
+from qgis.PyQt.QtCore import QDateTime
 
 class Filter():
   """ Class to encapsulate filters behavior """
@@ -38,23 +38,23 @@ class AlphanumericFilter( Filter ):
       self.regExpPattern = self.getRegExpPattern()
 
     baseName = os.path.basename( layerPath )
-    layerBaseName = os.path.splitext( baseName )[ 0 ]
+    layerBaseName = os.path.splitext( baseName )[0]
     if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
-      layerBaseName = u"".join( [layerBaseName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+      layerBaseName = "".join( [layerBaseName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
 
     layerBaseName = layerBaseName.lower() if self.caseInsensitive else layerBaseName
     if self.accentInsensitive:
       try:
         from unidecode import unidecode
         layerBaseName = unidecode( layerBaseName )
-      except ImportError, NameError:
+      except (ImportError, NameError) as e:
         pass # This error is handled in LoadThemAllDialog
 
     return True if self.regExpPattern.search( layerBaseName ) else False
 
   def getRegExpPattern( self ):
     regExpString = ''
-    self.filterText = self.normalizeText( self.filterText.decode('utf-8') )
+    self.filterText = self.normalizeText( self.filterText )
 
     andList = self.filterText.split("&&")
     newAndList = []
@@ -87,7 +87,7 @@ class AlphanumericFilter( Filter ):
       try:
         from unidecode import unidecode
         regExpString = unidecode( regExpString )
-      except ImportError:
+      except ImportError as e:
         pass # This error is handled in LoadThemAllDialog
 
     return re.compile( regExpString )
@@ -110,7 +110,7 @@ class InvertedAlphanumericFilter( Filter ):
 
 
 class BoundingBoxFilter( Filter ):
-  """ Filter based a bounding box """
+  """ Filter based on a bounding box """
   def __init__( self, layerType, boundingBox, method ):
     """Constructor
 
@@ -128,7 +128,6 @@ class BoundingBoxFilter( Filter ):
     """ Apply the bounding box filter """
 
     if self.layerType == "vector":
-        #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
         bbox = QgsVectorLayer( layerPath, '', 'ogr' ).extent()
     else:
         bbox = QgsRasterLayer( layerPath, '' ).extent()
@@ -140,7 +139,7 @@ class BoundingBoxFilter( Filter ):
 
 
 class DateModifiedFilter( Filter ):
-  """ Filter based on date modified file metadata """
+  """ Filter based on 'date modified' from file metadata """
   def __init__( self, comparison, datetime ):
     self.comparison = comparison
     self.datetime = datetime
@@ -169,7 +168,7 @@ class TypeFilter( Filter ):
   def apply( self, layerPath ):
     """ Apply a type filter """
     itemType = self.getItemType( layerPath )
-    return True if itemType in self.lstFilterItems else False
+    return itemType in self.lstFilterItems
 
 
 class GeometryTypeFilter( TypeFilter ):
@@ -182,7 +181,6 @@ class GeometryTypeFilter( TypeFilter ):
 
   def getItemType( self, layerPath ):
     """ Get the layer's geometry type """
-    #provider = 'gpx' if os.path.splitext( os.path.basename( layerPath ) )[1][:4] == ".gpx" else 'ogr'
     return QgsVectorLayer( layerPath, '', 'ogr').geometryType()
 
 class RasterTypeFilter( TypeFilter ):
@@ -200,7 +198,7 @@ class RasterTypeFilter( TypeFilter ):
 
 
 class FilterList( Filter ):
-  """Manage a list of filters"""
+  """ Manage a list of filters """
   def reset( self ):
     self.filterList = []
 
@@ -210,7 +208,7 @@ class FilterList( Filter ):
   def addFilter( self, filter ):
     self.filterList.append( filter )
 
-  def apply( self,  layerPath ):
+  def apply( self, layerPath ):
     if not self.filterList:
       return NoFilter().apply( layerPath ) # No filter was specified
 
@@ -219,4 +217,3 @@ class FilterList( Filter ):
       if check is False:
         return check
     return True
-

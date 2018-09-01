@@ -7,11 +7,10 @@ clean:
 	rm -f *.pyc *~
 
 resources_rc.py: resources.qrc
-	pyrcc4 -o resources_rc.py resources.qrc
+	pyrcc5 -o resources_rc.py resources.qrc
 
 Ui_DockWidget.py: Ui_DockWidget.ui
-	pyuic4 -o Ui_DockWidget.py Ui_DockWidget.ui
+	pyuic5 -o Ui_DockWidget.py Ui_DockWidget.ui
 
 Ui_Base_LoadThemAll.py: Ui_Base_LoadThemAll.ui
-	pyuic4 -o Ui_Base_LoadThemAll.py Ui_Base_LoadThemAll.ui
-
+	pyuic5 -o Ui_Base_LoadThemAll.py Ui_Base_LoadThemAll.ui

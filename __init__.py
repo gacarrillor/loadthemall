@@ -18,29 +18,8 @@ email                : geotux_tuxman@linuxmail.org
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- This script initializes the plugin, making it known to QGIS.
 """
-def name():
-  return "Load Them All"
-
-def description():
-  return "Loads files stored in a directory structure recursively, based on several filters"
-
-def version():
-  return "Version 2.7"
-
-def qgisMinimumVersion():
-  return "2.0"
-
-def icon():
-    return "icon.png"
-
-def authorName():
-  return "Germán Carrillo"
-
 def classFactory(iface):
   # load LoadThemAll class from file LoadThemAll
-  from LoadThemAll import LoadThemAll
+  from .LoadThemAll import LoadThemAll
   return LoadThemAll(iface)
-
-

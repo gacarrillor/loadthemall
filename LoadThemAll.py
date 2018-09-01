@@ -21,14 +21,22 @@ email                : geotux_tuxman@linuxmail.org
 """
 import os
 
-from PyQt4.QtCore import ( Qt, QTranslator, SIGNAL, QObject, QFileInfo,
-    QCoreApplication, QLocale, QSettings )
-from PyQt4.QtGui import QIcon, QAction
 from qgis.core import QgsApplication
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QFileInfo,
+    QLocale,
+    QObject,
+    QSettings,
+    Qt,
+    QTranslator
+)
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
 
-import resources_rc # Initialize Qt resources from file resources_rc.py
+from .resources_rc import *
 
-from LoadThemAllDialog import LoadThemAllDialog
+from .LoadThemAllDialog import LoadThemAllDialog
 
 class LoadThemAll:
   def __init__( self, iface ):
@@ -42,12 +50,11 @@ class LoadThemAll:
     self.action = QAction(QIcon( ":/plugins/loadthemall/icon.png"), \
         "Load them all...", self.iface.mainWindow() )
     # connect the action to the run method
-    QObject.connect( self.action, SIGNAL( "triggered()" ), self.run )
+    self.action.triggered.connect( self.run )
 
     # Add toolbar button and menu item
     self.iface.addToolBarIcon( self.action )
     self.iface.addPluginToMenu( "&Load them all", self.action )
-
 
     self.dockWidget = LoadThemAllDialog( self.iface.mainWindow(), self.iface )
     self.iface.addDockWidget( Qt.RightDockWidgetArea, self.dockWidget )
@@ -64,8 +71,8 @@ class LoadThemAll:
   def run(self):
     self.dockWidget.show()
 
-  def installTranslator( self ):
-    userPluginPath = os.path.join( os.path.dirname( str( QgsApplication.qgisUserDbFilePath() ) ), "python/plugins/loadthemall" )
+  def installTranslator( self ): # TODO check this installation
+    userPluginPath = os.path.join( os.path.dirname( str( QgsApplication.qgisUserDatabaseFilePath() ) ), "python/plugins/loadthemall" )
     systemPluginPath = os.path.join( str( QgsApplication.prefixPath() ), "python/plugins/loadthemall" )
     translationPath = ''
 
@@ -81,4 +88,3 @@ class LoadThemAll:
       self.translator = QTranslator()
       self.translator.load( translationPath )
       QCoreApplication.installTranslator( self.translator )
-

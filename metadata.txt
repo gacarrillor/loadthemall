@@ -1,21 +1,20 @@
-; the next section is mandatory
 [general]
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
-
-version=2.7
-qgisMinimumVersion=2.0
-
-; not used yet, will allow to put a plugin in the right menu
+about=QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
+version=2.99
+qgisMinimumVersion=3.0
 category=Layers
-
 author=Germán Carrillo (GeoTux)
 email=geotux_tuxman@linuxmail.org
+tags=layers,vector,raster,toc,legend,directory,recursively,filter,load,shapefile
+homepage=http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
+tracker=https://github.com/gacarrillor/loadthemall/issues
+repository=https://github.com/gacarrillor/loadthemall
+icon=icon.png
+experimental=False
+deprecated=False
 
-about=QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
-; end of mandatory metadata
-
-; start of optional metadata
 
 changelog=2.7 (20170713):
      ...* New 'Date modified' filter to load files according to their latest
@@ -135,17 +134,3 @@ changelog=2.7 (20170713):
 
     1.0 (20101018):
       ...First version
-
-; tags are in comma separated value format, spaces are allowed
-tags=layers,vector,raster,toc,legend,directory,recursively,filter,load,shapefile
-
-homepage=http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
-tracker=https://github.com/gacarrillor/loadthemall/issues
-repository=https://github.com/gacarrillor/loadthemall
-
-
-; path to a icon within the plugin folder
-icon=icon.png
-
-experimental=False
-deprecated=False
