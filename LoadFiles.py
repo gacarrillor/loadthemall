@@ -83,8 +83,9 @@ class LoadFiles():
               layer = QgsVectorLayer( layerPath, "", "ogr" )
               if layer:
                 if len( layer.dataProvider().subLayers() ) > 1:
+                  # Sample: ['0!!::!!line_intersection_collection!!::!!12!!::!!LineString!!::!!geometryProperty']
                   for subLayer in layer.dataProvider().subLayers():
-                    layerPaths.extend( [ "{}|layername={}".format( layerPath, subLayer.split(":")[1] ) ] )
+                    layerPaths.extend( [ "{}|layername={}".format( layerPath, subLayer.split("!!::!!")[1] ) ] )
                 else:
                   layerPaths.append( layerPath )
             else: #'raster'
@@ -156,7 +157,7 @@ class LoadFiles():
           baseName = os.path.basename( layerPath )
           layerName = os.path.splitext( baseName )[ 0 ]
           if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
-            layerName = "".join( [layerName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+            layerName = baseName.split( '|layername=' )[1]
           ml = self.createLayer( layerPath, layerName )
           if ml:
             layersLoaded += 1

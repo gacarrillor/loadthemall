@@ -20,7 +20,7 @@ email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 """
 
-from qgis.core import QgsRectangle
+from qgis.core import QgsRectangle, Qgis
 from qgis.gui import QgsMessageBar
 
 from qgis.PyQt.QtCore import QSettings, QDateTime
@@ -238,7 +238,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
             self.iface.messageBar().pushMessage( self.tr( "Accents were not ignored!" ),
               self.tr( "You have chosen to ignore accents in the alphanumeric filter, but first") +
               self.tr(" you need to install the Python library 'unidecode'."),
-              level=QgsMessageBar.WARNING, duration=15 )
+              level=Qgis.Warning, duration=15 )
 
       else:
         QMessageBox.warning( self.parent, "Load Them All",

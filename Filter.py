@@ -40,7 +40,7 @@ class AlphanumericFilter( Filter ):
     baseName = os.path.basename( layerPath )
     layerBaseName = os.path.splitext( baseName )[0]
     if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
-      layerBaseName = "".join( [layerBaseName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+      layerBaseName = baseName.split( '|layername=' )[1]
 
     layerBaseName = layerBaseName.lower() if self.caseInsensitive else layerBaseName
     if self.accentInsensitive:
