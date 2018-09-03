@@ -19,10 +19,9 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
   def selectDir( self ):
     """ Open a dialog for the user to choose a starting directory """
     settings = QSettings()
-    if self.isVector:
-      path = QFileDialog.getExistingDirectory( self, self.tr( "Select a base directory" ),
-        settings.value( "/Load_Them_All/vector/path", "", type=str ) if self.isVector else settings.value( "/Load_Them_All/raster/path", "", type=str ),
-        QFileDialog.ShowDirsOnly )
+    path = QFileDialog.getExistingDirectory( self, self.tr( "Select a base directory" ),
+      settings.value( "/Load_Them_All/vector/path", "", type=str ) if self.isVector else settings.value( "/Load_Them_All/raster/path", "", type=str ),
+      QFileDialog.ShowDirsOnly )
 
     if path: self.txtBaseDir.setText( path )
 
