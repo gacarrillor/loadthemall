@@ -16,7 +16,8 @@ from .Filter import FilterList
 class LoadFiles():
   """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
-      bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, dataType ):
+      bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
+      numLayersToConfirm, dataType ):
     self.extension = extension
     self.baseDir = baseDir
     self.progressBar = progressBar
@@ -35,6 +36,8 @@ class LoadFiles():
     self.bDoNotEmpty = bDoNotEmpty
     self.bSort = bSort
     self.bReverseSort = bReverseSort
+    self.bSearchParentLayer = bSearchParentLayer
+    self.bAddParentLayerName = bAddParentLayerName
     self.numLayersToConfirm = numLayersToConfirm
 
   def applyFilter( self, layerBaseName ):
@@ -157,7 +160,11 @@ class LoadFiles():
           baseName = os.path.basename( layerPath )
           layerName = os.path.splitext( baseName )[ 0 ]
           if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
-            layerName = baseName.split( '|layername=' )[1]
+            if self.bAddParentLayerName:
+              layerName = "".join( [layerName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+            else:
+              layerName = baseName.split( '|layername=' )[1]
+
           ml = self.createLayer( layerPath, layerName )
           if ml:
             layersLoaded += 1
@@ -220,9 +227,11 @@ class LoadFiles():
 class LoadVectors( LoadFiles ):
   """ Subclass to load vector layers """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
-      bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, filterList ):
+      bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
+      numLayersToConfirm, filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
-      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, 'vector' )
+      bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
+      bAddParentLayerName, numLayersToConfirm, 'vector' )
 
     self.filterList = filterList
     if self.getFilesToLoad():
@@ -245,10 +254,11 @@ class LoadVectors( LoadFiles ):
 class LoadRasters( LoadFiles ):
   """ Subclass to load raster layers """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
-      bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
-      filterList ):
+      bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
+      numLayersToConfirm, filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
-      bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm, 'raster' )
+      bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
+      bAddParentLayerName, numLayersToConfirm, 'raster' )
 
     self.filterList = filterList
     if self.getFilesToLoad():

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
+    <width>340</width>
     <height>578</height>
    </rect>
   </property>
@@ -39,23 +39,14 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabVector">
        <attribute name="title">
         <string>Vector</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>0</number>
         </property>
         <item row="0" column="0">
@@ -74,8 +65,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>296</width>
-             <height>579</height>
+             <width>322</width>
+             <height>570</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -163,16 +154,7 @@
         <string>Raster</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
@@ -191,8 +173,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>296</width>
-             <height>608</height>
+             <width>322</width>
+             <height>598</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
@@ -277,16 +259,7 @@
         <string>Configuration</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>0</number>
         </property>
         <property name="horizontalSpacing">
@@ -311,8 +284,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>310</width>
-             <height>486</height>
+             <width>338</width>
+             <height>476</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -326,20 +299,11 @@
              <number>9</number>
             </property>
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0">
+             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0,0,0,0,0,0">
               <property name="spacing">
                <number>6</number>
               </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>0</number>
               </property>
               <item>
@@ -467,6 +431,32 @@
                </widget>
               </item>
               <item>
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="title">
+                 <string>SubLayers</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_13">
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="chkSearchParentLayer">
+                   <property name="text">
+                    <string>Include parent layer in search</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QCheckBox" name="chkAddParentLayerName">
+                   <property name="text">
+                    <string>Include parent layer name in loaded sublayers</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
                <widget class="QGroupBox" name="groupBox">
                 <property name="minimumSize">
                  <size>
@@ -563,16 +553,7 @@
         <string>About</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>0</number>
         </property>
         <property name="spacing">
@@ -598,7 +579,7 @@
              <x>0</x>
              <y>0</y>
              <width>358</width>
-             <height>486</height>
+             <height>476</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_12">
@@ -1003,6 +984,6 @@
     </item>
    </layout>
   </widget>
-</widget>
+ </widget>
  <connections/>
 </ui>

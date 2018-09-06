@@ -63,6 +63,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.txtNumLayersToConfirm.editingFinished.connect( self.saveConfigTabSettings )
     self.chkCaseInsensitive.stateChanged.connect( self.saveConfigTabSettings )
     self.chkAccentInsensitive.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkSearchParentLayer.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkAddParentLayerName.stateChanged.connect( self.saveConfigTabSettings )
     self.btnHelp.clicked.connect( self.help )
     self.btnLoadLayers.clicked.connect( self.load )
     self.btnCancel.setVisible( False )
@@ -113,6 +115,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       bReverseSort = self.chkReverseSort.isChecked()
       bCaseInsensitive = self.chkCaseInsensitive.isChecked()
       bAccentInsensitive = self.chkAccentInsensitive.isChecked()
+      bSearchParentLayer = self.chkSearchParentLayer.isChecked()
+      bAddParentLayerName = self.chkAddParentLayerName.isChecked()
       n = int( self.txtNumLayersToConfirm.text() )
       if n <= 0: n = 50
       numLayersToConfirm = n
@@ -136,9 +140,9 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
           if self.dlgBase.radEnds.isChecked(): matchType = 'EndsWith'
 
           if self.dlgBase.chkInvertAlphanumeric.isChecked():
-            filter = InvertedAlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive )
+            filter = InvertedAlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive, bSearchParentLayer )
           else:
-            filter = AlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive )
+            filter = AlphanumericFilter( matchType, filterText, bCaseInsensitive, bAccentInsensitive, bSearchParentLayer )
           filterList.addFilter( filter )
           bAlphanumericFilter = True
 
@@ -198,8 +202,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
             filterList.addFilter(filter)
 
           LoadVectors( baseDir, extension, self.iface, self.progressBar, bGroups,
-              bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
-              filterList )
+              bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
+              bAddParentLayerName, numLayersToConfirm, filterList )
 
         elif self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
           if self.groupBoxRasterTypeFilter.isChecked() and \
@@ -228,8 +232,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
             filterList.addFilter(filter)
 
           LoadRasters( baseDir, extension, self.iface, self.progressBar, bGroups,
-              bLayersOff, bDoNotEmpty, bSort, bReverseSort, numLayersToConfirm,
-              filterList )
+              bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
+              bAddParentLayerName, numLayersToConfirm, filterList )
 
         if bAccentInsensitive and bAlphanumericFilter:
           try:
@@ -303,6 +307,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     settings.setValue( "reverseSort", self.chkReverseSort.isChecked() )
     settings.setValue( "caseInsensitive", self.chkCaseInsensitive.isChecked() )
     settings.setValue( "accentInsensitive", self.chkAccentInsensitive.isChecked() )
+    settings.setValue( "searchParentLayer", self.chkSearchParentLayer.isChecked() )
+    settings.setValue( "addParentLayerName", self.chkAddParentLayerName.isChecked() )
     n = int( self.txtNumLayersToConfirm.text() )
     if n <= 0: n = 50
     settings.setValue( "numLayersToConfirm", n )
@@ -454,6 +460,14 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
         self.chkAccentInsensitive.setChecked( settings.value( "accentInsensitive", type=bool ) )
     else:
         self.chkAccentInsensitive.setChecked( False )
+    if not settings.value( "searchParentLayer" ) is None:
+        self.chkSearchParentLayer.setChecked( settings.value( "searchParentLayer", type=bool ) )
+    else:
+        self.chkSearchParentLayer.setChecked( False )
+    if not settings.value( "addParentLayerName" ) is None:
+        self.chkAddParentLayerName.setChecked( settings.value( "addParentLayerName", type=bool ) )
+    else:
+        self.chkAddParentLayerName.setChecked( True )
 
     if not settings.value( "numLayersToConfirm" ) is None:
         n = int(settings.value( "numLayersToConfirm" ))

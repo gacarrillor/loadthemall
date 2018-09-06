@@ -25,11 +25,13 @@ class NoFilter( Filter ):
 
 class AlphanumericFilter( Filter ):
   """ Filter based on text using a regular expression """
-  def __init__( self, matchType, filterText, caseInsensitive, accentInsensitive ):
+  def __init__( self, matchType, filterText, caseInsensitive, accentInsensitive,
+        bSearchParentLayer ):
     self.matchType = matchType
     self.filterText = filterText
     self.caseInsensitive = caseInsensitive
     self.accentInsensitive = accentInsensitive
+    self.bSearchParentLayer = bSearchParentLayer
     self.regExpPattern = None # Stores compiled RE pattern to reuse it afterwards
 
   def apply( self, layerPath ):
@@ -40,7 +42,10 @@ class AlphanumericFilter( Filter ):
     baseName = os.path.basename( layerPath )
     layerBaseName = os.path.splitext( baseName )[0]
     if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
-      layerBaseName = baseName.split( '|layername=' )[1]
+      if self.bSearchParentLayer:
+          layerBaseName = "".join( [layerBaseName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+      else:
+          layerBaseName = baseName.split( '|layername=' )[1]
 
     layerBaseName = layerBaseName.lower() if self.caseInsensitive else layerBaseName
     if self.accentInsensitive:
@@ -101,8 +106,10 @@ class AlphanumericFilter( Filter ):
 
 class InvertedAlphanumericFilter( Filter ):
   """ Prepend a logic NOT to an Alphanumeric filter """
-  def __init__( self, matchType, filterText, caseInsensitive, accentInsensitive ):
-    self.filter = AlphanumericFilter( matchType, filterText, caseInsensitive, accentInsensitive )
+  def __init__( self, matchType, filterText, caseInsensitive, accentInsensitive,
+      bSearchParentLayer ):
+    self.filter = AlphanumericFilter( matchType, filterText, caseInsensitive,
+                                      accentInsensitive, bSearchParentLayer )
 
   def apply( self, layerPath ):
     """ Invert Alphanumeric filter result """
