@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>Base_LoadThemAll</name>
     <message>
@@ -54,47 +54,47 @@
         <translation>Filtro por rectángulo delimitador</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="174"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="180"/>
         <source>North</source>
         <translation>Norte</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="209"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="221"/>
         <source>West</source>
         <translation>Oeste</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="227"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="245"/>
         <source>East</source>
         <translation>Este</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="268"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="292"/>
         <source>South</source>
         <translation>Sur</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="294"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="318"/>
         <source>Contains</source>
         <translation>Contiene</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="302"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="326"/>
         <source>Intersects</source>
         <translation>Intersecta</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="307"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="331"/>
         <source>Map extent</source>
         <translation>Extensión del mapa</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="320"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="344"/>
         <source>Date modified filter</source>
         <translation>Filtro por fecha de modificación</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.ui" line="361"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="385"/>
         <source>ddd dd MMM yyyy hh:mm AP</source>
         <translation></translation>
     </message>
@@ -106,17 +106,17 @@
         <translation type="obsolete">Selecciona un directorio base</translation>
     </message>
     <message>
-        <location filename="Base_LoadThemAllDialog.py" line="85"/>
+        <location filename="Base_LoadThemAllDialog.py" line="83"/>
         <source>Before</source>
         <translation>Antes de</translation>
     </message>
     <message>
-        <location filename="Base_LoadThemAllDialog.py" line="86"/>
+        <location filename="Base_LoadThemAllDialog.py" line="84"/>
         <source>Exact date</source>
         <translation>Fecha exacta</translation>
     </message>
     <message>
-        <location filename="Base_LoadThemAllDialog.py" line="87"/>
+        <location filename="Base_LoadThemAllDialog.py" line="85"/>
         <source>After</source>
         <translation>Después de</translation>
     </message>
@@ -184,102 +184,121 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="253"/>
+        <location filename="Ui_DockWidget.ui" line="259"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="322"/>
+        <location filename="Ui_DockWidget.ui" line="340"/>
         <source>Create groups based on directories&apos; names</source>
         <translation>Crear grupos con base en nombres de directorios</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="338"/>
+        <location filename="Ui_DockWidget.ui" line="356"/>
         <source>Turn off the loaded layers</source>
         <translation>Apagar las capas cargadas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="348"/>
+        <location filename="Ui_DockWidget.ui" line="366"/>
         <source>Do not load empty vector layers </source>
         <translation>No cargar capas vacías</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="358"/>
+        <location filename="Ui_DockWidget.ui" line="376"/>
         <source>Sort loaded layers by name</source>
         <translation>Ordenar por nombre las capas cargadas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="386"/>
+        <location filename="Ui_DockWidget.ui" line="404"/>
         <source>Reverse sort order</source>
         <translation>Ordenar de manera inversa</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="395"/>
+        <location filename="Ui_DockWidget.ui" line="413"/>
         <source>Ignore case in the alphanumeric filter</source>
         <translation>Ignorar mayúsculas/minúsculas en filtros</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="405"/>
+        <location filename="Ui_DockWidget.ui" line="423"/>
         <source>This option requires the Python lib &apos;unidecode&apos;</source>
         <translation>Esta opción requiere la librería de Python &apos;unidecode&apos;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="408"/>
+        <location filename="Ui_DockWidget.ui" line="426"/>
         <source>Ignore accents in the alphanumeric filter</source>
         <translation>Ignorar caracteres especiales en filtros</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="450"/>
+        <location filename="Ui_DockWidget.ui" line="436"/>
+        <source>SubLayers</source>
+        <translation>Subcapas</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="442"/>
+        <source>Include parent layer in search</source>
+        <translation>Incluir la capa padre en las búsquedas</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="449"/>
+        <source>Include parent layer name in loaded sublayers</source>
+        <translation>Incluir el nombre de la capa padre en las subcapas cargadas</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="494"/>
         <source>50</source>
         <translation>50</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="462"/>
+        <location filename="Ui_DockWidget.ui" line="512"/>
         <source>Number of layers to show you a confirmation dialog before the loading</source>
         <translation>Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="500"/>
+        <location filename="Ui_DockWidget.ui" line="553"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="549"/>
+        <location filename="Ui_DockWidget.ui" line="602"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>El plugin &lt;i&gt;Load Them All&lt;/i&gt; permite cargar de forma simultánea varias capas almacenadas en una estructura de directorios, con base en una serie de filtros que se pueden personalizar.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="596"/>
+        <location filename="Ui_DockWidget.ui" line="649"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="649"/>
+        <location filename="Ui_DockWidget.ui" line="702"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda :D en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
-    <message utf8="true">
-        <location filename="Ui_DockWidget.ui" line="735"/>
-        <source>Copyright (C) 2010-2017 Germán Carrillo</source>
-        <translation>Copyright (C) 2010-2017 Germán Carrillo</translation>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="807"/>
+        <source>Copyright (C) 2010-2018 Germán Carrillo</source>
+        <translation>Copyright (C) 2010-2018 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="757"/>
+        <source>Copyright (C) 2010-2017 Germán Carrillo</source>
+        <translation type="vanished">Copyright (C) 2010-2017 Germán Carrillo</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="829"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
-    <message utf8="true">
-        <location filename="Ui_DockWidget.ui" line="795"/>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="867"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Colaboradores de código fuente:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 y v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="871"/>
+        <location filename="Ui_DockWidget.ui" line="956"/>
         <source>Load layers</source>
         <translation>Cargar capas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="878"/>
+        <location filename="Ui_DockWidget.ui" line="963"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -287,8 +306,9 @@
 <context>
     <name>Load Them All</name>
     <message>
+        <location filename="LoadFiles.py" line="124"/>
         <source>Load Them All</source>
-        <translation type="obsolete">Load Them All</translation>
+        <translation>Load Them All</translation>
     </message>
     <message>
         <source>There are </source>
@@ -317,25 +337,63 @@
         <translation type="obsolete"> capa fue cargada exitosamente.</translation>
     </message>
     <message>
+        <location filename="LoadFiles.py" line="125"/>
+        <source>There are {} layers to load.
+ Do you want to continue?</source>
+        <translation>Hay {} capas para cargar.
+¿Quieres continuar?</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="185"/>
+        <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
+        <translation> Puedes ver un listado de capas no cargadas en la pestaña &apos;Load Them All&apos; del log de QGIS.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="188"/>
+        <source>layers were loaded succesfully.</source>
+        <translation>capas fueron cargadas exitosamente.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="190"/>
+        <source>layers loaded succesfully.</source>
+        <translation>capas cargadas exitosamente.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="192"/>
+        <source>layers was loaded succesfully.</source>
+        <translation>capas fue cargada exitosamente.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="194"/>
+        <source>layer was loaded succesfully.</source>
+        <translation>capa fue cargada exitosamente.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="198"/>
         <source> out of </source>
-        <translation type="obsolete"> de </translation>
+        <translation> de </translation>
     </message>
     <message>
+        <location filename="LoadFiles.py" line="216"/>
         <source> or </source>
-        <translation type="obsolete"> o </translation>
+        <translation> o </translation>
     </message>
     <message>
+        <location filename="LoadFiles.py" line="219"/>
         <source>There are no &lt;i&gt;</source>
-        <translation type="obsolete">No hay archivos &lt;i&gt;</translation>
+        <translation>No hay archivos &lt;i&gt;</translation>
     </message>
     <message>
+        <location filename="LoadFiles.py" line="220"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
-        <translation type="obsolete">&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.</translation>
+        <translation>&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
+</translation>
     </message>
     <message>
+        <location filename="LoadFiles.py" line="221"/>
         <source>Change those parameters and try again.</source>
-        <translation type="obsolete">Cambia esos parámetros e intenta de nuevo.</translation>
+        <translation>Cambia esos parámetros e intenta de nuevo.</translation>
     </message>
 </context>
 <context>
@@ -416,7 +474,7 @@
         <source>About</source>
         <translation type="obsolete">Acerca de</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Copyright (C) 2010-2015 Germán Carrillo</source>
         <translation type="obsolete">Copyright (C) 2010-2015 Germán Carrillo</translation>
     </message>

@@ -182,7 +182,7 @@ class LoadFiles():
 
         postMsg = ''
         if layersLoaded < numLayers:
-          postMsg = " You can see a list of not loaded layers in the QGIS log (tab 'Load Them All')."
+          postMsg = QCoreApplication.translate( "Load Them All", " You can see a list of not loaded layers in the QGIS log (tab 'Load Them All')." )
 
         if layersLoaded > 1 and numLayers > 1:
           doneMsg = QCoreApplication.translate( "Load Them All", "layers were loaded succesfully." )
