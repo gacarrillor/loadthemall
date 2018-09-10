@@ -1,5 +1,12 @@
 Changes:
 
+3.0 (201809xx):
+  * Support for GeoPackage.
+  * For sublayers:
+    Include parent layer name in searches.
+    Include parent layer name as prefix for each sublayer in TOC.
+  * Remove empty groups
+
 2.7 (20170713):
   * New 'Date modified' filter to load files according to their latest
       modification date.

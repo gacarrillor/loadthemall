@@ -3,6 +3,8 @@ import os
 import locale
 
 from qgis.core import (
+    Qgis,
+    QgsApplication,
     QgsVectorLayer,
     QgsRasterLayer,
     QgsMapLayer,
@@ -28,10 +30,7 @@ class LoadFiles():
 
     # Configuration parameters
     self.bGroups = bGroups
-    if self.bGroups:
-      self.tree = Tree( baseDir )
-    else:
-      self.tree = Tree( baseDir, False ) # Don't create a parent group
+    self.tree = Tree( baseDir, self.bGroups )
     self.bLayersOff = bLayersOff
     self.bDoNotEmpty = bDoNotEmpty
     self.bSort = bSort
@@ -84,7 +83,7 @@ class LoadFiles():
 
             if self.dataType == 'vector':
               layer = QgsVectorLayer( layerPath, "", "ogr" )
-              if layer:
+              if layer.isValid():
                 if len( layer.dataProvider().subLayers() ) > 1:
                   # Sample: ['0!!::!!line_intersection_collection!!::!!12!!::!!LineString!!::!!geometryProperty']
                   for subLayer in layer.dataProvider().subLayers():
@@ -95,7 +94,7 @@ class LoadFiles():
               layerPaths.append( layerPath )
 
     for path in layerPaths:
-      QApplication.processEvents() # TODO: Perhaps better by chunks?
+      QApplication.processEvents()
       if not self.progressBar.parent().parent().processStatus:
         # The process was canceled
         return False
@@ -134,17 +133,13 @@ class LoadFiles():
 
         if self.bSort:
           if self.bGroups:
-            # In Python 3 we should use key=locale.strxfrm instead of cmp=locale.strcoll for performance
-            #self.lstFilesToLoad = sorted( self.lstFilesToLoad, cmp=locale.strcoll, reverse=self.bReverseSort )
             self.lstFilesToLoad = sorted( self.lstFilesToLoad, key=locale.strxfrm, reverse=self.bReverseSort )
           else:
             # Get basenames and order them, otherwise folders will distort order
             tmpDict = { path: os.path.splitext( os.path.basename( path ) )[0] for path in self.lstFilesToLoad }
             # We revert the order to load single layers from the back, so any
             #  new layer will be added to the top of the layer tree
-            #sortedPairs = sorted( tmpDict.items(), key=lambda x: x[1], cmp=locale.strxfrm, reverse=not self.bReverseSort )
-            self.lstFilesToLoad = [k for k in sorted(tmpDict, key=tmpDict.get, reverse=not self.bReverseSort)]
-            #self.lstFilesToLoad = [ pair[0] for pair in sortedPairs ]
+            self.lstFilesToLoad = [k for k,v in sorted(tmpDict.items(), key=lambda item:locale.strxfrm(str(item[1])), reverse=not self.bReverseSort)]
 
         for layerPath in self.lstFilesToLoad:
           QApplication.processEvents()
@@ -166,12 +161,16 @@ class LoadFiles():
               layerName = baseName.split( '|layername=' )[1]
 
           ml = self.createLayer( layerPath, layerName )
-          if ml:
+          if ml.isValid():
             layersLoaded += 1
             if self.bGroups:
               self.tree.addLayerToGroup( ml, group )
             else:
               self.tree.addLayer( ml, self.bLayersOff )
+          else:
+            QgsApplication.messageLog().logMessage(
+                "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(layerPath),
+                "Load Them All", Qgis.Warning)
 
           step += 1
           self.progressBar.setValue( step )
@@ -181,28 +180,35 @@ class LoadFiles():
 
         self.iface.mapCanvas().setRenderFlag( True ) # Finish the loading process
 
+        postMsg = ''
+        if layersLoaded < numLayers:
+          postMsg = " You can see a list of not loaded layers in the QGIS log (tab 'Load Them All')."
+
         if layersLoaded > 1 and numLayers > 1:
-            doneMsg = QCoreApplication.translate( "Load Them All", "layers were loaded succesfully." )
+          doneMsg = QCoreApplication.translate( "Load Them All", "layers were loaded succesfully." )
         elif layersLoaded < 1:
-            doneMsg = QCoreApplication.translate( "Load Them All", "layers loaded succesfully." )
+          doneMsg = QCoreApplication.translate( "Load Them All", "layers loaded succesfully." )
         elif layersLoaded == 1 and numLayers > 1:
-            doneMsg = QCoreApplication.translate( "Load Them All", "layers was loaded succesfully." )
+          doneMsg = QCoreApplication.translate( "Load Them All", "layers was loaded succesfully." )
         else:
-            doneMsg = QCoreApplication.translate( "Load Them All", "layer was loaded succesfully." )
+          doneMsg = QCoreApplication.translate( "Load Them All", "layer was loaded succesfully." )
 
         self.iface.messageBar().pushMessage( "Load Them All",
-            "{} {} {} {}".format(layersLoaded,
-                QCoreApplication.translate( "Load Them All", " out of " ),
-                numLayers,
-                doneMsg),
-            duration=20)
-        return
+          "{} {} {} {}{}".format(layersLoaded,
+            QCoreApplication.translate( "Load Them All", " out of " ),
+            numLayers,
+            doneMsg,
+            postMsg),
+          duration=20)
 
-    self.progressBar.reset()
-    self.progressBar.setMaximum( 100 )
-    self.progressBar.setValue( 0 )
+    if self.bGroups:
+      self.tree.removeEmptyGroups()
 
     if numLayers == 0:
+      self.progressBar.reset()
+      self.progressBar.setMaximum( 100 )
+      self.progressBar.setValue( 0 )
+
       if len(self.extension) == 1:
         msgExtensions = str(self.extension[0])[1:]
       else:
@@ -236,7 +242,6 @@ class LoadVectors( LoadFiles ):
     self.filterList = filterList
     if self.getFilesToLoad():
       self.loadLayers()
-    self.tree.checkAndRemoveParentGroup()
 
   def createLayer( self, layerPath, layerBaseName ):
     """ Create a vector layer """
@@ -263,7 +268,6 @@ class LoadRasters( LoadFiles ):
     self.filterList = filterList
     if self.getFilesToLoad():
       self.loadLayers()
-    self.tree.checkAndRemoveParentGroup()
 
   def createLayer( self, layerPath, layerBaseName ):
     """ Create a raster layer """
@@ -321,8 +325,9 @@ class Tree():
   def setParentInvisible( self ):
     self.root.setItemVisibilityChecked( 0 )
 
-  def checkAndRemoveParentGroup( self ):
-    """ Remove the created root group if layers weren't added to it """
-    if self.createParentGroup:
-      if len( self.root.children() ) == 0:
-        QgsProject.instance().layerTreeRoot().removeChildNode( self.root )
+  def removeEmptyGroups( self ):
+    """ Remove created groups if layers weren't added to them, e.g., if the
+        layer is not valid. """
+    self.root.removeChildrenGroupWithoutLayers()
+    if len( self.root.children() ) == 0:
+      QgsProject.instance().layerTreeRoot().removeChildNode( self.root )
