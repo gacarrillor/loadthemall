@@ -7,35 +7,51 @@ Available filters are:
 
 * **Alphanumeric**:
 
-  Enter a filter text and choose among the modes 'Start with', 'Any position', or 'Ends with' to find files by name.
-  You can use the logical operators || (or) and && (and), and even combine them. && has more priority, so the expression "a || b && c" becomes "(a || b) && c".
+  Enter a filter text and choose among the modes `Start with`, `Any position`, or `Ends with` to find files by name.
+  You can use the logical operators `||` (or) and `&&` (and), and even combine them. `&&` has more priority, so the expression `a || b && c` becomes `(a || b) && c`.
+  
   Additionally, you can invert the Alphanumeric filter, i.e., prepend a logic NOT to it, allowing you to invert the original filter result.
+
 * **Bounding box**:
 
-  Enter coordinates by hand or get the current map extent. Choose the spatial filter: 'Contains' or 'Intersects'.
+  Enter coordinates by hand or get the current map extent. Choose the spatial filter: `Contains` or `Intersects`.
+
 * **Date modified**:
 
-  Filter files by their latest modification date, using comparisons like 'before', 'after' and 'exact date'.
+  Filter files by their latest modification date, using comparisons like `before`, `after` and `exact date`.
+
 * **Geometry type**:
 
-  Choose which geometry type you want to load: 'Point', 'Line', or 'Polygon'.
+  Choose which geometry type you want to load: `Point`, `Line`, or `Polygon`.
+
 * **Raster type**:
 
-  Choose which raster type you want to load: 'Gray or undefined', 'Palette', 'Multiband', or 'Color Layer'.
+  Choose which raster type you want to load: `Gray or undefined`, `Palette`, `Multiband`, or `Color Layer`.
 
 
 
 There are several options for you to configure how layers should be loaded to QGIS:
 
 * **Groups**: Whether or not to create groups based on directories' names. When groups are created, they reflect the directory structure, i.e., groups are nested if necessary.
+
 * **Turn off layers**: Make loaded layers invisible (it improves performance).
+
 * **Do not load empty layers**.
-* **Sort (or reverse sort) loaded layers**.
-* **Ignore case in the alphanumeric filter**.
-* **Ignore accents in the alphanumeric filter**.
+
+* **Sort (or reverse sort) loaded layers by name**.
+
+* **Ignore case in the alphanumeric filter**: Make the alphanumeric filter case insensitive.
+
+* **Ignore accents in the alphanumeric filter**: You need the `unidecode` module for this option to work (you probably need to install it because it doesn't come with the standard Python installation). If enabled, an alphanumeric filter like 'arbol' will also match 'árbol'.
+
+* **Sublayers**:
+  The following two options can work independently from each other.
+  * **Include parent in search**: Make alphanumeric filters work with the parent name prepended. If enabled,  an alphanumeric filter like 'Starts with: rivers' won't match the sublayer rivers, because the parent layer name is taken into account (e.g., 'parent_layer_name rivers').
+  * **Include parent in loaded sublayers**: Prepend the parent layer name in all its sublayers. 
 
 The plugin supports the following file extensions:
 * Vectors
+  * GeoPackage (*.gpkg)", [".gpkg"]
   * ESRI Shapefile (*.shp)", [".shp"]
   * Mapinfo File (*.mif, *.tab)", [".mif", ".tab"]
   * Microstation DGN (*.dgn)", [".dgn"]
