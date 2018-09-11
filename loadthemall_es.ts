@@ -134,147 +134,159 @@
         <translation>Vector</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="88"/>
+        <location filename="Ui_DockWidget.ui" line="97"/>
         <source>Geometry type filter</source>
         <translation>Filtro por tipo de geometría</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="109"/>
+        <location filename="Ui_DockWidget.ui" line="118"/>
         <source>Polygon</source>
         <translation>Polígono</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="116"/>
+        <location filename="Ui_DockWidget.ui" line="125"/>
         <source>Point</source>
         <translation>Punto</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="123"/>
+        <location filename="Ui_DockWidget.ui" line="132"/>
         <source>Line</source>
         <translation>Línea</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="154"/>
+        <location filename="Ui_DockWidget.ui" line="163"/>
         <source>Raster</source>
         <translation>Raster</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="196"/>
+        <location filename="Ui_DockWidget.ui" line="214"/>
         <source>Raster type filter</source>
         <translation>Filtro por tipo ráster</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="217"/>
+        <location filename="Ui_DockWidget.ui" line="235"/>
         <source>Gray or Undefined</source>
         <translation>Gris o indefinido</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="224"/>
+        <location filename="Ui_DockWidget.ui" line="242"/>
         <source>Palette</source>
         <translation>Paleta</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="231"/>
+        <location filename="Ui_DockWidget.ui" line="249"/>
         <source>Multiband</source>
         <translation>Multibanda</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="238"/>
+        <location filename="Ui_DockWidget.ui" line="256"/>
         <source>Color Layer</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="259"/>
+        <location filename="Ui_DockWidget.ui" line="277"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="340"/>
+        <location filename="Ui_DockWidget.ui" line="373"/>
         <source>Create groups based on directories&apos; names</source>
         <translation>Crear grupos con base en nombres de directorios</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="356"/>
+        <location filename="Ui_DockWidget.ui" line="395"/>
         <source>Turn off the loaded layers</source>
         <translation>Apagar las capas cargadas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="366"/>
+        <location filename="Ui_DockWidget.ui" line="411"/>
         <source>Do not load empty vector layers </source>
         <translation>No cargar capas vacías</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="376"/>
+        <location filename="Ui_DockWidget.ui" line="427"/>
         <source>Sort loaded layers by name</source>
         <translation>Ordenar por nombre las capas cargadas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="404"/>
+        <location filename="Ui_DockWidget.ui" line="461"/>
         <source>Reverse sort order</source>
         <translation>Ordenar de manera inversa</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="413"/>
+        <location filename="Ui_DockWidget.ui" line="476"/>
         <source>Ignore case in the alphanumeric filter</source>
         <translation>Ignorar mayúsculas/minúsculas en filtros</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="423"/>
+        <location filename="Ui_DockWidget.ui" line="492"/>
         <source>This option requires the Python lib &apos;unidecode&apos;</source>
         <translation>Esta opción requiere la librería de Python &apos;unidecode&apos;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="426"/>
+        <location filename="Ui_DockWidget.ui" line="495"/>
         <source>Ignore accents in the alphanumeric filter</source>
         <translation>Ignorar caracteres especiales en filtros</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="436"/>
+        <location filename="Ui_DockWidget.ui" line="511"/>
         <source>SubLayers</source>
         <translation>Subcapas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="442"/>
+        <location filename="Ui_DockWidget.ui" line="517"/>
+        <source>Include parent in search</source>
+        <translation>Incluir capa padre en búsquedas</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="524"/>
+        <source>Include parent name in loaded sublayers</source>
+        <translation>Incluir nombre de capa padre en subcapas</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="587"/>
+        <source>Number of layers to show you a confirmation dialog before the load</source>
+        <translation>Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
+    </message>
+    <message>
         <source>Include parent layer in search</source>
-        <translation>Incluir la capa padre en las búsquedas</translation>
+        <translation type="vanished">Incluir la capa padre en las búsquedas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="449"/>
         <source>Include parent layer name in loaded sublayers</source>
-        <translation>Incluir el nombre de la capa padre en las subcapas cargadas</translation>
+        <translation type="vanished">Incluir el nombre de la capa padre en las subcapas cargadas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="494"/>
+        <location filename="Ui_DockWidget.ui" line="569"/>
         <source>50</source>
         <translation>50</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="512"/>
         <source>Number of layers to show you a confirmation dialog before the loading</source>
-        <translation>Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
+        <translation type="vanished">Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="553"/>
+        <location filename="Ui_DockWidget.ui" line="628"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="602"/>
+        <location filename="Ui_DockWidget.ui" line="686"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>El plugin &lt;i&gt;Load Them All&lt;/i&gt; permite cargar de forma simultánea varias capas almacenadas en una estructura de directorios, con base en una serie de filtros que se pueden personalizar.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="649"/>
+        <location filename="Ui_DockWidget.ui" line="733"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="702"/>
+        <location filename="Ui_DockWidget.ui" line="786"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda :D en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="807"/>
+        <location filename="Ui_DockWidget.ui" line="891"/>
         <source>Copyright (C) 2010-2018 Germán Carrillo</source>
         <translation>Copyright (C) 2010-2018 Germán Carrillo</translation>
     </message>
@@ -283,22 +295,22 @@
         <translation type="vanished">Copyright (C) 2010-2017 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="829"/>
+        <location filename="Ui_DockWidget.ui" line="913"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="867"/>
+        <location filename="Ui_DockWidget.ui" line="951"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Colaboradores de código fuente:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 y v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="956"/>
+        <location filename="Ui_DockWidget.ui" line="1040"/>
         <source>Load layers</source>
         <translation>Cargar capas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="963"/>
+        <location filename="Ui_DockWidget.ui" line="1047"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
