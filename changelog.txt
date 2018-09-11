@@ -1,6 +1,7 @@
 Changes:
 
-3.0 (201809xx):
+3.0 (20180910):
+  * Support QGIS v3.x
   * Support for GeoPackage.
   * For sublayers:
     Include parent layer name in searches.
