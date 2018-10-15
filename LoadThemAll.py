@@ -76,8 +76,13 @@ class LoadThemAll:
     systemPluginPath = os.path.join( str( QgsApplication.prefixPath() ), "python/plugins/loadthemall" )
     translationPath = ''
 
-    locale = QSettings().value("locale/userLocale", type=str)
-    myLocale = str( locale[0:2] )
+    try:
+        # Errors here could happen if the value cannot be converted to string or
+        # if it is not subscriptable (see https://github.com/gacarrillor/loadthemall/issues/11)
+        locale = QSettings().value("locale/userLocale", type=str)
+        myLocale = str( locale[0:2] )
+    except TypeError as e:
+        myLocale = 'en'
 
     if os.path.exists( userPluginPath ):
       translationPath = os.path.join( userPluginPath, "loadthemall_" + myLocale + ".qm" )

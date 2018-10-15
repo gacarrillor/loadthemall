@@ -1,5 +1,8 @@
 Changes:
 
+3.0.1 (20181015):
+  * Fix issue (#11) with locale not yet set.
+
 3.0 (20180910):
   * Support QGIS v3.x
   * Support for GeoPackage.

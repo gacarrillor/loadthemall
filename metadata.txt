@@ -2,7 +2,7 @@
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
 about=QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
-version=3.0
+version=3.0.1
 qgisMinimumVersion=3.0
 category=Layers
 author=Germán Carrillo (GeoTux)
@@ -16,7 +16,10 @@ experimental=False
 deprecated=False
 
 
-changelog=3.0 (20180910):
+changelog=3.0.1 (20181015):
+    ...* Fix issue (#11) with locale not yet set.
+
+    3.0 (20180910):
     ...* Migration to QGIS v3.x
     ...* Support for GeoPackage.
     ...* For sublayers:
