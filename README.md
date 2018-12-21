@@ -53,6 +53,8 @@ There are several options for you to configure how layers should be loaded to QG
   * **Include parent in search**: Make alphanumeric filters work with the parent name prepended. If enabled,  an alphanumeric filter like 'Starts with: rivers' won't match the sublayer rivers, because the parent layer name is taken into account (e.g., 'parent_layer_name rivers').
   * **Include parent in loaded sublayers**: Prepend the parent layer name in all its sublayers. 
 
+* **Styles**: Whether or not load qml styles for layer (name_of_layer.qml) or for group (name_of_group.qml).
+
 The plugin supports the following file extensions:
 * Vectors
   * GeoPackage (*.gpkg)", [".gpkg"]
@@ -102,7 +104,7 @@ LICENSE: GPL v2.0
 Code contributors:
 * David Bakeman (v2.1 and v2.4)
 * Sören Gebbert (v2.3)
-
+* Jean Hemmi (V3.0.2 and french translation)
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 
