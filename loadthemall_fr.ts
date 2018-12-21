@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="">
 <context>
     <name>Base_LoadThemAll</name>
     <message>
@@ -296,13 +295,13 @@
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="898"/>
-        <source>Copyright (C) 2010-2018 GermÃ¡n Carrillo</source>
+        <source>Copyright (C) 2010-2018 Germ&#xc3;&#xa1;n Carrillo</source>
         <translation></translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="958"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Â Â Â Â Â David Bakeman (v2.1 and v2.4)&lt;br/&gt;Â Â Â Â Â Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Soeren Gebbert (v2.3)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
