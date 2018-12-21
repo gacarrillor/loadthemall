@@ -1,5 +1,9 @@
 Changes:
 
+3.0.2 (20181225):
+   * Manage styles when loading layers
+   * French translation
+
 3.0.1 (20181015):
   * Fix issue (#11) with locale not yet set.
 

@@ -39,7 +39,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tabVector">
        <attribute name="title">
@@ -74,7 +74,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>322</width>
+             <width>287</width>
              <height>579</height>
             </rect>
            </property>
@@ -191,7 +191,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>322</width>
+             <width>302</width>
              <height>608</height>
             </rect>
            </property>
@@ -311,7 +311,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>336</width>
+             <width>348</width>
              <height>486</height>
             </rect>
            </property>
@@ -531,7 +531,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="9" column="0">
+              <item row="10" column="0">
                <widget class="QGroupBox" name="groupBox">
                 <property name="minimumSize">
                  <size>
@@ -599,7 +599,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="10" column="0">
+              <item row="11" column="0">
                <spacer name="verticalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -614,6 +614,13 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="9" column="0">
+               <widget class="QCheckBox" name="chkStyles">
+                <property name="text">
+                 <string>Apply styles</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -948,7 +955,7 @@
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -1069,5 +1076,8 @@
    </layout>
   </widget>
  </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

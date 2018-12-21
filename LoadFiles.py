@@ -19,7 +19,7 @@ class LoadFiles():
   """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
       bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
-      numLayersToConfirm, dataType ):
+      bStyles, numLayersToConfirm, dataType ):
     self.extension = extension
     self.baseDir = baseDir
     self.progressBar = progressBar
@@ -37,6 +37,7 @@ class LoadFiles():
     self.bReverseSort = bReverseSort
     self.bSearchParentLayer = bSearchParentLayer
     self.bAddParentLayerName = bAddParentLayerName
+    self.bStyles = bStyles
     self.numLayersToConfirm = numLayersToConfirm
 
   def applyFilter( self, layerBaseName ):
@@ -167,6 +168,31 @@ class LoadFiles():
               self.tree.addLayerToGroup( ml, group )
             else:
               self.tree.addLayer( ml, self.bLayersOff )
+            # Look for Style to load 
+            if self.bStyles:
+              style_found="False"
+              # Has layer a style to apply ?
+              style_file = os.path.join( baseName, os.path.splitext( baseName )[ 0 ] + ".qml")
+              QgsApplication.messageLog().logMessage(
+              "Has layer '{0}' a qml file {1}".format(layerPath, style_file),
+              "Load Them All", Qgis.Info)
+              if ( os.path.exists( style_file)):
+                ml.loadNamedStyle( style_file)                                
+                style_found="True"
+              elif self.bGroups:
+                # Has the group a style to apply ?
+                a_group = os.path.dirname( layerPath )
+                style_file = os.path.join( a_group, ".qml")
+                QgsApplication.messageLog().logMessage(
+                "Has group '{0}' a qml file {1}".format(a_group, style_file),
+                "Load Them All", Qgis.Info)
+                if ( os.path.exists( style_file)):
+                  ml.loadNamedStyle( style_file)
+                  style_found="True"
+            if style_found != "True":
+              QgsApplication.messageLog().logMessage( "No style found for layer", 
+              "Load Them All", Qgis.Info)
+
           else:
             QgsApplication.messageLog().logMessage(
                 "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(layerPath),
@@ -234,10 +260,10 @@ class LoadVectors( LoadFiles ):
   """ Subclass to load vector layers """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
       bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
-      numLayersToConfirm, filterList ):
+      bStyles, numLayersToConfirm, filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
       bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
-      bAddParentLayerName, numLayersToConfirm, 'vector' )
+      bAddParentLayerName, bStyles, numLayersToConfirm, 'vector' )
 
     self.filterList = filterList
     if self.getFilesToLoad():
@@ -260,10 +286,10 @@ class LoadRasters( LoadFiles ):
   """ Subclass to load raster layers """
   def __init__( self, baseDir, extension, iface, progressBar, bGroups, bLayersOff,
       bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer, bAddParentLayerName,
-      numLayersToConfirm, filterList ):
+      bStyles, numLayersToConfirm, filterList ):
     LoadFiles.__init__( self, baseDir, extension, iface, progressBar, bGroups,
       bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
-      bAddParentLayerName, numLayersToConfirm, 'raster' )
+      bAddParentLayerName, bStyles, numLayersToConfirm, 'raster' )
 
     self.filterList = filterList
     if self.getFilesToLoad():
