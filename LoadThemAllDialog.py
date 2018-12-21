@@ -88,7 +88,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.configureTabs(index)
 
   def configureTabs( self, index ):
-    if self.tabWidget.tabText( index ) == "Vector":
+    if self.tabWidget.tabText( index ) == "Vecteur"  or \
+        self.tabWidget.tabText( index ) == "Vector":
       self.currentTab = 'v'
       self.dlgBase = Base_LoadThemAllDialog( True, self.iface )
       self.stackedWidgetVector.addWidget( self.dlgBase )
@@ -105,7 +106,9 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
 
   def apply( self ):
     """ Read parameters and create the LoadFiles instance """
-    if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector" or \
+    # TODO : Trouver un translation tips pour éviter ce test
+    if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector"  or \
+       self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vecteur"  or \
         self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Raster":
 
       # Configuration
@@ -178,7 +181,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
           filter = DateModifiedFilter( comparison, datetime )
           filterList.addFilter( filter )
 
-        if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
+        if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vecteur"  or \
+            self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
           if self.groupBoxGeometryTypeFilter.isChecked() and \
               not ( self.chkPoint.isChecked() and self.chkLine.isChecked() and self.chkPolygon.isChecked() ) :
             lstItemTypes = []
@@ -483,7 +487,8 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.txtNumLayersToConfirm.setText( str( n ) )
     settings.endGroup()
 
-    if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
+    if self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vecteur"  or \
+        self.tabWidget.tabText( self.tabWidget.currentIndex() ) == "Vector":
       settings.beginGroup( "/Load_Them_All/vector")
       self.restoreBaseSettings( settings )
 

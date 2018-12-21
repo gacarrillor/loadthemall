@@ -168,31 +168,33 @@ class LoadFiles():
               self.tree.addLayerToGroup( ml, group )
             else:
               self.tree.addLayer( ml, self.bLayersOff )
-            # Look for Style to load 
+            # Look whether style to load 
             if self.bStyles:
-              style_found="False"
+              styleFound="False"
               # Has layer a style to apply ?
-              style_file = os.path.join( baseName, os.path.splitext( baseName )[ 0 ] + ".qml")
-              QgsApplication.messageLog().logMessage(
-              "Has layer '{0}' a qml file {1}".format(layerPath, style_file),
-              "Load Them All", Qgis.Info)
-              if ( os.path.exists( style_file)):
-                ml.loadNamedStyle( style_file)                                
-                style_found="True"
+              styleFile = os.path.join( baseName, os.path.splitext( baseName )[ 0 ] + ".qml")
+#              QgsApplication.messageLog().logMessage(
+#              "Has layer '{0}' a qml file {1}".format(layerPath, styleFile),
+#              "Load Them All", Qgis.Info)
+              if ( os.path.exists( styleFile)):
+                ml.loadNamedStyle( styleFile)                                
+                styleFound="True"
               elif self.bGroups:
                 # Has the group a style to apply ?
-                a_group = os.path.dirname( layerPath )
-                style_file = os.path.join( a_group, ".qml")
-                QgsApplication.messageLog().logMessage(
-                "Has group '{0}' a qml file {1}".format(a_group, style_file),
-                "Load Them All", Qgis.Info)
-                if ( os.path.exists( style_file)):
-                  ml.loadNamedStyle( style_file)
-                  style_found="True"
-            if style_found != "True":
-              QgsApplication.messageLog().logMessage( "No style found for layer", 
+                aGroup = os.path.dirname( layerPath )
+                aBaseGroup = os.path.basename( aGroup )
+                styleFile = os.path.join( aGroup, aBaseGroup + ".qml")
+#                QgsApplication.messageLog().logMessage(
+#                "Has group '{0}' a qml file {1}".format(aGroup, styleFile),
+#                "Load Them All", Qgis.Info)
+                if ( os.path.exists( styleFile)):
+                  ml.loadNamedStyle( styleFile)
+                  styleFound="True"
+            if styleFound != "True":
+              QgsApplication.messageLog().logMessage( "No style found for layer {} nor for group".\
+              format( layerPath), 
               "Load Them All", Qgis.Info)
-
+            # End Styles
           else:
             QgsApplication.messageLog().logMessage(
                 "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(layerPath),

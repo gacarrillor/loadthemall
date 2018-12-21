@@ -241,7 +241,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="524"/>
         <source>Include parent name in loaded sublayers</source>
-        <translation>Inclure le le nom du parent dans la sous-couches</translation>
+        <translation>Inclure le nom du parent dans les sous-couches</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="587"/>
@@ -271,7 +271,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="793"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retour de bugs, proposition d&apos;améliorations ou salutations :D à gcarrillo@linuxmail.org ou directement dans le &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;dépôt GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retour de bugs, proposition d&apos;améliorations ou salutations à gcarrillo@linuxmail.org ou directement dans le &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;dépôt GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="920"/>
@@ -286,12 +286,12 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="1054"/>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="621"/>
         <source>Apply styles</source>
-        <translation type="unfinished">Appliquer vos styles</translation>
+        <translation>Appliquer vos styles</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="898"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="958"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Soeren Gebbert (v2.3)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -315,129 +315,129 @@
         <location filename="LoadFiles.py" line="124"/>
         <source>There are {} layers to load.
  Do you want to continue?</source>
-        <translation>{} couches à charger.
-Voulez-vous continuer?</translation>
+        <translation>{} couches sont à charger.
+ Voulez-vous continuer?</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="212"/>
+        <location filename="LoadFiles.py" line="214"/>
         <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
         <translation> Vous pouvez retrouver la liste des vouches non chargées dans la log de QGIS &apos;Load Them All&apos;.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="215"/>
+        <location filename="LoadFiles.py" line="217"/>
         <source>layers were loaded succesfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="217"/>
+        <location filename="LoadFiles.py" line="219"/>
         <source>layers loaded succesfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="219"/>
-        <source>layers was loaded succesfully.</source>
-        <translation>capas fue cargada exitosamente.</translation>
-    </message>
-    <message>
         <location filename="LoadFiles.py" line="221"/>
-        <source>layer was loaded succesfully.</source>
-        <translation>capa fue cargada exitosamente.</translation>
+        <source>layers was loaded succesfully.</source>
+        <translation>couche déjà chargée.</translation>
     </message>
     <message>
         <location filename="LoadFiles.py" line="223"/>
+        <source>layer was loaded succesfully.</source>
+        <translation>couche déjà chargée.</translation>
+    </message>
+    <message>
+        <location filename="LoadFiles.py" line="225"/>
         <source> out of </source>
         <translation> parmi </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="243"/>
+        <location filename="LoadFiles.py" line="245"/>
         <source> or </source>
         <translation> ou </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="245"/>
+        <location filename="LoadFiles.py" line="247"/>
         <source>There are no &lt;i&gt;</source>
-        <translation>No hay archivos &lt;i&gt;</translation>
+        <translation>Aucune archive &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="245"/>
+        <location filename="LoadFiles.py" line="247"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
-        <translation>&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
+        <translation>&lt;/i&gt; fichiers à charger dans le répertoire et répondant à vos filtres.
 </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="245"/>
+        <location filename="LoadFiles.py" line="247"/>
         <source>Change those parameters and try again.</source>
-        <translation>Cambia esos parámetros e intenta de nuevo.</translation>
+        <translation>Changer vos paramétrages et charger à nouveau.</translation>
     </message>
 </context>
 <context>
     <name>LoadThemAllDialog</name>
     <message>
-        <location filename="LoadThemAllDialog.py" line="160"/>
+        <location filename="LoadThemAllDialog.py" line="163"/>
         <source>The bounding box coordinates are not correct!
 </source>
         <translation>Les coordonées du rectangle de délimitation sont incorrectes!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="160"/>
+        <location filename="LoadThemAllDialog.py" line="163"/>
         <source>Please adjust the bounding box settings.</source>
         <translation>Ajustez ces coordonées SVP.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="168"/>
+        <location filename="LoadThemAllDialog.py" line="171"/>
         <source>Some bounding box coordinates are missing!
 </source>
         <translation>Il manque des coordonées aux rectangle de délimitation (extent)!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="168"/>
+        <location filename="LoadThemAllDialog.py" line="171"/>
         <source>Please set all bounding box coordinates.</source>
         <translation>Merci de définir toutes les coordonées.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="220"/>
+        <location filename="LoadThemAllDialog.py" line="224"/>
         <source>No layer will match the filter!
 </source>
         <translation>Aucune couche ne correspond a votre filtre!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="190"/>
+        <location filename="LoadThemAllDialog.py" line="194"/>
         <source>Select a geometry type or uncheck the Geometry type filter.</source>
         <translation>Choisir un type de géometríe ou décochez le choix par type de géometríe.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="220"/>
+        <location filename="LoadThemAllDialog.py" line="224"/>
         <source>Select a raster type or uncheck the Raster type filter.</source>
         <translation>Choisir un type de raster ou décochez le choix par type de raster.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="244"/>
+        <location filename="LoadThemAllDialog.py" line="248"/>
         <source>Accents were not ignored!</source>
         <translation>Les caractères speciaux ne sont pas ignorés!</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="250"/>
+        <location filename="LoadThemAllDialog.py" line="254"/>
         <source>The specified directory could not be found!
 </source>
         <translation>Le répertoire choisi ne peut être trouvé!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="250"/>
+        <location filename="LoadThemAllDialog.py" line="254"/>
         <source>Please select an existing directory.</source>
         <translation>Merci de choisir un répertoire existant.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="244"/>
+        <location filename="LoadThemAllDialog.py" line="248"/>
         <source>You have chosen to ignore accents in the alphanumeric filter, but first</source>
         <translation>Vous avez choisi d&apos;ignorer les caractères speciaux dans le filtre alphanumérique, mais au préalable</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="244"/>
+        <location filename="LoadThemAllDialog.py" line="248"/>
         <source> you need to install the Python library &apos;unidecode&apos;.</source>
         <translation> vous devez installer la librarie Python &apos;unicode&apos;.</translation>
     </message>
