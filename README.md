@@ -1,7 +1,8 @@
 # Load Them All
-QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
 
 This fork to apply styles to loaded layers.
+
+QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
 
 ![Load Them All 3][2]
 
