@@ -190,7 +190,9 @@ class LoadFiles():
                 if ( os.path.exists( styleFile)):
                   ml.loadNamedStyle( styleFile)
                   styleFound="True"
-            if styleFound != "True":
+            if styleFound == "True":
+              self.iface.layerTreeView().refreshLayerSymbology( ml.id())
+            else:
               QgsApplication.messageLog().logMessage( "No style found for layer {} nor for group".\
               format( layerPath), 
               "Load Them All", Qgis.Info)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.1" language="fr_FR">
 <context>
     <name>Base_LoadThemAll</name>
     <message>
@@ -50,7 +51,7 @@
     <message>
         <location filename="Ui_Base_LoadThemAll.py" line="173"/>
         <source>Bounding box filter</source>
-        <translation>Filtre dans une boite rectangulaire (extent)</translation>
+        <translation>Filtre dans une boite rectangulaire (emprise)</translation>
     </message>
     <message>
         <location filename="Ui_Base_LoadThemAll.py" line="174"/>
@@ -85,7 +86,7 @@
     <message>
         <location filename="Ui_Base_LoadThemAll.py" line="180"/>
         <source>Map extent</source>
-        <translation>Etendue de la carte</translation>
+        <translation>Emprise de la carte</translation>
     </message>
     <message>
         <location filename="Ui_Base_LoadThemAll.py" line="181"/>
@@ -261,7 +262,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="693"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
-        <translation>L&apos;extension &lt;i&gt;Load Them All&lt;/i&gt; permet de charger un lot de couches ainsi que le structure des répertoires. En option, on peut personnaliser le chargement par plusieurs filtres.</translation>
+        <translation>L&apos;extension &lt;i&gt;Load Them All&lt;/i&gt; permet de charger un lot de couches ainsi que la structure des répertoires. En option, on peut personnaliser le chargement par plusieurs filtres.</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="740"/>
@@ -295,12 +296,12 @@
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="898"/>
-        <source>Copyright (C) 2010-2018 Germ&#xc3;&#xa1;n Carrillo</source>
+        <source>Copyright (C) 2010-2018 GermÃ¡n Carrillo</source>
         <translation></translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="958"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Soeren Gebbert (v2.3)&lt;br/&gt;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;&#xc2;&#xa0;Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;Â Â Â Â Â David Bakeman (v2.1 and v2.4)&lt;br/&gt;Â Â Â Â Â Soeren Gebbert (v2.3)&lt;br/&gt;Â Â Â Â Â Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
 </context>
@@ -389,7 +390,7 @@
         <location filename="LoadThemAllDialog.py" line="171"/>
         <source>Some bounding box coordinates are missing!
 </source>
-        <translation>Il manque des coordonées aux rectangle de délimitation (extent)!
+        <translation>Il manque des coordonnées au rectangle de délimitation (emprise)!
 </translation>
     </message>
     <message>
