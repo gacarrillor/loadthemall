@@ -300,7 +300,7 @@
     </message>
     <message encoding="UTF-8">
         <location filename="Ui_DockWidget.ui" line="958"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (V3.0.2 and french translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (V3.0.2 &amp;amp; fr translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -319,54 +319,54 @@
 ¿Quieres continuar?</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="214"/>
+        <location filename="LoadFiles.py" line="216"/>
         <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
         <translation> Puedes ver un listado de capas no cargadas en la pestaña &apos;Load Them All&apos; del log de QGIS.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="217"/>
+        <location filename="LoadFiles.py" line="219"/>
         <source>layers were loaded succesfully.</source>
         <translation>capas fueron cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="219"/>
+        <location filename="LoadFiles.py" line="221"/>
         <source>layers loaded succesfully.</source>
         <translation>capas cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="221"/>
+        <location filename="LoadFiles.py" line="223"/>
         <source>layers was loaded succesfully.</source>
         <translation>capas fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="223"/>
+        <location filename="LoadFiles.py" line="225"/>
         <source>layer was loaded succesfully.</source>
         <translation>capa fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="225"/>
+        <location filename="LoadFiles.py" line="227"/>
         <source> out of </source>
         <translation> de </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="245"/>
+        <location filename="LoadFiles.py" line="247"/>
         <source> or </source>
         <translation> o </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="247"/>
+        <location filename="LoadFiles.py" line="249"/>
         <source>There are no &lt;i&gt;</source>
         <translation>No hay archivos &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="247"/>
+        <location filename="LoadFiles.py" line="249"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
         <translation>&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
 </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="247"/>
+        <location filename="LoadFiles.py" line="249"/>
         <source>Change those parameters and try again.</source>
         <translation>Cambia esos parámetros e intenta de nuevo.</translation>
     </message>
