@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_DockWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -33,7 +33,7 @@ class Ui_DockWidget(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 322, 579))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 287, 579))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout.setObjectName("gridLayout")
@@ -80,7 +80,7 @@ class Ui_DockWidget(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 322, 608))
+        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 302, 608))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.gridLayout_11 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_11.setObjectName("gridLayout_11")
@@ -135,7 +135,7 @@ class Ui_DockWidget(object):
         self.scrollArea_3.setAlignment(QtCore.Qt.AlignCenter)
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 336, 486))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 348, 469))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -263,9 +263,12 @@ class Ui_DockWidget(object):
         self.horizontalLayout_2.setStretch(0, 1)
         self.horizontalLayout_2.setStretch(1, 1)
         self.gridLayout_5.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
-        self.gridLayout_14.addWidget(self.groupBox, 9, 0, 1, 1)
+        self.gridLayout_14.addWidget(self.groupBox, 10, 0, 1, 1)
         spacerItem3 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.gridLayout_14.addItem(spacerItem3, 10, 0, 1, 1)
+        self.gridLayout_14.addItem(spacerItem3, 11, 0, 1, 1)
+        self.chkStyles = QtWidgets.QCheckBox(self.scrollAreaWidgetContents_2)
+        self.chkStyles.setObjectName("chkStyles")
+        self.gridLayout_14.addWidget(self.chkStyles, 9, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout_14, 0, 0, 1, 1)
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_2)
         self.gridLayout_4.addWidget(self.scrollArea_3, 0, 0, 1, 1)
@@ -413,7 +416,7 @@ class Ui_DockWidget(object):
         DockWidget.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(DockWidget)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(DockWidget)
 
     def retranslateUi(self, DockWidget):
@@ -443,13 +446,16 @@ class Ui_DockWidget(object):
         self.chkAddParentLayerName.setText(_translate("DockWidget", "Include parent name in loaded sublayers"))
         self.txtNumLayersToConfirm.setText(_translate("DockWidget", "50"))
         self.label_6.setText(_translate("DockWidget", "Number of layers to show you a confirmation dialog before the load"))
+        self.chkStyles.setText(_translate("DockWidget", "Apply styles"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabConfiguration), _translate("DockWidget", "Configuration"))
         self.label_4.setText(_translate("DockWidget", "The <i>Load Them All</i> plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize."))
         self.btnHelp.setText(_translate("DockWidget", "Help"))
         self.label_5.setText(_translate("DockWidget", "<html><head/><body><p>Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the <a href=\"https://github.com/gacarrillor/loadthemall\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub repository</span></a></p></body></html>"))
         self.label.setText(_translate("DockWidget", "Copyright (C) 2010-2018 Germán Carrillo"))
         self.label_3.setText(_translate("DockWidget", "<i>Licensed under the terms of GNU GPL 2</i>"))
-        self.label_7.setText(_translate("DockWidget", "<html><head/><body><p><span style=\" font-style:italic;\">Code contributors:</span><br/><br/>     David Bakeman (v2.1 and v2.4)<br/>     Soeren Gebbert (v2.3)</p></body></html>"))
+        self.label_7.setText(_translate("DockWidget", "<html><head/><body><p><span style=\" font-style:italic;\">Code contributors:</span><br/><br/>     David Bakeman (v2.1 and v2.4)<br/>     Soeren Gebbert (v2.3)<br/>     Jean Hemmi (V3.0.2 &amp; fr translation)</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAbout), _translate("DockWidget", "About"))
         self.btnLoadLayers.setText(_translate("DockWidget", "Load layers"))
         self.btnCancel.setText(_translate("DockWidget", "Cancel"))
+
+import resources_rc
