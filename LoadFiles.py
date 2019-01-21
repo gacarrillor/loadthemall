@@ -168,33 +168,30 @@ class LoadFiles():
               self.tree.addLayerToGroup( ml, group )
             else:
               self.tree.addLayer( ml, self.bLayersOff )
-              
-            # Look whether style to load 
-            styleFound=False
+
+            # Look if there is a style to apply
+            bStyleFound = False
             if self.bStyles:
-              # Has layer a style to apply ?
-              styleFile = os.path.join( baseName, os.path.splitext( baseName )[ 0 ] + ".qml")
-              if ( os.path.exists( styleFile)):
-                ml.loadNamedStyle( styleFile)                                
-                styleFound=True
-              elif self.bGroups:
-                # Has the group a style to apply ?
+              # Has layer a style to apply?
+              styleFile = os.path.join( baseName, os.path.splitext( baseName )[0] + ".qml" )
+
+              if not os.path.exists( styleFile ) and self.bGroups:
+                # Has the group a style to apply?
                 aGroup = os.path.dirname( layerPath )
                 aBaseGroup = os.path.basename( aGroup )
-                styleFile = os.path.join( aGroup, aBaseGroup + ".qml")
-#                QgsApplication.messageLog().logMessage(
-#                "Has group '{0}' a qml file {1}".format(aGroup, styleFile),
-#                "Load Them All", Qgis.Info)
-                if ( os.path.exists( styleFile)):
-                  ml.loadNamedStyle( styleFile)
-                  styleFound=True
-                if styleFound:
-                  self.iface.layerTreeView().refreshLayerSymbology( ml.id())
-                else:
-                  QgsApplication.messageLog().logMessage( "No style found for layer {} nor for group".\
-                  format( layerPath), 
-                  "Load Them All", Qgis.Info)
-            # End Styles
+                styleFile = os.path.join( aGroup, aBaseGroup + ".qml" )
+
+              if os.path.exists( styleFile ):
+                ml.loadNamedStyle( styleFile )
+                bStyleFound = True
+
+              if bStyleFound:
+                self.iface.layerTreeView().refreshLayerSymbology( ml.id() )
+              else:
+                QgsApplication.messageLog().logMessage(
+                  "No style found for layer {} nor for its group!".format(layerPath), "Load Them All", Qgis.Info)
+              # End Styles
+
           else:
             QgsApplication.messageLog().logMessage(
                 "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(layerPath),
