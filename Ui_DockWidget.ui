@@ -39,7 +39,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabVector">
        <attribute name="title">
@@ -74,8 +74,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>287</width>
-             <height>579</height>
+             <width>323</width>
+             <height>570</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -191,8 +191,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>302</width>
-             <height>608</height>
+             <width>278</width>
+             <height>598</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
@@ -311,8 +311,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>348</width>
-             <height>469</height>
+             <width>310</width>
+             <height>447</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -670,7 +670,7 @@
              <x>0</x>
              <y>0</y>
              <width>358</width>
-             <height>486</height>
+             <height>474</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_12">
@@ -895,7 +895,7 @@
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>Copyright (C) 2010-2018 Germán Carrillo</string>
+                   <string>Copyright (C) 2010-2019 Germán Carrillo</string>
                   </property>
                   <property name="wordWrap">
                    <bool>false</bool>
@@ -955,7 +955,7 @@
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (V3.0.2 &amp;amp; fr translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French trans.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -1076,8 +1076,5 @@
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
  <connections/>
 </ui>
