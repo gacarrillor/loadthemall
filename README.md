@@ -103,7 +103,7 @@ LICENSE: GPL v2.0
 Code contributors:
 * David Bakeman (v2.1 and v2.4)
 * Sören Gebbert (v2.3)
-* Jean Hemmi (V3.1 and French translation)
+* Jean Hemmi (v3.1 and French translation)
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 
