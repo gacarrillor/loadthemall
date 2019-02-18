@@ -1,6 +1,6 @@
 Changes:
 
-3.1 (20190206):
+3.1 (20190121):
    * Apply QML styles when loading layers
    * French translation
 

@@ -4,97 +4,97 @@
 <context>
     <name>Base_LoadThemAll</name>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="164"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="165"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="20"/>
         <source>Select a base directory</source>
         <translation>Choisir le répertoire base du chargement</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="166"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="43"/>
         <source>Format </source>
         <translation>Format </translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="167"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="73"/>
         <source>Alphanumeric filter</source>
         <translation>Filtre alphanumérique</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="168"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="85"/>
         <source>Invert filter (i.e., prepend a logic NOT)</source>
         <translation>Inverser le filtre (préfixer d&apos;un NOT)</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="169"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="94"/>
         <source>Filter string</source>
         <translation>Filtre textuel</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="170"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="110"/>
         <source>Starts with</source>
         <translation>Commence par</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="171"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="115"/>
         <source>In any position</source>
         <translation>N&apos;importe où</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="172"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="123"/>
         <source>Ends with</source>
         <translation>Se termine par</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="173"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="134"/>
         <source>Bounding box filter</source>
         <translation>Filtre dans une boite rectangulaire (emprise)</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="174"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="180"/>
         <source>North</source>
         <translation>Nord</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="175"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="221"/>
         <source>West</source>
         <translation>Ouest</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="176"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="245"/>
         <source>East</source>
         <translation>Est</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="177"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="292"/>
         <source>South</source>
         <translation>Sud</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="178"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="318"/>
         <source>Contains</source>
         <translation>Contient</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="179"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="326"/>
         <source>Intersects</source>
         <translation>Intersecte</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="180"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="331"/>
         <source>Map extent</source>
         <translation>Emprise de la carte</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="181"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="344"/>
         <source>Date modified filter</source>
         <translation>Filtre par date de modification</translation>
     </message>
     <message>
-        <location filename="Ui_Base_LoadThemAll.py" line="182"/>
+        <location filename="Ui_Base_LoadThemAll.ui" line="385"/>
         <source>ddd dd MMM yyyy hh:mm AP</source>
         <translation></translation>
     </message>
@@ -102,9 +102,8 @@
 <context>
     <name>Base_LoadThemAllDialog</name>
     <message>
-        <location filename="Base_LoadThemAllDialog.py" line="22"/>
         <source>Select a base directory</source>
-        <translation>Choisir le répertoire base du chargement</translation>
+        <translation type="vanished">Choisir le répertoire base du chargement</translation>
     </message>
     <message>
         <location filename="Base_LoadThemAllDialog.py" line="83"/>
@@ -255,65 +254,74 @@
         <translation>50</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="635"/>
+        <location filename="Ui_DockWidget.ui" line="621"/>
+        <source>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="624"/>
+        <source>Apply layer style</source>
+        <translation>Appliquer vos styles</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="651"/>
         <source>About</source>
         <translation>A propos</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="693"/>
+        <location filename="Ui_DockWidget.ui" line="709"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>L&apos;extension &lt;i&gt;Load Them All&lt;/i&gt; permet de charger un lot de couches ainsi que la structure des répertoires. En option, on peut personnaliser le chargement par plusieurs filtres.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="740"/>
+        <location filename="Ui_DockWidget.ui" line="756"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="793"/>
+        <location filename="Ui_DockWidget.ui" line="809"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retour de bugs, proposition d&apos;améliorations ou salutations à gcarrillo@linuxmail.org ou directement dans le &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;dépôt GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="920"/>
+        <location filename="Ui_DockWidget.ui" line="914"/>
+        <source>Copyright (C) 2010-2019 Germán Carrillo</source>
+        <translation>Copyright (C) 2010-2019 Germán Carrillo</translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="936"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1047"/>
+        <location filename="Ui_DockWidget.ui" line="974"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Ui_DockWidget.ui" line="1063"/>
         <source>Load layers</source>
         <translation>Charger les couches</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1054"/>
+        <location filename="Ui_DockWidget.ui" line="1070"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="621"/>
         <source>Apply styles</source>
-        <translation>Appliquer vos styles</translation>
-    </message>
-    <message>
-        <location filename="Ui_DockWidget.ui" line="898"/>
-        <source>Copyright (C) 2010-2018 GermÃ¡n Carrillo</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="Ui_DockWidget.ui" line="958"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (V3.0.2 &amp;amp; fr translation)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation type="vanished">Appliquer vos styles</translation>
     </message>
 </context>
 <context>
     <name>Load Them All</name>
     <message>
-        <location filename="LoadFiles.py" line="124"/>
+        <location filename="LoadFiles.py" line="125"/>
         <source>Load Them All</source>
         <translation>Load Them All</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="124"/>
+        <location filename="LoadFiles.py" line="126"/>
         <source>There are {} layers to load.
  Do you want to continue?</source>
         <translation>{} couches sont à charger.
@@ -345,7 +353,7 @@
         <translation>couche déjà chargée.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="227"/>
+        <location filename="LoadFiles.py" line="229"/>
         <source> out of </source>
         <translation> parmi </translation>
     </message>
@@ -355,19 +363,19 @@
         <translation> ou </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="249"/>
+        <location filename="LoadFiles.py" line="250"/>
         <source>There are no &lt;i&gt;</source>
         <translation>Aucune archive &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="249"/>
+        <location filename="LoadFiles.py" line="251"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
         <translation>&lt;/i&gt; fichiers à charger dans le répertoire et répondant à vos filtres.
 </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="249"/>
+        <location filename="LoadFiles.py" line="252"/>
         <source>Change those parameters and try again.</source>
         <translation>Changer vos paramétrages et charger à nouveau.</translation>
     </message>
@@ -375,72 +383,60 @@
 <context>
     <name>LoadThemAllDialog</name>
     <message>
-        <location filename="LoadThemAllDialog.py" line="163"/>
         <source>The bounding box coordinates are not correct!
 </source>
-        <translation>Les coordonées du rectangle de délimitation sont incorrectes!
+        <translation type="vanished">Les coordonées du rectangle de délimitation sont incorrectes!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="163"/>
         <source>Please adjust the bounding box settings.</source>
-        <translation>Ajustez ces coordonées SVP.</translation>
+        <translation type="vanished">Ajustez ces coordonées SVP.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="171"/>
         <source>Some bounding box coordinates are missing!
 </source>
-        <translation>Il manque des coordonnées au rectangle de délimitation (emprise)!
+        <translation type="vanished">Il manque des coordonnées au rectangle de délimitation (emprise)!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="171"/>
         <source>Please set all bounding box coordinates.</source>
-        <translation>Merci de définir toutes les coordonées.</translation>
+        <translation type="vanished">Merci de définir toutes les coordonées.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="224"/>
         <source>No layer will match the filter!
 </source>
-        <translation>Aucune couche ne correspond a votre filtre!
+        <translation type="vanished">Aucune couche ne correspond a votre filtre!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="194"/>
         <source>Select a geometry type or uncheck the Geometry type filter.</source>
-        <translation>Choisir un type de géometríe ou décochez le choix par type de géometríe.</translation>
+        <translation type="vanished">Choisir un type de géometríe ou décochez le choix par type de géometríe.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="224"/>
         <source>Select a raster type or uncheck the Raster type filter.</source>
-        <translation>Choisir un type de raster ou décochez le choix par type de raster.</translation>
+        <translation type="vanished">Choisir un type de raster ou décochez le choix par type de raster.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="248"/>
         <source>Accents were not ignored!</source>
-        <translation>Les caractères speciaux ne sont pas ignorés!</translation>
+        <translation type="vanished">Les caractères speciaux ne sont pas ignorés!</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="254"/>
         <source>The specified directory could not be found!
 </source>
-        <translation>Le répertoire choisi ne peut être trouvé!
+        <translation type="vanished">Le répertoire choisi ne peut être trouvé!
 </translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="254"/>
         <source>Please select an existing directory.</source>
-        <translation>Merci de choisir un répertoire existant.</translation>
+        <translation type="vanished">Merci de choisir un répertoire existant.</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="248"/>
         <source>You have chosen to ignore accents in the alphanumeric filter, but first</source>
-        <translation>Vous avez choisi d&apos;ignorer les caractères speciaux dans le filtre alphanumérique, mais au préalable</translation>
+        <translation type="vanished">Vous avez choisi d&apos;ignorer les caractères speciaux dans le filtre alphanumérique, mais au préalable</translation>
     </message>
     <message>
-        <location filename="LoadThemAllDialog.py" line="248"/>
         <source> you need to install the Python library &apos;unidecode&apos;.</source>
-        <translation> vous devez installer la librarie Python &apos;unicode&apos;.</translation>
+        <translation type="vanished"> vous devez installer la librarie Python &apos;unicode&apos;.</translation>
     </message>
 </context>
 </TS>

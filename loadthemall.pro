@@ -9,4 +9,4 @@ SOURCES = ./Base_LoadThemAllDialog.py \
           ./Ui_Base_LoadThemAll.py \
           ./Ui_DockWidget.py \
 
-TRANSLATIONS = loadthemall_es.ts loadthelall_fr.ts
+TRANSLATIONS = loadthemall_es.ts loadthemall_fr.ts
