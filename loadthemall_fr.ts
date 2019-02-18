@@ -249,62 +249,68 @@
         <translation>Nombre de couches pour faire apparaitre la fenêtre de confirmation du chargement</translation>
     </message>
     <message>
+        <location filename="Ui_DockWidget.ui" line="625"/>
+        <source>Apply group style to layers</source>
+        <translation>Appliquer vos styles</translation>
+    </message>
+    <message>
         <location filename="Ui_DockWidget.ui" line="569"/>
         <source>50</source>
         <translation>50</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="621"/>
-        <source>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</source>
+        <source>When checked, if groups are checked and a QML is found inside a layer folder with the
+same folder name (e.g., my_group.qml), it will be applied to all layers inside that group.</source>
+        <oldsource>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="624"/>
         <source>Apply layer style</source>
-        <translation>Appliquer vos styles</translation>
+        <translation type="vanished">Appliquer vos styles</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="651"/>
+        <location filename="Ui_DockWidget.ui" line="652"/>
         <source>About</source>
         <translation>A propos</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="709"/>
+        <location filename="Ui_DockWidget.ui" line="710"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>L&apos;extension &lt;i&gt;Load Them All&lt;/i&gt; permet de charger un lot de couches ainsi que la structure des répertoires. En option, on peut personnaliser le chargement par plusieurs filtres.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="756"/>
+        <location filename="Ui_DockWidget.ui" line="757"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="809"/>
+        <location filename="Ui_DockWidget.ui" line="810"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retour de bugs, proposition d&apos;améliorations ou salutations à gcarrillo@linuxmail.org ou directement dans le &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;dépôt GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="914"/>
+        <location filename="Ui_DockWidget.ui" line="915"/>
         <source>Copyright (C) 2010-2019 Germán Carrillo</source>
         <translation>Copyright (C) 2010-2019 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="936"/>
+        <location filename="Ui_DockWidget.ui" line="937"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="974"/>
+        <location filename="Ui_DockWidget.ui" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1063"/>
+        <location filename="Ui_DockWidget.ui" line="1064"/>
         <source>Load layers</source>
         <translation>Charger les couches</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1070"/>
+        <location filename="Ui_DockWidget.ui" line="1071"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -328,54 +334,54 @@
  Voulez-vous continuer?</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="216"/>
+        <location filename="LoadFiles.py" line="209"/>
         <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
         <translation> Vous pouvez retrouver la liste des vouches non chargées dans la log de QGIS &apos;Load Them All&apos;.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="219"/>
+        <location filename="LoadFiles.py" line="212"/>
         <source>layers were loaded succesfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="221"/>
+        <location filename="LoadFiles.py" line="214"/>
         <source>layers loaded succesfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="223"/>
+        <location filename="LoadFiles.py" line="216"/>
         <source>layers was loaded succesfully.</source>
         <translation>couche déjà chargée.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="225"/>
+        <location filename="LoadFiles.py" line="218"/>
         <source>layer was loaded succesfully.</source>
         <translation>couche déjà chargée.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="229"/>
+        <location filename="LoadFiles.py" line="222"/>
         <source> out of </source>
         <translation> parmi </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="247"/>
+        <location filename="LoadFiles.py" line="240"/>
         <source> or </source>
         <translation> ou </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="250"/>
+        <location filename="LoadFiles.py" line="243"/>
         <source>There are no &lt;i&gt;</source>
         <translation>Aucune archive &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="251"/>
+        <location filename="LoadFiles.py" line="244"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
         <translation>&lt;/i&gt; fichiers à charger dans le répertoire et répondant à vos filtres.
 </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="252"/>
+        <location filename="LoadFiles.py" line="245"/>
         <source>Change those parameters and try again.</source>
         <translation>Changer vos paramétrages et charger à nouveau.</translation>
     </message>

@@ -191,7 +191,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>278</width>
+             <width>323</width>
              <height>598</height>
             </rect>
            </property>
@@ -311,8 +311,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>310</width>
-             <height>447</height>
+             <width>323</width>
+             <height>493</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -499,7 +499,7 @@
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
+              <item row="10" column="0">
                <widget class="QGroupBox" name="groupBox_2">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
@@ -531,7 +531,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="10" column="0">
+              <item row="12" column="0">
                <widget class="QGroupBox" name="groupBox">
                 <property name="minimumSize">
                  <size>
@@ -599,7 +599,7 @@
                 </layout>
                </widget>
               </item>
-              <item row="11" column="0">
+              <item row="13" column="0">
                <spacer name="verticalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -615,12 +615,29 @@
                 </property>
                </spacer>
               </item>
-              <item row="9" column="0">
+              <item row="8" column="0">
                <widget class="QCheckBox" name="chkStyles">
+                <property name="toolTip">
+                 <string>When checked, if groups are checked and a QML is found inside a layer folder with the
+same folder name (e.g., my_group.qml), it will be applied to all layers inside that group.</string>
+                </property>
                 <property name="text">
-                 <string>Apply styles</string>
+                 <string>Apply group style to layers</string>
                 </property>
                </widget>
+              </item>
+              <item row="9" column="0">
+               <spacer name="verticalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </item>
@@ -955,7 +972,7 @@
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French trans.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>

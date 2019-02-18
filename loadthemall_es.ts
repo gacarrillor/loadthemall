@@ -126,7 +126,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="20"/>
         <source>  Load Them All</source>
-        <translation>Load Them All</translation>
+        <translation>  Load Them All</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="46"/>
@@ -201,7 +201,7 @@
     <message>
         <location filename="Ui_DockWidget.ui" line="411"/>
         <source>Do not load empty vector layers </source>
-        <translation>No cargar capas vacías</translation>
+        <translation>No cargar capas vacías </translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="427"/>
@@ -249,62 +249,69 @@
         <translation>Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
     </message>
     <message>
+        <location filename="Ui_DockWidget.ui" line="625"/>
+        <source>Apply group style to layers</source>
+        <translation>Aplicar estilo de grupo a las capas</translation>
+    </message>
+    <message>
         <location filename="Ui_DockWidget.ui" line="569"/>
         <source>50</source>
         <translation>50</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="621"/>
-        <source>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</source>
-        <translation>Cuando esté seleccionado, si hay un archivo QML que comparta el nombre y la ruta con una capa, este será aplicado. Si los grupos están seleccionados y hay un QML con el nombre del grupo, este será aplicado a todas las capas dentro de ese grupo.</translation>
+        <source>When checked, if groups are checked and a QML is found inside a layer folder with the
+same folder name (e.g., my_group.qml), it will be applied to all layers inside that group.</source>
+        <oldsource>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</oldsource>
+        <translation>Cuando esté seleccionado, si los grupos están seleccionados y se encuentra un QML dentro de la carpeta de 
+una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas las capas dentro de ese grupo.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="624"/>
         <source>Apply layer style</source>
-        <translation>Aplicar estilos a las capas</translation>
+        <translation type="vanished">Aplicar estilos a las capas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="651"/>
+        <location filename="Ui_DockWidget.ui" line="652"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="709"/>
+        <location filename="Ui_DockWidget.ui" line="710"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>El plugin &lt;i&gt;Load Them All&lt;/i&gt; permite cargar de forma simultánea varias capas almacenadas en una estructura de directorios, con base en una serie de filtros que se pueden personalizar.</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="756"/>
+        <location filename="Ui_DockWidget.ui" line="757"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="809"/>
+        <location filename="Ui_DockWidget.ui" line="810"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda :D en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="914"/>
+        <location filename="Ui_DockWidget.ui" line="915"/>
         <source>Copyright (C) 2010-2019 Germán Carrillo</source>
         <translation>Copyright (C) 2010-2019 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="936"/>
+        <location filename="Ui_DockWidget.ui" line="937"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="974"/>
+        <location filename="Ui_DockWidget.ui" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1063"/>
+        <location filename="Ui_DockWidget.ui" line="1064"/>
         <source>Load layers</source>
         <translation>Cargar capas</translation>
     </message>
     <message>
-        <location filename="Ui_DockWidget.ui" line="1070"/>
+        <location filename="Ui_DockWidget.ui" line="1071"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -324,54 +331,54 @@
 ¿Quieres continuar?</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="216"/>
+        <location filename="LoadFiles.py" line="209"/>
         <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
         <translation> Puedes ver un listado de capas no cargadas en la pestaña &apos;Load Them All&apos; del log de QGIS.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="219"/>
+        <location filename="LoadFiles.py" line="212"/>
         <source>layers were loaded succesfully.</source>
         <translation>capas fueron cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="221"/>
+        <location filename="LoadFiles.py" line="214"/>
         <source>layers loaded succesfully.</source>
         <translation>capas cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="223"/>
+        <location filename="LoadFiles.py" line="216"/>
         <source>layers was loaded succesfully.</source>
         <translation>capas fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="225"/>
+        <location filename="LoadFiles.py" line="218"/>
         <source>layer was loaded succesfully.</source>
         <translation>capa fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="229"/>
+        <location filename="LoadFiles.py" line="222"/>
         <source> out of </source>
         <translation> de </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="247"/>
+        <location filename="LoadFiles.py" line="240"/>
         <source> or </source>
         <translation> o </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="250"/>
+        <location filename="LoadFiles.py" line="243"/>
         <source>There are no &lt;i&gt;</source>
         <translation>No hay archivos &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="251"/>
+        <location filename="LoadFiles.py" line="244"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
         <translation>&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
 </translation>
     </message>
     <message>
-        <location filename="LoadFiles.py" line="252"/>
+        <location filename="LoadFiles.py" line="245"/>
         <source>Change those parameters and try again.</source>
         <translation>Cambia esos parámetros e intenta de nuevo.</translation>
     </message>

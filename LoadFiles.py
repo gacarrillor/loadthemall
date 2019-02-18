@@ -172,24 +172,23 @@ class LoadFiles():
             # Look if there is a style to apply
             bStyleFound = False
             if self.bStyles:
-              # Has layer a style to apply?
-              styleFile = os.path.join( baseName, os.path.splitext( baseName )[0] + ".qml" )
-
-              if not os.path.exists( styleFile ) and self.bGroups:
+              if self.bGroups:
                 # Has the group a style to apply?
-                aGroup = os.path.dirname( layerPath )
-                aBaseGroup = os.path.basename( aGroup )
-                styleFile = os.path.join( aGroup, aBaseGroup + ".qml" )
+                aGroup = os.path.dirname(layerPath)
+                aBaseGroup = os.path.basename(aGroup)
+                styleFile = os.path.join(aGroup, aBaseGroup + ".qml")
 
-              if os.path.exists( styleFile ):
-                ml.loadNamedStyle( styleFile )
-                bStyleFound = True
+                if os.path.exists(styleFile):
+                  ml.loadNamedStyle(styleFile)
+                  bStyleFound = True
+                  QgsApplication.messageLog().logMessage("QML for group '{}' applied to layer '{}'".format(
+                    aBaseGroup, ml.name()), "Load Them All", Qgis.Info)
 
               if bStyleFound:
                 self.iface.layerTreeView().refreshLayerSymbology( ml.id() )
               else:
                 QgsApplication.messageLog().logMessage(
-                  "No style found for layer {} nor for its group!".format(layerPath), "Load Them All", Qgis.Info)
+                  "No style found for layer group '{}' or 'create groups' option is disabled!".format(aBaseGroup), "Load Them All", Qgis.Warning)
               # End Styles
 
           else:
