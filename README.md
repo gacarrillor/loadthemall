@@ -6,6 +6,10 @@ QGIS plugin that recursively loads vector and raster layers stored in a director
 
 ![Load Them All][1]
 
+![Load Them All][3]
+
+
+
 Available filters are:
 
 * **Alphanumeric**:
@@ -112,3 +116,4 @@ See the changelog at https://github.com/gacarrillor/loadthemall/blob/master/chan
 
 [1]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/LoadThemAll_v2_4.png
 [2]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/load_them_all_v3_0.gif
+[3]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/LoadThemAll_ApplyGroupStyles.gif
