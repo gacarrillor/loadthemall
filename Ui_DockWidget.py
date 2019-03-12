@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_DockWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -423,7 +423,7 @@ class Ui_DockWidget(object):
 
     def retranslateUi(self, DockWidget):
         _translate = QtCore.QCoreApplication.translate
-        DockWidget.setWindowTitle(_translate("DockWidget", "  Load Them All"))
+        DockWidget.setWindowTitle(_translate("DockWidget", "Load Them All"))
         self.groupBoxGeometryTypeFilter.setTitle(_translate("DockWidget", "Geometry type filter"))
         self.chkPolygon.setText(_translate("DockWidget", "Polygon"))
         self.chkPoint.setText(_translate("DockWidget", "Point"))
