@@ -56,6 +56,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
 
     self.tabWidget.currentChanged.connect( self.tabChanged )
     self.chkGroups.stateChanged.connect( self.saveConfigTabSettings )
+    self.chkStyles.stateChanged.connect( self.saveConfigTabSettings )
     self.chkLayersOff.stateChanged.connect( self.saveConfigTabSettings )
     self.chkDoNotEmpty.stateChanged.connect( self.saveConfigTabSettings )
     self.chkSort.stateChanged.connect( self.saveConfigTabSettings )
@@ -65,7 +66,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     self.chkAccentInsensitive.stateChanged.connect( self.saveConfigTabSettings )
     self.chkSearchParentLayer.stateChanged.connect( self.saveConfigTabSettings )
     self.chkAddParentLayerName.stateChanged.connect( self.saveConfigTabSettings )
-    self.chkStyles.stateChanged.connect( self.saveConfigTabSettings )
     self.btnHelp.clicked.connect( self.help )
     self.btnLoadLayers.clicked.connect( self.load )
     self.btnCancel.setVisible( False )
@@ -113,6 +113,7 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
 
       # Configuration
       bGroups = self.chkGroups.isChecked()
+      bStyles = self.chkStyles.isChecked()
       bLayersOff = self.chkLayersOff.isChecked()
       bDoNotEmpty = self.chkDoNotEmpty.isChecked()
       bSort = self.chkSort.isChecked()
@@ -121,7 +122,6 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
       bAccentInsensitive = self.chkAccentInsensitive.isChecked()
       bSearchParentLayer = self.chkSearchParentLayer.isChecked()
       bAddParentLayerName = self.chkAddParentLayerName.isChecked()
-      bStyles = self.chkStyles.isChecked()
       n = int( self.txtNumLayersToConfirm.text() )
       if n <= 0: n = 50
       numLayersToConfirm = n
@@ -301,7 +301,13 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     """ The configuration tab is special, so it needs to save parameters separately """
     settings = QSettings()
     settings.beginGroup( "/Load_Them_All/config" )
-    settings.setValue( "groups", self.chkGroups.isChecked() )
+    
+    groupChecked = self.chkGroups.isChecked()
+    settings.setValue( "groups", groupChecked )
+    self.chkStyles.setEnabled( groupChecked )
+    settings.setValue( "stylesEnabled", groupChecked )
+    settings.setValue( "styles", self.chkStyles.isChecked() )
+    
     settings.setValue( "layersOff", self.chkLayersOff.isChecked() )
     settings.setValue( "doNotEmpty", self.chkDoNotEmpty.isChecked() )
 
@@ -309,13 +315,12 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
     settings.setValue( "sort", sortChecked )
     self.chkReverseSort.setEnabled( sortChecked )
     settings.setValue( "reverseSortEnabled", sortChecked )
-
     settings.setValue( "reverseSort", self.chkReverseSort.isChecked() )
+    
     settings.setValue( "caseInsensitive", self.chkCaseInsensitive.isChecked() )
     settings.setValue( "accentInsensitive", self.chkAccentInsensitive.isChecked() )
     settings.setValue( "searchParentLayer", self.chkSearchParentLayer.isChecked() )
     settings.setValue( "addParentLayerName", self.chkAddParentLayerName.isChecked() )
-    settings.setValue( "styles", self.chkStyles.isChecked() )
     n = int( self.txtNumLayersToConfirm.text() )
     if n <= 0: n = 50
     settings.setValue( "numLayersToConfirm", n )
@@ -479,6 +484,10 @@ class LoadThemAllDialog( QDockWidget, Ui_DockWidget ):
         self.chkStyles.setChecked( settings.value( "styles", type=bool ) )
     else:
         self.chkStyles.setChecked( False )
+    if not settings.value( "stylesEnabled" ) is None:
+        self.chkStyles.setEnabled( settings.value( "stylesEnabled", type=bool ) )
+    else:
+        self.chkStyles.setEnabled( True )
         
     if not settings.value( "numLayersToConfirm" ) is None:
         n = int(settings.value( "numLayersToConfirm" ))
