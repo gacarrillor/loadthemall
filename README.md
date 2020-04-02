@@ -74,6 +74,7 @@ The plugin supports the following file extensions:
   * SQLite (*.sqlite)
   * Arc/Info ASCII Coverage (*.e00)
   * AutoCAD DXF (*.dxf)
+  * JSON (*.json)
 
 
 * Rasters
