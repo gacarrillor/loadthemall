@@ -16,7 +16,11 @@ experimental=False
 deprecated=False
 
 
-changelog=3.1 (20190218):
+changelog=3.2 (20200401):
+    ...* Support JSON files.
+    ...* Support sublayers that share name and have different geometry types.
+
+    3.1 (20190218):
     ...* Apply QML styles when loading layers
     ...* French translation
 

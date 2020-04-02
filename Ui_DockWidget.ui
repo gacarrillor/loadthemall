@@ -912,7 +912,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>Copyright (C) 2010-2019 Germán Carrillo</string>
+                   <string>Copyright (C) 2010-2020 Germán Carrillo</string>
                   </property>
                   <property name="wordWrap">
                    <bool>false</bool>

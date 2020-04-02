@@ -292,8 +292,8 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="915"/>
-        <source>Copyright (C) 2010-2019 Germán Carrillo</source>
-        <translation>Copyright (C) 2010-2019 Germán Carrillo</translation>
+        <source>Copyright (C) 2010-2020 Germán Carrillo</source>
+        <translation>Copyright (C) 2010-2020 Germán Carrillo</translation>
     </message>
     <message>
         <location filename="Ui_DockWidget.ui" line="937"/>

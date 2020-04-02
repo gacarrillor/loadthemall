@@ -85,10 +85,24 @@ class LoadFiles():
             if self.dataType == 'vector':
               layer = QgsVectorLayer( layerPath, "", "ogr" )
               if layer.isValid():
+                # Do we have sublayers?
                 if len( layer.dataProvider().subLayers() ) > 1:
                   # Sample: ['0!!::!!line_intersection_collection!!::!!12!!::!!LineString!!::!!geometryProperty']
+                  subLayers = dict()
                   for subLayer in layer.dataProvider().subLayers():
-                    layerPaths.extend( [ "{}|layername={}".format( layerPath, subLayer.split("!!::!!")[1] ) ] )
+                    parts = subLayer.split("!!::!!")  # 1: name, 3: geometry type
+                    # Sublayers might share layer name, we need to get geometry types just in case
+                    if parts[1] in subLayers:
+                      subLayers[parts[1]].append(parts[3])
+                    else:
+                      subLayers[parts[1]] = [parts[3]]
+
+                  for subLayerName,subLayerGeometries in subLayers.items():
+                    if len(subLayerGeometries) > 1:
+                      for subLayerGeometry in subLayerGeometries:
+                        layerPaths.append( "{}|layername={}|geometrytype={}".format( layerPath, subLayerName, subLayerGeometry) )
+                    else:
+                      layerPaths.append( "{}|layername={}".format( layerPath, subLayerName) )
                 else:
                   layerPaths.append( layerPath )
             else: #'raster'
@@ -155,11 +169,14 @@ class LoadFiles():
 
           baseName = os.path.basename( layerPath )
           layerName = os.path.splitext( baseName )[ 0 ]
+
+          # Let's clear the layer name for sublayers
           if '|layername=' in baseName and not baseName.endswith( '|layername=' ):
+            subLayerName = baseName.split('|layername=')[1].split('|geometrytype=')[0]
             if self.bAddParentLayerName:
-              layerName = "".join( [layerName, " ", os.path.basename( layerPath ).split( '|layername=' )[1]] )
+              layerName = "".join( [layerName, " ", subLayerName] )
             else:
-              layerName = baseName.split( '|layername=' )[1]
+              layerName = subLayerName
 
           ml = self.createLayer( layerPath, layerName )
           if ml.isValid():

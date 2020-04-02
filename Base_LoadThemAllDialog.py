@@ -36,7 +36,7 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
   def loadFormats( self, isVector ):
     """ Fill the comboBox with file formats """
     if isVector:
-      self.cboFormats.addItem( "All listed formats (*.*)", [".gpkg", ".shp", ".mif", ".tab", ".dgn", ".vrt", ".csv", ".gml", ".gpx", ".kml", ".geojson", ".gmt", ".sqlite", ".e00", ".dxf"] )
+      self.cboFormats.addItem( "All listed formats (*.*)", [".gpkg", ".shp", ".mif", ".tab", ".dgn", ".vrt", ".csv", ".gml", ".gpx", ".kml", ".geojson", ".gmt", ".sqlite", ".e00", ".dxf", ".json"] )
       self.cboFormats.addItem( "GeoPackage (*.gpkg)", [".gpkg"] )
       self.cboFormats.addItem( "ESRI Shapefile (*.shp)", [".shp"] )
       self.cboFormats.addItem( "Mapinfo File (*.mif, *.tab)", [".mif", ".tab"] )
@@ -51,6 +51,7 @@ class Base_LoadThemAllDialog( QDialog, Ui_Base_LoadThemAll ):
       self.cboFormats.addItem( "SQLite (*.sqlite)", [".sqlite"] )
       self.cboFormats.addItem( "Arc/Info ASCII Coverage (*.e00)", [".e00"] )
       self.cboFormats.addItem( "AutoCAD DXF (*.dxf)", [".dxf"] )
+      self.cboFormats.addItem( "JSON (*.json)", [".json"] )
     else:
       self.cboFormats.addItem( "All listed formats (*.*)", [".vrt", ".tif", ".tiff", ".ecw", ".img", ".dt2", ".dt3", ".asc", ".png", ".jpg", ".jpeg", ".gif", ".xpm", ".bmp", ".pix", ".map", ".mpr", ".mpl", ".hgt", ".nc", ".grb", ".rst", ".grd", ".rda", ".hdr", ".dem", ".blx", ".sqlite", ".sdat"] )
       self.cboFormats.addItem( "Virtual Raster (*.vrt)", [".vrt"] )

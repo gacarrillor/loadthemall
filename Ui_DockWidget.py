@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_DockWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -455,7 +455,7 @@ class Ui_DockWidget(object):
         self.label_4.setText(_translate("DockWidget", "The <i>Load Them All</i> plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize."))
         self.btnHelp.setText(_translate("DockWidget", "Help"))
         self.label_5.setText(_translate("DockWidget", "<html><head/><body><p>Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the <a href=\"https://github.com/gacarrillor/loadthemall\"><span style=\" text-decoration: underline; color:#0000ff;\">GitHub repository</span></a></p></body></html>"))
-        self.label.setText(_translate("DockWidget", "Copyright (C) 2010-2019 Germán Carrillo"))
+        self.label.setText(_translate("DockWidget", "Copyright (C) 2010-2020 Germán Carrillo"))
         self.label_3.setText(_translate("DockWidget", "<i>Licensed under the terms of GNU GPL 2</i>"))
         self.label_7.setText(_translate("DockWidget", "<html><head/><body><p><span style=\" font-style:italic;\">Code contributors:</span><br/><br/>     David Bakeman (v2.1 and v2.4)<br/>     Soeren Gebbert (v2.3)<br/>     Jean Hemmi (v3.1 &amp; French transl.)</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAbout), _translate("DockWidget", "About"))
