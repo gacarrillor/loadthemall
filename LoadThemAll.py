@@ -21,7 +21,8 @@ email                : geotux_tuxman@linuxmail.org
 """
 import os
 
-from qgis.core import QgsApplication
+from qgis.core import (QgsApplication,
+                       Qgis)
 from qgis.PyQt.QtCore import (
     QCoreApplication,
     QFileInfo,
@@ -57,7 +58,6 @@ class LoadThemAll:
     self.iface.addPluginToMenu( "&Load them all", self.action )
 
     self.dockWidget = LoadThemAllDialog( self.iface.mainWindow(), self.iface )
-    self.iface.addDockWidget( Qt.RightDockWidgetArea, self.dockWidget )
 
   def unload(self):
     # Remove the plugin menu item and icon
@@ -69,7 +69,10 @@ class LoadThemAll:
 
   # run method that performs all the real work
   def run(self):
-    self.dockWidget.show()
+      if Qgis.QGIS_VERSION_INT >= 31300:  # Use native addTabifiedDockWidget
+          self.iface.addTabifiedDockWidget(Qt.RightDockWidgetArea, self.dockWidget, raiseTab=True)
+      else:
+          self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
 
   def installTranslator( self ): # TODO check this installation
     userPluginPath = os.path.join( os.path.dirname( str( QgsApplication.qgisUserDatabaseFilePath() ) ), "python/plugins/loadthemall" )
