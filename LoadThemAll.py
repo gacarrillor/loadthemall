@@ -21,6 +21,8 @@ email                : geotux_tuxman@linuxmail.org
 """
 import os
 
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
 from qgis.core import (QgsApplication,
                        Qgis)
 from qgis.PyQt.QtCore import (
@@ -32,67 +34,65 @@ from qgis.PyQt.QtCore import (
     Qt,
     QTranslator
 )
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
 
 from .resources_rc import *
-
 from .LoadThemAllDialog import LoadThemAllDialog
 
+
 class LoadThemAll:
-  def __init__( self, iface ):
-    # Save reference to the QGIS interface
-    self.iface = iface
+    def __init__(self, iface):
+        # Save reference to the QGIS interface
+        self.iface = iface
+    
+        self.installTranslator()
 
-    self.installTranslator()
+    def initGui(self):
+        # Create action that will start plugin configuration
+        self.action = QAction(QIcon(":/plugins/loadthemall/icon.png"), \
+            "Load them all...", self.iface.mainWindow())
+        # connect the action to the run method
+        self.action.triggered.connect(self.run)
+    
+        # Add toolbar button and menu item
+        self.iface.addToolBarIcon(self.action)
+        self.iface.addPluginToMenu("&Load them all", self.action)
+    
+        self.dockWidget = LoadThemAllDialog(self.iface.mainWindow(), self.iface)
 
-  def initGui( self ):
-    # Create action that will start plugin configuration
-    self.action = QAction(QIcon( ":/plugins/loadthemall/icon.png"), \
-        "Load them all...", self.iface.mainWindow() )
-    # connect the action to the run method
-    self.action.triggered.connect( self.run )
+    def unload(self):
+        # Remove the plugin menu item and icon
+        self.iface.removePluginMenu("&Load them all", self.action)
+        self.iface.removeToolBarIcon(self.action)
+    
+        self.dockWidget.close()
+        self.iface.removeDockWidget(self.dockWidget)
 
-    # Add toolbar button and menu item
-    self.iface.addToolBarIcon( self.action )
-    self.iface.addPluginToMenu( "&Load them all", self.action )
+    # run method that performs all the real work
+    def run(self):
+        if Qgis.QGIS_VERSION_INT >= 31300:  # Use native addTabifiedDockWidget
+            self.iface.addTabifiedDockWidget(Qt.RightDockWidgetArea, self.dockWidget, raiseTab=True)
+        else:
+            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
 
-    self.dockWidget = LoadThemAllDialog( self.iface.mainWindow(), self.iface )
-
-  def unload(self):
-    # Remove the plugin menu item and icon
-    self.iface.removePluginMenu( "&Load them all", self.action )
-    self.iface.removeToolBarIcon( self.action )
-
-    self.dockWidget.close()
-    self.iface.removeDockWidget( self.dockWidget )
-
-  # run method that performs all the real work
-  def run(self):
-      if Qgis.QGIS_VERSION_INT >= 31300:  # Use native addTabifiedDockWidget
-          self.iface.addTabifiedDockWidget(Qt.RightDockWidgetArea, self.dockWidget, raiseTab=True)
-      else:
-          self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
-
-  def installTranslator( self ): # TODO check this installation
-    userPluginPath = os.path.join( os.path.dirname( str( QgsApplication.qgisUserDatabaseFilePath() ) ), "python/plugins/loadthemall" )
-    systemPluginPath = os.path.join( str( QgsApplication.prefixPath() ), "python/plugins/loadthemall" )
-    translationPath = ''
-
-    try:
-        # Errors here could happen if the value cannot be converted to string or
-        # if it is not subscriptable (see https://github.com/gacarrillor/loadthemall/issues/11)
-        locale = QSettings().value("locale/userLocale", type=str)
-        myLocale = str( locale[0:2] )
-    except TypeError as e:
-        myLocale = 'en'
-
-    if os.path.exists( userPluginPath ):
-      translationPath = os.path.join( userPluginPath, "loadthemall_" + myLocale + ".qm" )
-    else:
-      translationPath = os.path.join( systemPluginPath, "loadthemall_" + myLocale + ".qm" )
-
-    if QFileInfo( translationPath ).exists():
-      self.translator = QTranslator()
-      self.translator.load( translationPath )
-      QCoreApplication.installTranslator( self.translator )
+    def installTranslator(self): # TODO check this installation
+        userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall")
+        systemPluginPath = os.path.join(str(QgsApplication.prefixPath()), "python/plugins/loadthemall")
+        translationPath = ''
+    
+        try:
+            # Errors here could happen if the value cannot be converted to string or
+            # if it is not subscriptable (see https://github.com/gacarrillor/loadthemall/issues/11)
+            locale = QSettings().value("locale/userLocale", type=str)
+            myLocale = str(locale[0:2])
+        except TypeError as e:
+            myLocale = 'en'
+            
+        if os.path.exists(userPluginPath):
+            translationPath = os.path.join(userPluginPath, "loadthemall_" + myLocale + ".qm")
+        else:
+            translationPath = os.path.join(systemPluginPath, "loadthemall_" + myLocale + ".qm")
+    
+        if QFileInfo(translationPath).exists():
+            self.translator = QTranslator()
+            self.translator.load(translationPath)
+            QCoreApplication.installTranslator(self.translator)
