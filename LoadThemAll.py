@@ -48,8 +48,7 @@ class LoadThemAll:
 
     def initGui(self):
         # Create action that will start plugin configuration
-        self.action = QAction(QIcon(":/plugins/loadthemall/icon.png"), \
-            "Load them all...", self.iface.mainWindow())
+        self.action = QAction(QIcon(":/plugins/loadthemall/icon.png"), "Load them all...", self.iface.mainWindow())
         # connect the action to the run method
         self.action.triggered.connect(self.run)
     

@@ -70,8 +70,7 @@ class LoadFiles():
             # files = [self.decodeName(f) for f in files]
             for file_ in files:
                 QApplication.processEvents()  # TODO: Perhaps better by chunks?
-                if not self.progressBar.parent().parent().processStatus:
-                    # The process was canceled
+                if self.process_cancelled():
                     return False
 
                 try:  # TODO: do we need this in Python 3?
@@ -114,8 +113,7 @@ class LoadFiles():
 
         for path in layerPaths:
             QApplication.processEvents()
-            if not self.progressBar.parent().parent().processStatus:
-                # The process was canceled
+            if self.process_cancelled():
                 return False
 
             if self.applyFilter(path):  # The layer passes the filter?
@@ -130,8 +128,7 @@ class LoadFiles():
 
     def loadLayers(self):
         """ Load the layer to the map """
-        if not self.progressBar.parent().parent().processStatus:
-            # The process was canceled
+        if self.process_cancelled():
             return False
 
         numLayers = len(self.lstFilesToLoad)
@@ -166,8 +163,7 @@ class LoadFiles():
 
                 for layerPath in self.lstFilesToLoad:
                     QApplication.processEvents()
-                    if not self.progressBar.parent().parent().processStatus:
-                        # The process was canceled
+                    if self.process_cancelled():
                         self.iface.mapCanvas().setRenderFlag(True)
                         return False
 
@@ -277,6 +273,9 @@ class LoadFiles():
                                                                "Change those parameters and try again."),
                                     QMessageBox.Ok)
         return True
+
+    def process_cancelled(self):
+        return not self.progressBar.parent().parent().processStatus
 
     def createLayer(self, layerPath, layerBaseName):
         """ To be overridden by subclasses """

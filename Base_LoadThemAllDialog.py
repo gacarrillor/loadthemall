@@ -103,5 +103,5 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
 
     def keyPressEvent(self, e):
         """ Handle the ESC key to avoid only the base dialog being closed """
-        if (e.key() == Qt.Key_Escape):
+        if e.key() == Qt.Key_Escape:
             e.ignore()
