@@ -61,8 +61,8 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
         else:
             self.cboFormats.addItem("All listed formats (*.*)",
                                     [".vrt", ".tif", ".tiff", ".ecw", ".img", ".dt2", ".dt3", ".asc", ".png", ".jpg",
-                                     ".jpeg", ".gif", ".xpm", ".bmp", ".pix", ".map", ".mpr", ".mpl", ".hgt", ".nc",
-                                     ".grb", ".rst", ".grd", ".rda", ".hdr", ".dem", ".blx", ".sqlite", ".sdat"])
+                                     ".jpeg", ".jp2", ".gif", ".xpm", ".bmp", ".pix", ".map", ".mpr", ".mpl", ".hgt",
+                                     ".nc", ".grb", ".rst", ".grd", ".rda", ".hdr", ".dem", ".blx", ".sqlite", ".sdat"])
             self.cboFormats.addItem("Virtual Raster (*.vrt)", [".vrt"])
             self.cboFormats.addItem("GeoTIFF (*.tif, *.tiff)", [".tif", ".tiff"])
             self.cboFormats.addItem("Erdas Imagine Images (*.img)", [".img"])
@@ -71,6 +71,7 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
             self.cboFormats.addItem("Arc/Info ASCII Grid (*.asc)", [".asc"])
             self.cboFormats.addItem("Portable Network Graphics (*.png)", [".png"])
             self.cboFormats.addItem("JPEG JFIF (*.jpg, *.jpeg)", [".jpg", ".jpeg"])
+            self.cboFormats.addItem("JPEG2000 (*.jp2)", [".jp2"])
             self.cboFormats.addItem("Graphics Interchange Format (*.gif)", [".gif"])
             self.cboFormats.addItem("X11 PixMap Format (*.xpm)", [".xpm"])
             self.cboFormats.addItem("Bitmap image file (*.bmp)", [".bmp"])

@@ -84,6 +84,7 @@ The plugin supports the following file extensions:
   * Arc/Info ASCII Grid (*.asc)
   * Portable Network Graphics (*.png)
   * JPEG JFIF (*.jpg, *.jpeg)
+  * JPEG2000 (*.jp2)
   * Graphics Interchange Format (*.gif)
   * X11 PixMap Format (*.xpm)
   * MS Windows Device Independent Bitmap (*.bmp)
