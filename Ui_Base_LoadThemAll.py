@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'Ui_Base_LoadThemAll.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Base_LoadThemAll(object):
     def setupUi(self, Base_LoadThemAll):
@@ -180,4 +182,3 @@ class Ui_Base_LoadThemAll(object):
         self.btnLoadExtent.setText(_translate("Base_LoadThemAll", "Map extent"))
         self.groupBoxDateModified.setTitle(_translate("Base_LoadThemAll", "Date modified filter"))
         self.dtDateTime.setDisplayFormat(_translate("Base_LoadThemAll", "ddd dd MMM yyyy hh:mm AP"))
-
