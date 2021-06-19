@@ -82,6 +82,7 @@ The plugin supports the following file extensions:
   * GeoTIFF (*.tif, *.tiff)
   * Erdas Imagine Images (*.img)
   * Erdas Compressed Wavelets (*.ecw)
+  * ERMapper .ers Labelled (*.ers)
   * DTED Elevation Raster (*.dt)
   * Arc/Info ASCII Grid (*.asc)
   * Portable Network Graphics (*.png)

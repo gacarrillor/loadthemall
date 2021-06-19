@@ -63,6 +63,7 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
                 ("GeoTIFF (*.tif, *.tiff)", [".tif", ".tiff"]),
                 ("Erdas Imagine Images (*.img)", [".img"]),
                 ("Erdas Compressed Wavelets (*.ecw)", [".ecw"]),
+                ("ERMapper .ers Labelled (*.ers)", [".ers"]),
                 ("DTED Elevation Raster (*.dt)", [".dt2", ".dt3"]),
                 ("Arc/Info ASCII Grid (*.asc)", [".asc"]),
                 ("Portable Network Graphics (*.png)", [".png"]),
