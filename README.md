@@ -84,6 +84,7 @@ The plugin supports the following file extensions:
   * Arc/Info ASCII Grid (*.asc)
   * Portable Network Graphics (*.png)
   * JPEG JFIF (*.jpg, *.jpeg)
+  * JPEG2000 (*.jp2)
   * Graphics Interchange Format (*.gif)
   * X11 PixMap Format (*.xpm)
   * MS Windows Device Independent Bitmap (*.bmp)
@@ -109,6 +110,7 @@ Code contributors:
 * David Bakeman (v2.1 and v2.4)
 * Sören Gebbert (v2.3)
 * Jean Hemmi (v3.1 and French translation)
+* Guillaume Lostis (v3.3)
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 

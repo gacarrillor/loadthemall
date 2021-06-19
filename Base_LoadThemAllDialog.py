@@ -40,54 +40,56 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
     def loadFormats(self, isVector):
         """ Fill the comboBox with file formats """
         if isVector:
-            self.cboFormats.addItem("All listed formats (*.*)",
-                                    [".gpkg", ".shp", ".mif", ".tab", ".dgn", ".vrt", ".csv", ".gml", ".gpx", ".kml",
-                                     ".geojson", ".gmt", ".sqlite", ".e00", ".dxf", ".json"])
-            self.cboFormats.addItem("GeoPackage (*.gpkg)", [".gpkg"])
-            self.cboFormats.addItem("ESRI Shapefile (*.shp)", [".shp"])
-            self.cboFormats.addItem("Mapinfo File (*.mif, *.tab)", [".mif", ".tab"])
-            self.cboFormats.addItem("Microstation DGN (*.dgn)", [".dgn"])
-            self.cboFormats.addItem("VRT - Virtual Datasource (*.vrt)", [".vrt"])
-            self.cboFormats.addItem("Comma Separated Value (*.csv)", [".csv"])
-            self.cboFormats.addItem("Geography Markup Language (*.gml)", [".gml"])
-            self.cboFormats.addItem("GPX (*.gpx)", [".gpx"])
-            self.cboFormats.addItem("KML - Keyhole Markup Language (*.kml)", [".kml"])
-            self.cboFormats.addItem("GeoJSON (*.geojson)", [".geojson"])
-            self.cboFormats.addItem("GMT (*.gmt)", [".gmt"])
-            self.cboFormats.addItem("SQLite (*.sqlite)", [".sqlite"])
-            self.cboFormats.addItem("Arc/Info ASCII Coverage (*.e00)", [".e00"])
-            self.cboFormats.addItem("AutoCAD DXF (*.dxf)", [".dxf"])
-            self.cboFormats.addItem("JSON (*.json)", [".json"])
+            allFormats = [
+                ("GeoPackage (*.gpkg)", [".gpkg"]),
+                ("ESRI Shapefile (*.shp)", [".shp"]),
+                ("Mapinfo File (*.mif, *.tab)", [".mif", ".tab"]),
+                ("Microstation DGN (*.dgn)", [".dgn"]),
+                ("VRT - Virtual Datasource (*.vrt)", [".vrt"]),
+                ("Comma Separated Value (*.csv)", [".csv"]),
+                ("Geography Markup Language (*.gml)", [".gml"]),
+                ("GPX (*.gpx)", [".gpx"]),
+                ("KML - Keyhole Markup Language (*.kml)", [".kml"]),
+                ("GeoJSON (*.geojson)", [".geojson"]),
+                ("GMT (*.gmt)", [".gmt"]),
+                ("SQLite (*.sqlite)", [".sqlite"]),
+                ("Arc/Info ASCII Coverage (*.e00)", [".e00"]),
+                ("AutoCAD DXF (*.dxf)", [".dxf"]),
+                ("JSON (*.json)", [".json"]),
+            ]
         else:
-            self.cboFormats.addItem("All listed formats (*.*)",
-                                    [".vrt", ".tif", ".tiff", ".ecw", ".img", ".dt2", ".dt3", ".asc", ".png", ".jpg",
-                                     ".jpeg", ".gif", ".xpm", ".bmp", ".pix", ".map", ".mpr", ".mpl", ".hgt", ".nc",
-                                     ".grb", ".rst", ".grd", ".rda", ".hdr", ".dem", ".blx", ".sqlite", ".sdat"])
-            self.cboFormats.addItem("Virtual Raster (*.vrt)", [".vrt"])
-            self.cboFormats.addItem("GeoTIFF (*.tif, *.tiff)", [".tif", ".tiff"])
-            self.cboFormats.addItem("Erdas Imagine Images (*.img)", [".img"])
-            self.cboFormats.addItem("Erdas Compressed Wavelets (*.ecw)", [".ecw"])
-            self.cboFormats.addItem("DTED Elevation Raster (*.dt)", [".dt2", ".dt3"])
-            self.cboFormats.addItem("Arc/Info ASCII Grid (*.asc)", [".asc"])
-            self.cboFormats.addItem("Portable Network Graphics (*.png)", [".png"])
-            self.cboFormats.addItem("JPEG JFIF (*.jpg, *.jpeg)", [".jpg", ".jpeg"])
-            self.cboFormats.addItem("Graphics Interchange Format (*.gif)", [".gif"])
-            self.cboFormats.addItem("X11 PixMap Format (*.xpm)", [".xpm"])
-            self.cboFormats.addItem("Bitmap image file (*.bmp)", [".bmp"])
-            self.cboFormats.addItem("PCIDSK Database File (*.pix)", [".pix"])
-            self.cboFormats.addItem("PCRaster Raster File (*.map)", [".map"])
-            self.cboFormats.addItem("ILWIS Raster Map (*.mpr, *.mpl)", [".mpr", ".mpl"])
-            self.cboFormats.addItem("SRTMHGT File Format (*.hgt)", [".hgt"])
-            self.cboFormats.addItem("GMT NetCDF Grid Format (*.nc)", [".nc"])
-            self.cboFormats.addItem("GRIdded Binary (*.grb)", [".grb"])
-            self.cboFormats.addItem("Idrisi Raster A.1 (*.rst)", [".rst"])
-            self.cboFormats.addItem("Golden Software ASCII Grid (*.grd)", [".grd"])
-            self.cboFormats.addItem("R Object Data Store (*.rda)", [".rda"])
-            self.cboFormats.addItem("Vexcel MFF Raster (*.hdr)", [".hdr"])
-            self.cboFormats.addItem("USGS Optional ASCII DEM (*.dem)", [".dem"])
-            self.cboFormats.addItem("Magellan topo (*.blx)", [".blx"])
-            self.cboFormats.addItem("Rasterlite (*.sqlite)", [".sqlite"])
-            self.cboFormats.addItem("SAGA GIS Binary Grid (*.sdat)", [".sdat"])
+            allFormats = [
+                ("Virtual Raster (*.vrt)", [".vrt"]),
+                ("GeoTIFF (*.tif, *.tiff)", [".tif", ".tiff"]),
+                ("Erdas Imagine Images (*.img)", [".img"]),
+                ("Erdas Compressed Wavelets (*.ecw)", [".ecw"]),
+                ("DTED Elevation Raster (*.dt)", [".dt2", ".dt3"]),
+                ("Arc/Info ASCII Grid (*.asc)", [".asc"]),
+                ("Portable Network Graphics (*.png)", [".png"]),
+                ("JPEG JFIF (*.jpg, *.jpeg)", [".jpg", ".jpeg"]),
+                ("JPEG2000 (*.jp2)", [".jp2"]),
+                ("Graphics Interchange Format (*.gif)", [".gif"]),
+                ("X11 PixMap Format (*.xpm)", [".xpm"]),
+                ("Bitmap image file (*.bmp)", [".bmp"]),
+                ("PCIDSK Database File (*.pix)", [".pix"]),
+                ("PCRaster Raster File (*.map)", [".map"]),
+                ("ILWIS Raster Map (*.mpr, *.mpl)", [".mpr", ".mpl"]),
+                ("SRTMHGT File Format (*.hgt)", [".hgt"]),
+                ("GMT NetCDF Grid Format (*.nc)", [".nc"]),
+                ("GRIdded Binary (*.grb)", [".grb"]),
+                ("Idrisi Raster A.1 (*.rst)", [".rst"]),
+                ("Golden Software ASCII Grid (*.grd)", [".grd"]),
+                ("R Object Data Store (*.rda)", [".rda"]),
+                ("Vexcel MFF Raster (*.hdr)", [".hdr"]),
+                ("USGS Optional ASCII DEM (*.dem)", [".dem"]),
+                ("Magellan topo (*.blx)", [".blx"]),
+                ("Rasterlite (*.sqlite)", [".sqlite"]),
+                ("SAGA GIS Binary Grid (*.sdat)", [".sdat"]),
+            ]
+        allExtensions = [extension for format in allFormats for extension in format[1]]
+        self.cboFormats.addItem("All listed formats (*.*)", allExtensions)
+        for format in allFormats:
+            self.cboFormats.addItem(*format)
 
     def loadDateComparisons(self):
         self.cboDateComparison.addItem(QApplication.translate("Base_LoadThemAllDialog", "Before"), "before")

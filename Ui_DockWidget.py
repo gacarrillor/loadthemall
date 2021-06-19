@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'Ui_DockWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.14.1
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_DockWidget(object):
     def setupUi(self, DockWidget):
@@ -461,4 +463,3 @@ class Ui_DockWidget(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabAbout), _translate("DockWidget", "About"))
         self.btnLoadLayers.setText(_translate("DockWidget", "Load layers"))
         self.btnCancel.setText(_translate("DockWidget", "Cancel"))
-
