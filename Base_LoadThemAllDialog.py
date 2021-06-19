@@ -49,7 +49,7 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
                 ("Comma Separated Value (*.csv)", [".csv"]),
                 ("Geography Markup Language (*.gml)", [".gml"]),
                 ("GPX (*.gpx)", [".gpx"]),
-                ("KML - Keyhole Markup Language (*.kml)", [".kml"]),
+                ("KML - Keyhole Markup Language (*.kml, *.kmz)", [".kml", ".kmz"]),
                 ("GeoJSON (*.geojson)", [".geojson"]),
                 ("GMT (*.gmt)", [".gmt"]),
                 ("SQLite (*.sqlite)", [".sqlite"]),

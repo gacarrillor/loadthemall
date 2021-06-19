@@ -68,7 +68,7 @@ The plugin supports the following file extensions:
   * Comma Separated Value (*.csv)
   * Geography Markup Language (*.gml)
   * GPX (*.gpx)
-  * KML - Keyhole Markup Language (*.kml)
+  * KML - Keyhole Markup Language (*.kml, *kmz)
   * GeoJSON (*.geojson)
   * GMT (*.gmt)
   * SQLite (*.sqlite)
