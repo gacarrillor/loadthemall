@@ -105,6 +105,7 @@ The plugin supports the following file extensions:
   * Magellan topo (*.blx)
   * Rasterlite (*.sqlite)
   * SAGA GIS Binary Grid (*.sdat)
+  * Multi-resolution Seamless Image Database (*.sid)
 
 
 LICENSE: GPL v2.0

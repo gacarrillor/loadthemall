@@ -86,6 +86,7 @@ class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
                 ("Magellan topo (*.blx)", [".blx"]),
                 ("Rasterlite (*.sqlite)", [".sqlite"]),
                 ("SAGA GIS Binary Grid (*.sdat)", [".sdat"]),
+                ("Multi-resolution Seamless Image Database (*.sid)", [".sid"]),
             ]
         allExtensions = [extension for format in allFormats for extension in format[1]]
         self.cboFormats.addItem("All listed formats (*.*)", allExtensions)
