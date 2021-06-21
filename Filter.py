@@ -2,7 +2,7 @@ import os, re
 import time
 
 from qgis.PyQt.QtCore import QDateTime
-from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsRectangle
+from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsRectangle, QgsWkbTypes
 
 
 class Filter():
@@ -180,9 +180,14 @@ class GeometryTypeFilter(TypeFilter):
     """ Filter based on the layer's geometry type """
     def __init__(self, itemTypes):
         TypeFilter.__init__(self, itemTypes)
-        if 'Point' in itemTypes: self.lstFilterItems.append(0)
-        if 'Line' in itemTypes: self.lstFilterItems.append(1)
-        if 'Polygon' in itemTypes: self.lstFilterItems.append(2)
+        if 'Point' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.PointGeometry)
+        if 'Line' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.LineGeometry)
+        if 'Polygon' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.PolygonGeometry)
+
+        if not self.lstFilterItems:
+            # The user created a Geometry Filter but doesn't want points, lines nor polygons.
+            # In conclusion, he/she wants geometryless layers.
+            self.lstFilterItems.append(QgsWkbTypes.NullGeometry)  # Alphanumeric tables
 
     def getItemType(self, layerPath):
         """ Get the layer's geometry type """

@@ -188,13 +188,6 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                         if self.chkLine.isChecked(): lstItemTypes.append('Line')
                         if self.chkPolygon.isChecked(): lstItemTypes.append('Polygon')
 
-                        if not lstItemTypes:
-                            QMessageBox.warning(self.parent, "Load Them All",
-                                                self.tr("No layer will match the filter!\n") +
-                                                self.tr("Select a geometry type or uncheck the Geometry type filter."),
-                                                QMessageBox.Ok, QMessageBox.Ok)
-                            return
-
                         filter = GeometryTypeFilter(lstItemTypes)
                         filterList.addFilter(filter)
 
