@@ -29,7 +29,7 @@ Available filters are:
 
 * **Geometry type**:
 
-  Choose which geometry type you want to load: `Point`, `Line`, or `Polygon`.
+  Choose which geometry type you want to load: `Point`, `Line`, or `Polygon`. Uncheck all geometry types for loading only geometryless layers (i.e., alphanumeric tables).
 
 * **Raster type**:
 

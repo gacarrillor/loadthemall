@@ -73,9 +73,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>323</width>
-             <height>570</height>
+             <y>-93</y>
+             <width>322</width>
+             <height>579</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -93,6 +93,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QGroupBox" name="groupBoxGeometryTypeFilter">
+              <property name="toolTip">
+               <string/>
+              </property>
               <property name="title">
                <string>Geometry type filter</string>
               </property>
@@ -191,8 +194,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>323</width>
-             <height>598</height>
+             <width>322</width>
+             <height>608</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
@@ -311,8 +314,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>323</width>
-             <height>493</height>
+             <width>348</width>
+             <height>515</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -687,7 +690,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
              <x>0</x>
              <y>0</y>
              <width>358</width>
-             <height>474</height>
+             <height>486</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_12">
@@ -912,7 +915,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>Copyright (C) 2010-2020 Germán Carrillo</string>
+                   <string>Copyright (C) 2010-2021 Germán Carrillo</string>
                   </property>
                   <property name="wordWrap">
                    <bool>false</bool>
@@ -928,6 +931,9 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <font>
                     <family>Sans Serif</family>
                     <pointsize>8</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -966,13 +972,16 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <font>
                     <family>Sans Serif</family>
                     <pointsize>8</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
