@@ -19,9 +19,12 @@ email                : geotux_tuxman@linuxmail.org
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QDateTime
-from qgis.PyQt.QtWidgets import QDockWidget, QMessageBox
-from qgis.core import QgsRectangle, Qgis
+from qgis.PyQt.QtCore import (QSettings,
+                              QDateTime)
+from qgis.PyQt.QtWidgets import (QDockWidget,
+                                 QMessageBox)
+from qgis.core import (QgsRectangle,
+                       Qgis)
 
 from .Filter import (AlphanumericFilter,
                      BoundingBoxFilter,
@@ -31,7 +34,7 @@ from .Filter import (AlphanumericFilter,
                      RasterTypeFilter)
 from .LoadFiles import *
 from .Base_LoadThemAllDialog import Base_LoadThemAllDialog
-from .Ui_DockWidget import Ui_DockWidget
+from .ui.Ui_DockWidget import Ui_DockWidget
 
 
 class LoadThemAllDialog(QDockWidget, Ui_DockWidget):

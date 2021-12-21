@@ -25,17 +25,13 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import (QgsApplication,
                        Qgis)
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    QFileInfo,
-    QLocale,
-    QObject,
-    QSettings,
-    Qt,
-    QTranslator
-)
+from qgis.PyQt.QtCore import (QCoreApplication,
+                              QFileInfo,
+                              QSettings,
+                              Qt,
+                              QTranslator)
 
-from .resources_rc import *
+from .resources.resources_rc import *
 from .LoadThemAllDialog import LoadThemAllDialog
 
 
@@ -73,9 +69,9 @@ class LoadThemAll:
         else:
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
 
-    def installTranslator(self): # TODO check this installation
-        userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall")
-        systemPluginPath = os.path.join(str(QgsApplication.prefixPath()), "python/plugins/loadthemall")
+    def installTranslator(self):  # TODO check this installation
+        userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall/i18n")
+        systemPluginPath = os.path.join(str(QgsApplication.prefixPath()), "python/plugins/loadthemall/i18n")
         translationPath = ''
     
         try:

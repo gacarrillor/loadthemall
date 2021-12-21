@@ -1,7 +1,10 @@
-from qgis.PyQt.QtCore import QSettings, Qt
-from qgis.PyQt.QtWidgets import QApplication, QDialog, QFileDialog
+from qgis.PyQt.QtCore import (Qt,
+                              QSettings)
+from qgis.PyQt.QtWidgets import (QApplication,
+                                 QDialog,
+                                 QFileDialog)
 
-from .Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
+from .ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
 
 
 class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):

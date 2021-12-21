@@ -866,7 +866,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                  <string/>
                 </property>
                 <property name="pixmap">
-                 <pixmap resource="resources.qrc">:/plugins/loadthemall/logo_80x94.png</pixmap>
+                 <pixmap resource="../resources/resources.qrc">:/plugins/loadthemall/logo_80x94.png</pixmap>
                 </property>
                </widget>
               </item>

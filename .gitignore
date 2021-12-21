@@ -1,1 +1,6 @@
 .idea/
+i18n/loadthemall_es.qm
+i18n/loadthemall_fr.qm
+ui/Ui_DockWidget.py
+ui/Ui_Base_LoadThemAll.py
+resources/resources_rc.py

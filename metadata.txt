@@ -8,10 +8,10 @@ category=Layers
 author=Germán Carrillo (GeoTux)
 email=gcarrillo@linuxmail.org
 tags=layers,vector,raster,toc,legend,directory,recursively,filter,load,shapefile,layer tree,geopackage,style,qml
-homepage=http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
+homepage=https://geotux.tuxfamily.org/en/2010/10/18/load-them-all-a-qgis-plugin/
 tracker=https://github.com/gacarrillor/loadthemall/issues
 repository=https://github.com/gacarrillor/loadthemall
-icon=icon.png
+icon=resources/icon.png
 experimental=False
 deprecated=False
 

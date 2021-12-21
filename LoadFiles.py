@@ -3,15 +3,14 @@ import os
 import locale
 
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtWidgets import QApplication, QMessageBox
-from qgis.core import (
-    Qgis,
-    QgsApplication,
-    QgsVectorLayer,
-    QgsRasterLayer,
-    QgsMapLayer,
-    QgsProject
-)
+from qgis.PyQt.QtWidgets import (QApplication,
+                                 QMessageBox)
+from qgis.core import (Qgis,
+                       QgsApplication,
+                       QgsVectorLayer,
+                       QgsRasterLayer,
+                       QgsMapLayer,
+                       QgsProject)
 
 from .Filter import FilterList
 

@@ -20,6 +20,6 @@ email                : geotux_tuxman@linuxmail.org
  ***************************************************************************/
 """
 def classFactory(iface):
-  # load LoadThemAll class from file LoadThemAll
-  from .LoadThemAll import LoadThemAll
-  return LoadThemAll(iface)
+    # load LoadThemAll class from file LoadThemAll
+    from .LoadThemAll import LoadThemAll
+    return LoadThemAll(iface)
