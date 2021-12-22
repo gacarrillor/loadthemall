@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 """
 /***************************************************************************
 LoadThemAllDialog
@@ -7,7 +6,7 @@ Loads files stored in a directory structure recursively, based on several filter
                              -------------------
 begin                : 2010-10-03
 copyright            : (C) 2010 by Germán Carrillo (GeoTux)
-email                : geotux_tuxman@linuxmail.org
+email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 
 /***************************************************************************
@@ -26,15 +25,15 @@ from qgis.PyQt.QtWidgets import (QDockWidget,
 from qgis.core import (QgsRectangle,
                        Qgis)
 
-from .Filter import (AlphanumericFilter,
-                     BoundingBoxFilter,
-                     DateModifiedFilter,
-                     GeometryTypeFilter,
-                     InvertedAlphanumericFilter,
-                     RasterTypeFilter)
-from .LoadFiles import *
-from .Base_LoadThemAllDialog import Base_LoadThemAllDialog
-from .ui.Ui_DockWidget import Ui_DockWidget
+from .BaseLoadThemAllDialog import BaseLoadThemAllDialog
+from ..core.Filter import (AlphanumericFilter,
+                           BoundingBoxFilter,
+                           DateModifiedFilter,
+                           GeometryTypeFilter,
+                           InvertedAlphanumericFilter,
+                           RasterTypeFilter)
+from ..core.LoadFiles import *
+from ..ui.Ui_DockWidget import Ui_DockWidget
 
 
 class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
@@ -90,12 +89,12 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         if self.tabWidget.tabText(index) == "Vecteur" or \
                 self.tabWidget.tabText(index) == "Vector":
             self.currentTab = 'v'
-            self.dlgBase = Base_LoadThemAllDialog(True, self.iface)
+            self.dlgBase = BaseLoadThemAllDialog(True, self.iface)
             self.stackedWidgetVector.addWidget(self.dlgBase)
             self.stackedWidgetVector.setCurrentWidget(self.dlgBase)
         elif self.tabWidget.tabText(index) == "Raster":
             self.currentTab = 'r'
-            self.dlgBase = Base_LoadThemAllDialog(False, self.iface)
+            self.dlgBase = BaseLoadThemAllDialog(False, self.iface)
             self.stackedWidgetRaster.addWidget(self.dlgBase)
             self.stackedWidgetRaster.setCurrentWidget(self.dlgBase)
         else:

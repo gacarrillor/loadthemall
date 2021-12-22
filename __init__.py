@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 """
 /***************************************************************************
 LoadThemAll
@@ -7,7 +6,7 @@ Loads files stored in a directory structure recursively, based on several filter
                              -------------------
 begin                : 2010-10-03
 copyright            : (C) 2010 by Germán Carrillo (GeoTux)
-email                : geotux_tuxman@linuxmail.org
+email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 
 /***************************************************************************

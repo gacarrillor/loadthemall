@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 """
 /***************************************************************************
 LoadThemAll
@@ -7,7 +6,7 @@ Loads files stored in a directory structure recursively, based on several filter
                              -------------------
 begin                : 2010-10-03
 copyright            : (C) 2010 by Germán Carrillo (GeoTux)
-email                : geotux_tuxman@linuxmail.org
+email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 
 /***************************************************************************
@@ -32,7 +31,7 @@ from qgis.PyQt.QtCore import (QCoreApplication,
                               QTranslator)
 
 from .resources.resources_rc import *
-from .LoadThemAllDialog import LoadThemAllDialog
+from .gui.LoadThemAllDialog import LoadThemAllDialog
 
 
 class LoadThemAll:
@@ -69,7 +68,7 @@ class LoadThemAll:
         else:
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
 
-    def installTranslator(self):  # TODO check this installation
+    def installTranslator(self):
         userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall/i18n")
         systemPluginPath = os.path.join(str(QgsApplication.prefixPath()), "python/plugins/loadthemall/i18n")
         translationPath = ''

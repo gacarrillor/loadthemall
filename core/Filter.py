@@ -1,17 +1,23 @@
 import os, re
 import time
+from abc import (ABC,
+                 abstractmethod)
 
 from qgis.PyQt.QtCore import QDateTime
-from qgis.core import QgsVectorLayer, QgsRasterLayer, QgsRectangle, QgsWkbTypes
+from qgis.core import (QgsVectorLayer,
+                       QgsRasterLayer,
+                       QgsRectangle,
+                       QgsWkbTypes)
 
 
-class Filter():
-    """ Class to encapsulate filters behavior """
+class Filter(ABC):
+    """ Abstract class to encapsulate filters behavior """
     def __init__(self):
         pass
 
+    @abstractmethod
     def apply(self, layerPath):
-        """ To be overridden """
+        """ To be overwritten """
         pass
 
 
@@ -166,8 +172,9 @@ class TypeFilter(Filter):
     def __init__(self, itemTypes):
         self.lstFilterItems = []  # Types to be considered as True
 
+    @abstractmethod
     def getItemType(self, layerPath):
-        """ To be overidden """
+        """ To be overwritten """
         pass
 
     def apply(self, layerPath):

@@ -4,10 +4,10 @@ from qgis.PyQt.QtWidgets import (QApplication,
                                  QDialog,
                                  QFileDialog)
 
-from .ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
+from ..ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
 
 
-class Base_LoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
+class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
     """ A generic class to be reused in vector and raster dialogs """
 
     def __init__(self, isVector, iface):
