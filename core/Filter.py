@@ -24,7 +24,7 @@ class Filter(ABC):
 class NoFilter(Filter):
     """ Dummy filter """
     def __init__(self):
-        pass
+        Filter.__init__(self)
 
     def apply(self, layerPath):
         """ There is no condition to be applied """
@@ -33,12 +33,13 @@ class NoFilter(Filter):
 
 class AlphanumericFilter(Filter):
     """ Filter based on text using a regular expression """
-    def __init__(self, matchType, filterText, caseInsensitive, accentInsensitive, bSearchParentLayer):
+    def __init__(self, matchType, filterText, configuration):
+        Filter.__init__(self)
         self.matchType = matchType
         self.filterText = filterText
-        self.caseInsensitive = caseInsensitive
-        self.accentInsensitive = accentInsensitive
-        self.bSearchParentLayer = bSearchParentLayer
+        self.caseInsensitive = configuration.b_case_insensitive
+        self.accentInsensitive = configuration.b_accent_insensitive
+        self.bSearchParentLayer = configuration.b_search_parent_layer
         self.regExpPattern = None  # Stores compiled RE pattern to reuse it afterwards
 
     def apply(self, layerPath):
@@ -113,8 +114,9 @@ class AlphanumericFilter(Filter):
 
 class InvertedAlphanumericFilter(Filter):
     """ Prepend a logic NOT to an Alphanumeric filter """
-    def __init__(self, matchType, filterText, caseInsensitive, accentInsensitive, bSearchParentLayer):
-        self.filter = AlphanumericFilter(matchType, filterText, caseInsensitive, accentInsensitive, bSearchParentLayer)
+    def __init__(self, matchType, filterText, configuration):
+        Filter.__init__(self)
+        self.filter = AlphanumericFilter(matchType, filterText, configuration)
 
     def apply(self, layerPath):
         """ Invert Alphanumeric filter result """
@@ -131,6 +133,7 @@ class BoundingBoxFilter(Filter):
         :type QgsRectangle:
         :param method: The topological relation that should be used for selection, "contains" or "intersects"
         """
+        Filter.__init__(self)
         self.layerType = layerType
         self.boundingBox = boundingBox
         self.method = method
@@ -152,6 +155,7 @@ class BoundingBoxFilter(Filter):
 class DateModifiedFilter(Filter):
     """ Filter based on 'date modified' from file metadata """
     def __init__(self, comparison, datetime):
+        Filter.__init__(self)
         self.comparison = comparison
         self.datetime = datetime
 
@@ -170,6 +174,7 @@ class DateModifiedFilter(Filter):
 class TypeFilter(Filter):
     """ Abstract class to define a filter based on an object's type """
     def __init__(self, itemTypes):
+        Filter.__init__(self)
         self.lstFilterItems = []  # Types to be considered as True
 
     @abstractmethod
@@ -217,11 +222,12 @@ class RasterTypeFilter(TypeFilter):
 
 class FilterList(Filter):
     """ Manage a list of filters """
+    def __init__(self):
+        Filter.__init__(self)
+        self.reset()
+
     def reset(self):
         self.filterList = []
-
-    def __init__(self):
-        self.reset()
 
     def addFilter(self, filter):
         self.filterList.append(filter)

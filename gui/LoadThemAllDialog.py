@@ -26,6 +26,7 @@ from qgis.core import (QgsRectangle,
                        Qgis)
 
 from .BaseLoadThemAllDialog import BaseLoadThemAllDialog
+from ..core.LoadConfiguration import LoadConfiguration
 from ..core.Filter import (AlphanumericFilter,
                            BoundingBoxFilter,
                            DateModifiedFilter,
@@ -110,32 +111,34 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                 self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster":
 
             # Configuration
-            bGroups = self.chkGroups.isChecked()
-            bLayersOff = self.chkLayersOff.isChecked()
-            bDoNotEmpty = self.chkDoNotEmpty.isChecked()
-            bSort = self.chkSort.isChecked()
-            bReverseSort = self.chkReverseSort.isChecked()
-            bCaseInsensitive = self.chkCaseInsensitive.isChecked()
-            bAccentInsensitive = self.chkAccentInsensitive.isChecked()
-            bSearchParentLayer = self.chkSearchParentLayer.isChecked()
-            bAddParentLayerName = self.chkAddParentLayerName.isChecked()
-            bStyles = self.chkStyles.isChecked()
+            configuration = LoadConfiguration()
+            configuration.b_groups = self.chkGroups.isChecked()
+            configuration.b_layers_off = self.chkLayersOff.isChecked()
+            configuration.b_not_empty = self.chkDoNotEmpty.isChecked()
+            configuration.b_sort = self.chkSort.isChecked()
+            configuration.b_reverse_sort = self.chkReverseSort.isChecked()
+            configuration.b_case_insensitive = self.chkCaseInsensitive.isChecked()
+            configuration.b_accent_insensitive = self.chkAccentInsensitive.isChecked()
+            configuration.b_search_parent_layer = self.chkSearchParentLayer.isChecked()
+            configuration.b_add_parent_layer_name = self.chkAddParentLayerName.isChecked()
+            configuration.b_styles = self.chkStyles.isChecked()
             n = int(self.txtNumLayersToConfirm.text())
             if n <= 0: n = 50
-            numLayersToConfirm = n
-            bAlphanumericFilter = False
+            configuration.num_layers_to_confirm = n
 
             baseDir = self.dlgBase.txtBaseDir.text()  # TODO: Adjusted, does it break here?
             # Remove trailing (back)slashes to avoid problemas when comparing paths
             baseDir = baseDir[:-1] if len(baseDir) > 1 and baseDir[-1] == "/" else baseDir
             baseDir = baseDir[:-1] if len(baseDir) > 1 and baseDir[-1] == "\\" else baseDir
+            configuration.base_dir = baseDir
 
             bBoundingBoxFilter = False
             filterList = FilterList()
 
-            if os.path.exists(baseDir):
-                extension = self.dlgBase.cboFormats.itemData(self.dlgBase.cboFormats.currentIndex())
+            if os.path.exists(configuration.base_dir):
+                configuration.extension = self.dlgBase.cboFormats.itemData(self.dlgBase.cboFormats.currentIndex())
 
+                # Alphanumeric Filter
                 if self.dlgBase.groupBoxAlphanumeric.isChecked() and self.dlgBase.txtFilter.text() != "":
                     filterText = self.dlgBase.txtFilter.text()
                     if self.dlgBase.radStarts.isChecked(): matchType = 'StartsWith'
@@ -143,14 +146,25 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     if self.dlgBase.radEnds.isChecked(): matchType = 'EndsWith'
 
                     if self.dlgBase.chkInvertAlphanumeric.isChecked():
-                        filter = InvertedAlphanumericFilter(matchType, filterText, bCaseInsensitive, bAccentInsensitive,
-                                                            bSearchParentLayer)
+                        filter = InvertedAlphanumericFilter(matchType, filterText, configuration)
                     else:
-                        filter = AlphanumericFilter(matchType, filterText, bCaseInsensitive, bAccentInsensitive,
-                                                    bSearchParentLayer)
+                        filter = AlphanumericFilter(matchType, filterText, configuration)
                     filterList.addFilter(filter)
-                    bAlphanumericFilter = True
 
+                    if configuration.b_accent_insensitive:
+                        try:
+                            from unidecode import unidecode
+                        except ImportError as e:
+                            result = QMessageBox.question(self.iface.mainWindow(),
+                                                          self.tr("Accents cannot be ignored!"),
+                                                          self.tr("You have chosen to ignore accents in the alphanumeric filter, but first") +
+                                                          self.tr(" you need to install the Python library 'unidecode'.\n\n") +
+                                                          self.tr("Should we continue loading layers without ignoring accents?"),
+                                                          QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Cancel)
+                            if result == QMessageBox.Cancel:
+                                return
+
+                # Bounding Box Filter (part 1 out of 2)
                 if self.dlgBase.groupBoxBoundingBox.isChecked():
                     if self.dlgBase.txtXMin.text().strip() != "" and self.dlgBase.txtYMin.text().strip() != "" and \
                             self.dlgBase.txtXMax.text().strip() != "" and self.dlgBase.txtYMax.text().strip() != "":
@@ -174,6 +188,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                                             QMessageBox.Ok, QMessageBox.Ok)
                         return
 
+                # Date Modified Filter
                 if self.dlgBase.groupBoxDateModified.isChecked():
                     datetime = self.dlgBase.dtDateTime.dateTime()
                     comparison = self.dlgBase.cboDateComparison.itemData(self.dlgBase.cboDateComparison.currentIndex())
@@ -181,8 +196,12 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     filter = DateModifiedFilter(comparison, datetime)
                     filterList.addFilter(filter)
 
+                # Vector/Raster particular Filters
+                loader = None
                 if self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vecteur" or \
                         self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vector":
+
+                    # Vector Type Filter
                     if self.groupBoxGeometryTypeFilter.isChecked() and \
                             not (self.chkPoint.isChecked() and self.chkLine.isChecked() and self.chkPolygon.isChecked()):
                         lstItemTypes = []
@@ -193,6 +212,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                         filter = GeometryTypeFilter(lstItemTypes)
                         filterList.addFilter(filter)
 
+                    # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
                             filter = BoundingBoxFilter("vector", extent, "contains")
@@ -200,11 +220,11 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             filter = BoundingBoxFilter("vector", extent, "intersects")
                         filterList.addFilter(filter)
 
-                    LoadVectors(baseDir, extension, self.iface, self.progressBar, bGroups,
-                                bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
-                                bAddParentLayerName, bStyles, numLayersToConfirm, filterList)
+                    loader = LoadVectors(self.iface, self.progressBar, configuration)
 
                 elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster":
+
+                    # Raster Type Filter
                     if self.groupBoxRasterTypeFilter.isChecked() and \
                             not (self.chkGray.isChecked() and self.chkPalette.isChecked() and self.chkMultiband.isChecked() and self.chkColorLayer.isChecked()):
                         lstItemTypes = []
@@ -223,6 +243,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                         filter = RasterTypeFilter(lstItemTypes)
                         filterList.addFilter(filter)
 
+                    # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
                             filter = BoundingBoxFilter("raster", extent, "contains")
@@ -230,20 +251,11 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             filter = BoundingBoxFilter("raster", extent, "intersects")
                         filterList.addFilter(filter)
 
-                    LoadRasters(baseDir, extension, self.iface, self.progressBar, bGroups,
-                                bLayersOff, bDoNotEmpty, bSort, bReverseSort, bSearchParentLayer,
-                                bAddParentLayerName, bStyles, numLayersToConfirm, filterList)
+                    loader = LoadRasters(self.iface, self.progressBar, configuration)
 
-                if bAccentInsensitive and bAlphanumericFilter:
-                    try:
-                        from unidecode import unidecode
-                    except ImportError as e:
-                        self.iface.messageBar().pushMessage(self.tr("Accents were not ignored!"),
-                                                            self.tr(
-                                                                "You have chosen to ignore accents in the alphanumeric filter, but first") +
-                                                            self.tr(
-                                                                " you need to install the Python library 'unidecode'."),
-                                                            level=Qgis.Warning, duration=15)
+                if loader:
+                    loader.filterList = filterList
+                    loader.loadLayers()
 
             else:
                 QMessageBox.warning(self.parent, "Load Them All",
