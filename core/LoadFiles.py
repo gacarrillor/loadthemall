@@ -9,11 +9,12 @@ from qgis.PyQt.QtWidgets import (QApplication,
 from qgis.core import (Qgis,
                        QgsApplication,
                        QgsVectorLayer,
-                       QgsRasterLayer,
                        QgsMapLayer)
 
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
+from .Utils import (get_vector_layer,
+                    get_raster_layer)
 
 
 class LoadFiles(ABC):
@@ -23,7 +24,7 @@ class LoadFiles(ABC):
         self.progressBar = progressBar
         self.filterList = FilterList()
         self.iface = iface
-        self.lstFilesToLoad = []
+        self.files_to_load = dict()  # {'layer_path_1': layer_obj_1, ...}
         self.dataType = ''
 
         # Configuration parameters
@@ -34,14 +35,14 @@ class LoadFiles(ABC):
         if self._getFilesToLoad():
             self._loadLayers()
 
-    def _applyFilter(self, layerBaseName):
+    def _applyFilter(self, layer_path, layer_dict):
         """ Method to encapsulate the filter's application  """
-        return self.filterList.apply(layerBaseName)
+        return self.filterList.apply(layer_path, layer_dict)
 
     def _getFilesToLoad(self):
         """ Go through directories to fill a list with layers ready to be loaded """
         self.progressBar.setMaximum(0)  # ProgressBar in busy mode
-        layerPaths = []
+        layer_dict = dict()  # {'layer_path_1': layer_obj_1, ...}
 
         for root, dirs, files in os.walk(self.configuration.base_dir):
             # files = [self.decodeName(f) for f in files]
@@ -57,11 +58,11 @@ class LoadFiles(ABC):
                     extension = None
 
                 if extension in self.configuration.extension:
-                    # layerPath = os.path.join( self.decodeName( root ), file_ )
-                    layerPath = os.path.join(root, file_)
+                    # layer_path = os.path.join( self.decodeName( root ), file_ )
+                    layer_path = os.path.join(root, file_)
 
                     if self.dataType == 'vector':
-                        layer = QgsVectorLayer(layerPath, "", "ogr")
+                        layer = QgsVectorLayer(layer_path, "", "ogr")
                         if layer.isValid():
                             # Do we have sublayers?
                             if len(layer.dataProvider().subLayers()) > 1:
@@ -78,29 +79,29 @@ class LoadFiles(ABC):
                                 for subLayerName, subLayerGeometries in subLayers.items():
                                     if len(subLayerGeometries) > 1:
                                         for subLayerGeometry in subLayerGeometries:
-                                            layerPaths.append(
-                                                "{}|layername={}|geometrytype={}".format(layerPath, subLayerName,
-                                                                                         subLayerGeometry))
+                                            layer_dict["{}|layername={}|geometrytype={}".format(layer_path,
+                                                                                                subLayerName,
+                                                                                                subLayerGeometry)] = None
                                     else:
-                                        layerPaths.append("{}|layername={}".format(layerPath, subLayerName))
+                                        layer_dict["{}|layername={}".format(layer_path, subLayerName)] = None
                             else:
-                                layerPaths.append(layerPath)
+                                layer_dict[layer_path] = layer
                     else:  # 'raster'
-                        layerPaths.append(layerPath)
+                        layer_dict[layer_path] = None
 
-        for path in layerPaths:
+        for path in layer_dict:
             QApplication.processEvents()
             if self._process_cancelled():
                 return False
 
-            if self._applyFilter(path):  # The layer passes the filter?
+            if self._applyFilter(path, layer_dict):  # The layer passes the filter?
                 if self.configuration.b_not_empty:  # Do not load empty layers
-                    if not self._isEmptyLayer(path):
-                        self.lstFilesToLoad.append(path)
+                    if not self._isEmptyLayer(path, layer_dict):
+                        self.files_to_load[path] = layer_dict.get(path, None)
                 else:
-                    self.lstFilesToLoad.append(path)
+                    self.files_to_load[path] = layer_dict.get(path, None)
 
-        self.progressBar.setMaximum(len(self.lstFilesToLoad))
+        self.progressBar.setMaximum(len(self.files_to_load))
         return True
 
     def _loadLayers(self):
@@ -108,7 +109,7 @@ class LoadFiles(ABC):
         if self._process_cancelled():
             return False
 
-        numLayers = len(self.lstFilesToLoad)
+        numLayers = len(self.files_to_load)
 
         if numLayers > 0:
             result = QMessageBox.Ok  # Convenient variable to pass an upcoming condition
@@ -127,18 +128,9 @@ class LoadFiles(ABC):
                 layersLoaded = 0
 
                 if self.configuration.b_sort:
-                    if self.configuration.b_groups:
-                        self.lstFilesToLoad = sorted(self.lstFilesToLoad, key=locale.strxfrm, reverse=self.configuration.b_reverse_sort)
-                    else:
-                        # Get basenames and order them, otherwise folders will distort order
-                        tmpDict = {path: os.path.splitext(os.path.basename(path))[0] for path in self.lstFilesToLoad}
-                        # We revert the order to load single layers from the back, so any
-                        #  new layer will be added to the top of the layer tree
-                        self.lstFilesToLoad = [k for k, v in
-                                               sorted(tmpDict.items(), key=lambda item: locale.strxfrm(str(item[1])),
-                                                      reverse=not self.configuration.b_reverse_sort)]
+                    self.files_to_load = self._sort_layers_to_load()
 
-                for layerPath in self.lstFilesToLoad:
+                for layer_path, layer in self.files_to_load.items():
                     QApplication.processEvents()
                     if self._process_cancelled():
                         self.iface.mapCanvas().setRenderFlag(True)
@@ -146,9 +138,9 @@ class LoadFiles(ABC):
 
                     # Finally add the layer and apply the options the user chose
                     if self.configuration.b_groups:
-                        group = self.tree.addGroup(os.path.dirname(layerPath))
+                        group = self.tree.addGroup(os.path.dirname(layer_path))
 
-                    baseName = os.path.basename(layerPath)
+                    baseName = os.path.basename(layer_path)
                     layerName = os.path.splitext(baseName)[0]
 
                     # Let's clear the layer name for sublayers
@@ -159,7 +151,7 @@ class LoadFiles(ABC):
                         else:
                             layerName = subLayerName
 
-                    ml = self._createLayer(layerPath, layerName)
+                    ml = self._createLayer(layer_path, layerName, self.files_to_load)
                     if ml.isValid():
                         layersLoaded += 1
                         if self.configuration.b_groups:
@@ -172,7 +164,7 @@ class LoadFiles(ABC):
                         if self.configuration.b_styles:
                             if self.configuration.b_groups:
                                 # Has the group a style to apply?
-                                aGroup = os.path.dirname(layerPath)
+                                aGroup = os.path.dirname(layer_path)
                                 aBaseGroup = os.path.basename(aGroup)
                                 styleFile = os.path.join(aGroup, aBaseGroup + ".qml")
 
@@ -194,7 +186,7 @@ class LoadFiles(ABC):
                     else:
                         QgsApplication.messageLog().logMessage(
                             "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(
-                                layerPath),
+                                layer_path),
                             "Load Them All", Qgis.Warning)
 
                     step += 1
@@ -254,13 +246,39 @@ class LoadFiles(ABC):
     def _process_cancelled(self):
         return not self.progressBar.parent().parent().processStatus
 
+    def _sort_layers_to_load(self):
+        """
+        :return: Dict of layers to load sorted {'layer_path_1': layer_obj_1, ...}
+        """
+        files_to_load = self.files_to_load.copy()
+        layer_paths = list(files_to_load.keys())
+        self.files_to_load = None
+
+        # Sort layer list
+        if self.configuration.b_groups:
+            layer_paths = sorted(layer_paths, key=locale.strxfrm, reverse=self.configuration.b_reverse_sort)
+        else:
+            # Get basenames and order them, otherwise folders will distort order
+            tmp_dict = {path: os.path.splitext(os.path.basename(path))[0] for path in layer_paths}
+            # We revert the order to load single layers from the back, so any
+            #  new layer will be added to the top of the layer tree
+            layer_paths = [k for k, v in sorted(tmp_dict.items(), key=lambda item: locale.strxfrm(str(item[1])),
+                                                reverse=not self.configuration.b_reverse_sort)]
+
+        # Now use the sorted list to return a sorted dict
+        sorted_files_to_load = dict()
+        for layer_path in layer_paths:
+            sorted_files_to_load[layer_path] = files_to_load.get(layer_path, None)
+
+        return sorted_files_to_load
+
     @abstractmethod
-    def _createLayer(self, layerPath, layerBaseName):
+    def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ To be overwritten by subclasses """
         pass
 
     @abstractmethod
-    def _isEmptyLayer(self, layerPath):
+    def _isEmptyLayer(self, layer_path, layer_dict):
         """ To be overwritten by subclasses """
         pass
 
@@ -273,15 +291,20 @@ class LoadVectors(LoadFiles):
 
         self.dataType = 'vector'
 
-    def _createLayer(self, layerPath, layerBaseName):
+    def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ Create a vector layer """
-        return QgsVectorLayer(layerPath, layerBaseName, 'ogr')
+        if files_to_load[layer_path] is None:
+            files_to_load[layer_path] = get_vector_layer(layer_path, layer_base_name, files_to_load, True)
 
-    def _isEmptyLayer(self, layerPath):
+        return files_to_load[layer_path]
+
+    def _isEmptyLayer(self, layer_path, layer_dict):
         """ Check whether a vector layer has no features """
-        layer = QgsVectorLayer(layerPath, 'layerName', 'ogr')
-        if layer.type() == QgsMapLayer.VectorLayer:
-            if layer.featureCount() == 0:
+        if layer_dict[layer_path] is None:
+            layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
+
+        if layer_dict[layer_path].type() == QgsMapLayer.VectorLayer:
+            if layer_dict[layer_path].featureCount() == 0:
                 return True
         return False
 
@@ -294,10 +317,13 @@ class LoadRasters(LoadFiles):
 
         self.dataType = 'raster'
 
-    def _createLayer(self, layerPath, layerBaseName):
+    def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ Create a raster layer """
-        return QgsRasterLayer(layerPath, layerBaseName)
+        if files_to_load[layer_path] is None:
+            files_to_load[layer_path] = get_raster_layer(layer_path, layer_base_name, files_to_load, True)
 
-    def _isEmptyLayer(self, layerPath):
+        return files_to_load[layer_path]
+
+    def _isEmptyLayer(self, layer_path, layer_dict):
         """ Do not check this on raster layers """
         return False

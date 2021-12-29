@@ -4,10 +4,11 @@ from abc import (ABC,
                  abstractmethod)
 
 from qgis.PyQt.QtCore import QDateTime
-from qgis.core import (QgsVectorLayer,
-                       QgsRasterLayer,
-                       QgsRectangle,
+from qgis.core import (QgsRectangle,
                        QgsWkbTypes)
+
+from .Utils import (get_raster_layer,
+                    get_vector_layer)
 
 
 class Filter(ABC):
@@ -16,7 +17,7 @@ class Filter(ABC):
         pass
 
     @abstractmethod
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ To be overwritten """
         pass
 
@@ -26,7 +27,7 @@ class NoFilter(Filter):
     def __init__(self):
         Filter.__init__(self)
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ There is no condition to be applied """
         return True
 
@@ -42,16 +43,16 @@ class AlphanumericFilter(Filter):
         self.bSearchParentLayer = configuration.b_search_parent_layer
         self.regExpPattern = None  # Stores compiled RE pattern to reuse it afterwards
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ Apply an alphanumeric filter """
         if not self.regExpPattern:  # We build a RE pattern only once and then reuse it
-            self.regExpPattern = self.getRegExpPattern()
+            self.regExpPattern = self._getRegExpPattern()
 
-        baseName = os.path.basename(layerPath)
+        baseName = os.path.basename(layer_path)
         layerBaseName = os.path.splitext(baseName)[0]
         if '|layername=' in baseName and not baseName.endswith('|layername='):
             if self.bSearchParentLayer:
-                layerBaseName = "".join([layerBaseName, " ", os.path.basename(layerPath).split('|layername=')[1]])
+                layerBaseName = "".join([layerBaseName, " ", os.path.basename(layer_path).split('|layername=')[1]])
             else:
                 layerBaseName = baseName.split('|layername=')[1]
 
@@ -65,19 +66,19 @@ class AlphanumericFilter(Filter):
 
         return True if self.regExpPattern.search(layerBaseName) else False
 
-    def getRegExpPattern(self):
+    def _getRegExpPattern(self):
         regExpString = ''
-        self.filterText = self.normalizeText(self.filterText)
+        self.filterText = self._normalizeText(self.filterText)
 
         andList = self.filterText.split("&&")
         newAndList = []
         for andTerm in andList:
-            andTerm = self.normalizeText(andTerm)
+            andTerm = self._normalizeText(andTerm)
             orList = andTerm.split("||")
             newOrList = []
 
             for orTerm in orList:
-                orTerm = self.normalizeText(orTerm)
+                orTerm = self._normalizeText(orTerm)
                 if self.matchType == 'StartsWith':
                     newOrList.append(''.join(['^', orTerm]))
                 elif self.matchType == 'EndsWith':
@@ -105,7 +106,7 @@ class AlphanumericFilter(Filter):
 
         return re.compile(regExpString)
 
-    def normalizeText(self, text):
+    def _normalizeText(self, text):
         text = text.strip()
         if text.endswith("&&") or text.endswith("||"): text = text[:-2]
         if text.startswith("&&") or text.startswith("||"): text = text[2:]
@@ -116,11 +117,11 @@ class InvertedAlphanumericFilter(Filter):
     """ Prepend a logic NOT to an Alphanumeric filter """
     def __init__(self, matchType, filterText, configuration):
         Filter.__init__(self)
-        self.filter = AlphanumericFilter(matchType, filterText, configuration)
+        self._filter = AlphanumericFilter(matchType, filterText, configuration)
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ Invert Alphanumeric filter result """
-        return not self.filter.apply(layerPath)
+        return not self._filter.apply(layer_path, layer_dict)
 
 
 class BoundingBoxFilter(Filter):
@@ -138,13 +139,13 @@ class BoundingBoxFilter(Filter):
         self.boundingBox = boundingBox
         self.method = method
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ Apply the bounding box filter """
 
         if self.layerType == "vector":
-            bbox = QgsVectorLayer(layerPath, '', 'ogr').extent()
+            bbox = get_vector_layer(layer_path, '', layer_dict).extent()
         else:
-            bbox = QgsRasterLayer(layerPath, '').extent()
+            bbox = get_raster_layer(layer_path, '', layer_dict).extent()
 
         if self.method == "contains":
             return self.boundingBox.contains(bbox)
@@ -156,19 +157,19 @@ class DateModifiedFilter(Filter):
     """ Filter based on 'date modified' from file metadata """
     def __init__(self, comparison, datetime):
         Filter.__init__(self)
-        self.comparison = comparison
-        self.datetime = datetime
+        self._comparison = comparison
+        self._datetime = datetime
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ Apply date modifier filter """
-        dateModified = QDateTime().fromString(time.ctime(os.path.getmtime(layerPath.split('|layername=')[0])))
+        dateModified = QDateTime().fromString(time.ctime(os.path.getmtime(layer_path.split('|layername=')[0])))
 
-        if self.comparison == 'before':
-            return dateModified < self.datetime
-        elif self.comparison == 'after':
-            return dateModified > self.datetime
+        if self._comparison == 'before':
+            return dateModified < self._datetime
+        elif self._comparison == 'after':
+            return dateModified > self._datetime
         else:  # 'day'
-            return dateModified.date() == self.datetime.date()
+            return dateModified.date() == self._datetime.date()
 
 
 class TypeFilter(Filter):
@@ -178,13 +179,13 @@ class TypeFilter(Filter):
         self.lstFilterItems = []  # Types to be considered as True
 
     @abstractmethod
-    def getItemType(self, layerPath):
+    def getItemType(self, layer_path, layer_dict):
         """ To be overwritten """
         pass
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         """ Apply a type filter """
-        itemType = self.getItemType(layerPath)
+        itemType = self.getItemType(layer_path, layer_dict)
         return itemType in self.lstFilterItems
 
 
@@ -201,9 +202,9 @@ class GeometryTypeFilter(TypeFilter):
             # In conclusion, he/she wants geometryless layers.
             self.lstFilterItems.append(QgsWkbTypes.NullGeometry)  # Alphanumeric tables
 
-    def getItemType(self, layerPath):
+    def getItemType(self, layer_path, layer_dict):
         """ Get the layer's geometry type """
-        return QgsVectorLayer(layerPath, '', 'ogr').geometryType()
+        return get_vector_layer(layer_path, '', layer_dict).geometryType()
 
 
 class RasterTypeFilter(TypeFilter):
@@ -215,9 +216,9 @@ class RasterTypeFilter(TypeFilter):
         if 'Multiband' in itemTypes: self.lstFilterItems.append(2)
         if 'ColorLayer' in itemTypes: self.lstFilterItems.append(3)
 
-    def getItemType(self, layerPath):
+    def getItemType(self, layer_path, layer_dict):
         """ Get the layer's raster type """
-        return QgsRasterLayer(layerPath, '').rasterType()
+        return get_raster_layer(layer_path, '', layer_dict).rasterType()
 
 
 class FilterList(Filter):
@@ -232,12 +233,12 @@ class FilterList(Filter):
     def addFilter(self, filter):
         self.filterList.append(filter)
 
-    def apply(self, layerPath):
+    def apply(self, layer_path, layer_dict):
         if not self.filterList:
-            return NoFilter().apply(layerPath)  # No filter was specified
+            return NoFilter().apply(layer_path, layer_dict)  # No filter was specified
 
         for filter in self.filterList:
-            check = filter.apply(layerPath)
+            check = filter.apply(layer_path, layer_dict)
             if check is False:
                 return check
         return True
