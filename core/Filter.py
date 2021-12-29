@@ -143,9 +143,13 @@ class BoundingBoxFilter(Filter):
         """ Apply the bounding box filter """
 
         if self.layerType == "vector":
-            bbox = get_vector_layer(layer_path, '', layer_dict).extent()
+            if layer_dict[layer_path] is None:
+                layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
         else:
-            bbox = get_raster_layer(layer_path, '', layer_dict).extent()
+            if layer_dict[layer_path] is None:
+                layer_dict[layer_path] = get_raster_layer(layer_path, '', layer_dict)
+
+        bbox = layer_dict[layer_path].extent()
 
         if self.method == "contains":
             return self.boundingBox.contains(bbox)
@@ -204,7 +208,10 @@ class GeometryTypeFilter(TypeFilter):
 
     def getItemType(self, layer_path, layer_dict):
         """ Get the layer's geometry type """
-        return get_vector_layer(layer_path, '', layer_dict).geometryType()
+        if layer_dict[layer_path] is None:
+            layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
+
+        return layer_dict[layer_path].geometryType()
 
 
 class RasterTypeFilter(TypeFilter):
@@ -218,7 +225,10 @@ class RasterTypeFilter(TypeFilter):
 
     def getItemType(self, layer_path, layer_dict):
         """ Get the layer's raster type """
-        return get_raster_layer(layer_path, '', layer_dict).rasterType()
+        if layer_dict[layer_path] is None:
+            layer_dict[layer_path] = get_raster_layer(layer_path, '', layer_dict)
+
+        return layer_dict[layer_path].rasterType()
 
 
 class FilterList(Filter):
