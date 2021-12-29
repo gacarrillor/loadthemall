@@ -293,8 +293,7 @@ class LoadVectors(LoadFiles):
 
     def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ Create a vector layer """
-        if files_to_load[layer_path] is None:
-            files_to_load[layer_path] = get_vector_layer(layer_path, layer_base_name, files_to_load, True)
+        files_to_load[layer_path] = get_vector_layer(layer_path, layer_base_name, files_to_load, True)
 
         return files_to_load[layer_path]
 
@@ -319,8 +318,7 @@ class LoadRasters(LoadFiles):
 
     def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ Create a raster layer """
-        if files_to_load[layer_path] is None:
-            files_to_load[layer_path] = get_raster_layer(layer_path, layer_base_name, files_to_load, True)
+        files_to_load[layer_path] = get_raster_layer(layer_path, layer_base_name, files_to_load, True)
 
         return files_to_load[layer_path]
 
