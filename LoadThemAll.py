@@ -38,7 +38,8 @@ class LoadThemAll:
     def __init__(self, iface):
         # Save reference to the QGIS interface
         self.iface = iface
-    
+
+        self.__default_action_location = True  # Default location: Plugin menu and plugin toolbar
         self.installTranslator()
 
     def initGui(self):
@@ -48,16 +49,30 @@ class LoadThemAll:
         self.action.triggered.connect(self.run)
     
         # Add toolbar button and menu item
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu("&Load them all", self.action)
-    
+        dsm = self.iface.dataSourceManagerToolBar()
+        if len(dsm.actions()) > 1:
+            before_action = dsm.actions()[1]  # Get the action after "Data source manager", which should be the 1st one
+            dsm.insertAction(before_action, self.action)  # Add to toolbar
+            self.iface.addLayerMenu().addAction(self.action)  # Add to menu (difficult to find)
+            self.iface.addPluginToMenu("&Load them all", self.action)  # Add to plugins menu (easy to find)
+
+            self.__default_action_location = False
+        else:  # Fallback if somehow the data source manager toolbar is not able to get LTA's main action
+            self.iface.addToolBarIcon(self.action)
+            self.iface.addPluginToMenu("&Load them all", self.action)
+
         self.dockWidget = LoadThemAllDialog(self.iface.mainWindow(), self.iface)
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.iface.removePluginMenu("&Load them all", self.action)
-        self.iface.removeToolBarIcon(self.action)
-    
+        if not self.__default_action_location:
+            self.iface.dataSourceManagerToolBar().removeAction(self.action)
+            self.iface.addLayerMenu().removeAction(self.action)
+            self.iface.removePluginMenu("&Load them all", self.action)
+        else:
+            self.iface.removePluginMenu("&Load them all", self.action)
+            self.iface.removeToolBarIcon(self.action)
+
         self.dockWidget.close()
         self.iface.removeDockWidget(self.dockWidget)
 
