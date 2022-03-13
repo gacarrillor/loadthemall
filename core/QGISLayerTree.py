@@ -19,41 +19,47 @@ class QGISLayerTree:
                 group = self.root.insertGroup(0, baseGroupName)
             self.root = group
 
-    def addGroup(self, path):
-        """ Add a group based on a layer's directory.
+    def add_group(self, path):
+        """
+        Add a group based on a layer's directory.
         If parent groups don't exist, it creates all of them until base dir.
-    """
+        """
         if path != self.baseDir:
             previousPath = os.path.dirname(path)
-            previousGroup = self.addGroup(previousPath)
+            previousGroup = self.add_group(previousPath)
 
             lastDir = os.path.split(path)[1]  # Get the last dir in the path
             group = previousGroup.findGroup(lastDir)
             if not group:
-                group = previousGroup.addGroup(lastDir)
+                group = previousGroup.add_group(lastDir)
             return group
 
         else:
             return self.root
 
-    def addLayerToGroup(self, layer, group):
+    def add_layer_to_group(self, layer, group):
         """ Add a layer to its corresponding group """
-        addedLayer = QgsProject.instance().addMapLayer(layer, False)  # TODO check this!
-        group.addLayer(addedLayer)
+        addedLayer = QgsProject.instance().addMapLayer(layer, False)
+        group.add_layer(addedLayer)
 
-    def addLayer(self, layer, notVisible):
+    def add_layer(self, layer, notVisible):
         """ Add a layer to the root of the layer tree """
-        addedLayer = QgsProject.instance().addMapLayer(layer, False)  # TODO check this!
+        addedLayer = QgsProject.instance().addMapLayer(layer, False)
         addedLayerToRoot = self.root.insertLayer(0, addedLayer)
         if notVisible:
             addedLayerToRoot.setItemVisibilityChecked(0)
 
-    def setParentInvisible(self):
+    def set_parent_invisible(self):
         self.root.setItemVisibilityChecked(0)
 
-    def removeEmptyGroups(self):
-        """ Remove created groups if layers weren't added to them, e.g., if the
-        layer is not valid. """
+    def remove_empty_groups(self):
+        """
+        Remove created groups if layers weren't added to them, e.g., if the
+        layer is not valid.
+        """
         self.root.removeChildrenGroupWithoutLayers()
         if len(self.root.children()) == 0:
             QgsProject.instance().layerTreeRoot().removeChildNode(self.root)
+
+    def collapse_group(self, group):
+        group.setExpanded(False)
