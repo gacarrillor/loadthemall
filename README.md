@@ -107,6 +107,22 @@ The plugin supports the following file extensions:
   * SAGA GIS Binary Grid (*.sdat)
   * Multi-resolution Seamless Image Database (*.sid)
 
+Where to find Load Them All after installation
+
+ + `Data source manager` toolbar:
+
+    ![image](https://user-images.githubusercontent.com/652785/157999846-5e355b84-d4c7-4005-b347-393f2ac3a338.png)
+
+ + `Layer -> Add layer` menu:
+
+    ![image](https://user-images.githubusercontent.com/652785/157999893-31261a30-2c16-4c66-a7ea-de61ae79d6bd.png)
+
+ + `Plugins` menu:
+
+    ![image](https://user-images.githubusercontent.com/652785/157999941-b25b70ec-aa65-4631-8d87-91ecece7f460.png)
+
+
+
 
 LICENSE: GPL v2.0
 
