@@ -51,7 +51,7 @@ class QGISLayerTree:
             lastDir = os.path.split(path)[1]  # Get the last dir in the path
             group = previousGroup.findGroup(lastDir)
             if not group:
-                group = previousGroup.add_group(lastDir)
+                group = previousGroup.addGroup(lastDir)
             return group
 
         else:
@@ -60,7 +60,7 @@ class QGISLayerTree:
     def add_layer_to_group(self, layer, group):
         """ Add a layer to its corresponding group """
         addedLayer = QgsProject.instance().addMapLayer(layer, False)
-        group.add_layer(addedLayer)
+        group.addLayer(addedLayer)
 
     def add_layer(self, layer, notVisible):
         """ Add a layer to the root of the layer tree """
@@ -80,6 +80,3 @@ class QGISLayerTree:
         self.root.removeChildrenGroupWithoutLayers()
         if len(self.root.children()) == 0:
             QgsProject.instance().layerTreeRoot().removeChildNode(self.root)
-
-    def collapse_group(self, group):
-        group.setExpanded(False)

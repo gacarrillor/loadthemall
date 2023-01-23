@@ -24,7 +24,7 @@ from qgis.PyQt.QtWidgets import (QApplication,
                                  QDialog,
                                  QFileDialog)
 
-from core.FileFormatConfiguration import VECTOR_FORMATS, RASTER_FORMATS
+from ..core.FileFormatConfiguration import VECTOR_FORMATS, RASTER_FORMATS
 from ..ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
 
 

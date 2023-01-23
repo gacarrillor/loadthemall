@@ -242,7 +242,6 @@ class LoadFiles(ABC):
 
         if self.configuration.b_groups:
             self.tree.remove_empty_groups()
-            self.tree.collapse_group(self.tree.root)
 
         if numLayers == 0:
             self.progressBar.reset()

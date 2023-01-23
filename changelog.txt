@@ -1,5 +1,12 @@
 Changes:
 
+3.4-beta (20230123):
+    * Support for .KAP files.
+    * Plugin button can be found in:
+      + 'Data source manager' toolbar.
+      + 'Layer -> Add layer' menu.
+      + 'Plugins' menu.
+
 3.3 (20210621):
     * Support JP2, KMZ, ERS, and SID files.
     * Use addTabifiedDockWidget to show LoadThemAll panel on top of others.
