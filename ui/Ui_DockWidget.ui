@@ -73,7 +73,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-93</y>
+             <y>0</y>
              <width>322</width>
              <height>579</height>
             </rect>
@@ -194,7 +194,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>322</width>
+             <width>302</width>
              <height>608</height>
             </rect>
            </property>
@@ -315,7 +315,7 @@
              <x>0</x>
              <y>0</y>
              <width>348</width>
-             <height>515</height>
+             <height>500</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -915,7 +915,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>Copyright (C) 2010-2021 Germán Carrillo</string>
+                   <string>Copyright (C) 2010-2023 Germán Carrillo</string>
                   </property>
                   <property name="wordWrap">
                    <bool>false</bool>

@@ -1,11 +1,12 @@
 Changes:
 
-3.4-beta (20230123):
+3.4 (20231005):
     * Support for .KAP files.
     * Plugin button can be found in:
       + 'Data source manager' toolbar.
       + 'Layer -> Add layer' menu.
       + 'Plugins' menu.
+    * Heavy code clean-up.
 
 3.3 (20210621):
     * Support JP2, KMZ, ERS, and SID files.

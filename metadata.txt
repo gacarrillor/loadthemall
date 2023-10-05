@@ -2,7 +2,7 @@
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
 about=QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
-version=3.4-beta
+version=3.4
 qgisMinimumVersion=3.0
 category=Layers
 author=Germán Carrillo (GeoTux)
@@ -16,12 +16,13 @@ experimental=False
 deprecated=False
 
 
-changelog=3.4-beta (20230123):
+changelog=3.4 (20231005):
     ...* Support for .KAP files.
     ...* Plugin button can be found in:
     ......+ 'Data source manager' toolbar.
     ......+ 'Layer -> Add layer' menu.
     ......+ 'Plugins' menu.
+    ...* Heavy code clean-up.
 
     3.3 (20210621):
     ...* Support JP2, KMZ, ERS, and SID files.
