@@ -43,6 +43,8 @@ class QGISLayerTree:
         """
         Add a group based on a layer's directory.
         If parent groups don't exist, it creates all of them until base dir.
+
+        Warning: path must point to a folder! (i.e., path is not a full layer's path).
         """
         if path != self.baseDir:
             previousPath = os.path.dirname(path)
