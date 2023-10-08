@@ -22,6 +22,7 @@ import os
 import locale
 from abc import (ABC,
                  abstractmethod)
+import pathlib
 
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtWidgets import (QApplication,
@@ -77,6 +78,10 @@ class LoadFiles(ABC):
                 try:  # TODO: do we need this in Python 3?
                     # Nasty file names like those created by malware should be caught and ignored
                     extension = str.lower(str(os.path.splitext(file_)[1]))
+                    # check for multiple suffixes - i.e. point clouds can have ".copc.laz"
+                    suffixes = pathlib.Path(file_).suffixes
+                    if len(suffixes) > 1:
+                        extension = "".join(suffixes)
                 except UnicodeEncodeError as e:
                     extension = None
 
