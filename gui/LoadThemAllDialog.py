@@ -70,6 +70,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.btnCancel.setVisible(False)
         self.btnCancel.clicked.connect(self.cancelLoad)
 
+        if Qgis.versionInt() < 31800:
+            self.tabWidget.widget(2).setEnabled(False)
+
     def updateControls(self):
         """ Read stored settings and put them into the appropriate tab """
         settings = QSettings()
