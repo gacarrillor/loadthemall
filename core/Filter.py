@@ -28,7 +28,8 @@ from qgis.core import (QgsRectangle,
                        QgsWkbTypes)
 
 from .Utils import (get_raster_layer,
-                    get_vector_layer)
+                    get_vector_layer,
+                    get_point_cloud_layer)
 
 
 class Filter(ABC):
@@ -165,9 +166,12 @@ class BoundingBoxFilter(Filter):
         if self.layerType == "vector":
             if layer_dict[layer_path] is None:
                 layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
-        else:
+        elif self.layerType == "raster":
             if layer_dict[layer_path] is None:
                 layer_dict[layer_path] = get_raster_layer(layer_path, '', layer_dict)
+        elif self.layerType == "pointcloud":
+            if layer_dict[layer_path] is None:
+                layer_dict[layer_path] = get_point_cloud_layer(layer_path, '', layer_dict)
 
         bbox = layer_dict[layer_path].extent()
 
