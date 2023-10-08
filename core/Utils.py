@@ -19,7 +19,10 @@ email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 """
 from qgis.core import (QgsRasterLayer,
-                       QgsVectorLayer)
+                       QgsVectorLayer,
+                       QgsPointCloudLayer,
+                       QgsCoordinateReferenceSystem,
+                       QgsProviderRegistry)
 
 
 def get_vector_layer(layer_path, layer_name, layer_dict, rename=False):
@@ -38,5 +41,19 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
         res = QgsRasterLayer(layer_path, layer_name)
     elif rename:
         res.setName(layer_name)
+
+    return res
+
+
+def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
+    res = layer_dict[layer_path]
+    if res is None:
+        provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
+        res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
+    elif rename:
+        res.setName(layer_name)
+
+    if default_crs:
+        res.setCrs(default_crs)
 
     return res
