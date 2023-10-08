@@ -20,9 +20,12 @@ email                : gcarrillo@linuxmail.org
 """
 from qgis.core import (QgsRasterLayer,
                        QgsVectorLayer,
-                       QgsPointCloudLayer,
                        QgsCoordinateReferenceSystem,
-                       QgsProviderRegistry)
+                       QgsProviderRegistry,
+                       Qgis)
+
+if Qgis.versionInt() >= 31800:
+    from qgis.core import QgsPointCloudLayer
 
 
 def get_vector_layer(layer_path, layer_name, layer_dict, rename=False):
@@ -46,6 +49,9 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
 
 
 def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
+    if Qgis.versionInt() < 31800:
+        return None
+
     res = layer_dict[layer_path]
     if res is None:
         provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
