@@ -18,14 +18,22 @@ email                : gcarrillo@linuxmail.org
  *                                                                         *
  ***************************************************************************/
 """
+import enum
+
 from qgis.PyQt.QtCore import (Qt,
                               QSettings)
 from qgis.PyQt.QtWidgets import (QApplication,
                                  QDialog,
                                  QFileDialog)
 
-from ..core.FileFormatConfiguration import VECTOR_FORMATS, RASTER_FORMATS
+from ..core.FileFormatConfiguration import VECTOR_FORMATS, RASTER_FORMATS, POINT_CLOUD_FORMATS
 from ..ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
+
+
+class LayerType(enum.Enum):
+    VECTOR = enum.auto()
+    RASTER = enum.auto()
+    POINTCLOUD = enum.auto()
 
 
 class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
