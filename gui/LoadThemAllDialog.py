@@ -25,7 +25,8 @@ from qgis.PyQt.QtWidgets import (QDockWidget,
 from qgis.core import (QgsRectangle,
                        Qgis)
 
-from .BaseLoadThemAllDialog import BaseLoadThemAllDialog, LayerType
+from .BaseLoadThemAllDialog import BaseLoadThemAllDialog
+from ..core.LayerTypes import LayerType
 from ..core.LoadConfiguration import LoadConfiguration
 from ..core.Filter import (AlphanumericFilter,
                            BoundingBoxFilter,
@@ -224,9 +225,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
-                            filter = BoundingBoxFilter("vector", extent, "contains")
+                            filter = BoundingBoxFilter(LayerType.VECTOR, extent, "contains")
                         else:
-                            filter = BoundingBoxFilter("vector", extent, "intersects")
+                            filter = BoundingBoxFilter(LayerType.VECTOR, extent, "intersects")
                         filterList.addFilter(filter)
 
                     loader = LoadVectors(self.iface, self.progressBar, configuration)
@@ -255,9 +256,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
-                            filter = BoundingBoxFilter("raster", extent, "contains")
+                            filter = BoundingBoxFilter(LayerType.RASTER, extent, "contains")
                         else:
-                            filter = BoundingBoxFilter("raster", extent, "intersects")
+                            filter = BoundingBoxFilter(LayerType.RASTER, extent, "intersects")
                         filterList.addFilter(filter)
 
                     loader = LoadRasters(self.iface, self.progressBar, configuration)
@@ -273,9 +274,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
-                            filter = BoundingBoxFilter("pointcloud", extent, "contains")
+                            filter = BoundingBoxFilter(LayerType.POINTCLOUD, extent, "contains")
                         else:
-                            filter = BoundingBoxFilter("pointcloud", extent, "intersects")
+                            filter = BoundingBoxFilter(LayerType.POINTCLOUD, extent, "intersects")
                         filterList.addFilter(filter)
 
                     loader = LoadPointClouds(self.iface, self.progressBar, configuration)
