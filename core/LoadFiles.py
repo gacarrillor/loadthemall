@@ -29,7 +29,8 @@ from qgis.PyQt.QtWidgets import (QApplication,
 from qgis.core import (Qgis,
                        QgsApplication,
                        QgsVectorLayer,
-                       QgsMapLayer)
+                       QgsMapLayer,
+                       QgsCoordinateReferenceSystem)
 
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
@@ -46,6 +47,8 @@ class LoadFiles(ABC):
         self.iface = iface
         self.files_to_load = dict()  # {'layer_path_1': layer_obj_1, ...}
         self.dataType = ''
+
+        self.defaultCrs: QgsCoordinateReferenceSystem = None
 
         # Configuration parameters
         self.configuration = configuration
@@ -301,6 +304,9 @@ class LoadFiles(ABC):
     def _isEmptyLayer(self, layer_path, layer_dict):
         """ To be overwritten by subclasses """
         pass
+
+    def set_default_crs(self, default_crs: QgsCoordinateReferenceSystem) -> None:
+        self.defaultCrs = default_crs
 
 
 class LoadVectors(LoadFiles):
