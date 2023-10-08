@@ -36,7 +36,8 @@ from qgis.core import (Qgis,
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (get_vector_layer,
-                    get_raster_layer)
+                    get_raster_layer,
+                    get_point_cloud_layer)
 
 
 class LoadFiles(ABC):
@@ -350,6 +351,25 @@ class LoadRasters(LoadFiles):
     def _createLayer(self, layer_path, layer_base_name, files_to_load):
         """ Create a raster layer """
         files_to_load[layer_path] = get_raster_layer(layer_path, layer_base_name, files_to_load, True)
+
+        return files_to_load[layer_path]
+
+    def _isEmptyLayer(self, layer_path, layer_dict):
+        """ Do not check this on raster layers """
+        return False
+
+
+class LoadPointClouds(LoadFiles):
+    """ Subclass to load point cloud layers """
+
+    def __init__(self, iface, progressBar, configuration):
+        LoadFiles.__init__(self, iface, progressBar, configuration)
+
+        self.dataType = 'point cloud'
+
+    def _createLayer(self, layer_path, layer_base_name, files_to_load):
+        """ Create a point cloud layer """
+        files_to_load[layer_path] = get_point_cloud_layer(layer_path, layer_base_name, files_to_load, True, self.defaultCrs)
 
         return files_to_load[layer_path]
 
