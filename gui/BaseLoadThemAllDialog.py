@@ -39,11 +39,11 @@ class LayerType(enum.Enum):
 class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
     """ A generic class to be reused in vector and raster dialogs """
 
-    def __init__(self, isVector, iface):
+    def __init__(self, layerType: LayerType, iface):
         QDialog.__init__(self)
         self.setupUi(self)
-        self.isVector = isVector  # To know if it should be started with vector parameters
-        self.loadFormats(self.isVector)
+        self.layerType = layerType
+        self.loadFormats()
         self.loadDateComparisons()
         self.btnBaseDir.clicked.connect(self.selectDir)
         self.btnLoadExtent.clicked.connect(self.updateExtentFromCanvas)
@@ -53,13 +53,22 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
     def selectDir(self):
         """ Open a dialog for the user to choose a starting directory """
         settings = QSettings()
+        settings_name = ""
+
+        if self.layerType == LayerType.RASTER:
+            settings_name = "/Load_Them_All/raster/path"
+        elif self.layerType == LayerType.VECTOR:
+            settings_name = "/Load_Them_All/vector/path"
+        elif self.layerType == LayerType.POINTCLOUD:
+            settings_name = "/Load_Them_All/pointcloud/path"
+
         path = QFileDialog.getExistingDirectory(self, self.tr("Select a base directory"),
-                                                settings.value("/Load_Them_All/vector/path", "",
-                                                               type=str) if self.isVector else settings.value(
-                                                    "/Load_Them_All/raster/path", "", type=str),
+                                                settings.value(settings_name, "",
+                                                               type=str),
                                                 QFileDialog.ShowDirsOnly)
 
-        if path: self.txtBaseDir.setText(path)
+        if path:
+            self.txtBaseDir.setText(path)
 
     def updateExtentFromCanvas(self):
         canvas = self.iface.mapCanvas()
@@ -69,9 +78,14 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
         self.txtXMax.setText(str(boundBox.xMaximum()))
         self.txtYMax.setText(str(boundBox.yMaximum()))
 
-    def loadFormats(self, isVector):
+    def loadFormats(self):
         """ Fill the comboBox with file formats """
-        allFormats = VECTOR_FORMATS if isVector else  RASTER_FORMATS
+        if self.layerType == LayerType.RASTER:
+            allFormats = RASTER_FORMATS
+        elif self.layerType == LayerType.VECTOR:
+            allFormats = VECTOR_FORMATS
+        elif self.layerType == LayerType.POINTCLOUD:
+            allFormats = POINT_CLOUD_FORMATS
         allExtensions = [extension for format in allFormats for extension in format[1]]
         self.cboFormats.addItem("All listed formats (*.*)", allExtensions)
         for format in allFormats:
