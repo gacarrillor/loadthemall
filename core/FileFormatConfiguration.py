@@ -49,8 +49,8 @@ RASTER_FORMATS = [
 ]
 
 POINT_CLOUD_FORMATS = [
-    ("COPC Point Clouds (*.copc.laz *.COPC.LAZ)", [".copc.laz", ".COPC.LAZ"]),
-    ("Entwine Point Clouds (*.ept.json *.EPT.JSON)", [".ept.json", ".EPT.JSON"]),
-    ("PDAL Point Clouds (*.bpf *.e57 *.las *.laz)", [".bpf", ".e57", ".las", ".laz", ".BPF", ".E57", ".LAS", ".LAZ"]),
-    ("Virtual Point Clouds (*.vpc *.VPC )", [".vpc", ".VPC"]),
+    ("COPC Point Clouds (*.copc.laz *.COPC.LAZ)", [".copc.laz"]),
+    ("Entwine Point Clouds (*.ept.json *.EPT.JSON)", [".ept.json"]),
+    ("PDAL Point Clouds (*.bpf *.e57 *.las *.laz)", [".bpf", ".e57", ".las", ".laz"]),
+    ("Virtual Point Clouds (*.vpc *.VPC )", [".vpc"]),
 ]
