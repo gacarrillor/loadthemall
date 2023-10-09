@@ -18,6 +18,8 @@ email                : gcarrillo@linuxmail.org
  *                                                                         *
  ***************************************************************************/
 """
+import os.path
+
 from qgis.core import (QgsRasterLayer,
                        QgsVectorLayer,
                        QgsCoordinateReferenceSystem,
@@ -47,7 +49,6 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
 
     return res
 
-
 def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
     if Qgis.versionInt() < 31800:
         return None
@@ -63,3 +64,54 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
         res.setCrs(default_crs)
 
     return res
+
+def get_zip_files_to_load(path, extensions):
+    """
+    Recursive function to get all the files inside a ZIP file that match the expected extensions.
+
+    :param layer_path: Root ZIP file
+    :param extensions: List of chosen extensions
+    :return: List of files found inside the ZIP file
+    """
+    import zipfile
+    zip = zipfile.ZipFile(path)
+    files_to_load = []
+
+    for file_ in zip.namelist():
+        try:  # TODO: do we need this in Python 3?
+            # Nasty file names like those created by malware should be caught and ignored
+            extension = str.lower(str(os.path.splitext(file_)[1]))
+        except UnicodeEncodeError as e:
+            extension = None
+
+        if extension in extensions:
+            files_to_load.append('/vsizip/' + path + '/' + file_)
+        elif extension == '.zip':
+            files_to_load += get_zip_files_to_load(file_, extensions)
+
+    return files_to_load
+
+
+def get_parent_folder(layer_path):
+    """
+    For ZIP files:
+    path = '/vsizip//docs/Regional/ZIP_data.zip/AA_PreQuat_NAD27z12.TAB'
+    QgsProviderRegistry.instance().decodeUri('ogr', path) -->
+        {'layerId': None,
+         'layerName': NULL,
+         'path': '/docs/Regional/ZIP_data.zip',
+         'vsiPrefix': '/vsizip/',
+         'vsiSuffix': '/AA_PreQuat_NAD27z12.TAB'}
+
+    For regular files:
+    path = '/docs/Regional/AA_PreQuat_NAD27z12.TAB'
+    {'layerId': None,
+     'layerName': NULL,
+     'path': '/docs/geodata/Map_Database_ZIP/Geology/Regional/AA_PreQuat_NAD27z12.TAB'}
+
+    :param layer_path: Full layer path
+    :return: Folder in which we can find the layer
+    """
+    parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
+    return os.path.dirname(parts['path'])
+

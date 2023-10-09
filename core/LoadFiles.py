@@ -40,8 +40,9 @@ from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (get_vector_layer,
                     get_raster_layer,
-                    get_point_cloud_layer)
-
+                    get_point_cloud_layer,
+                    get_zip_files_to_load,
+                    get_parent_folder)
 
 class LoadFiles(ABC):
     """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
@@ -89,37 +90,44 @@ class LoadFiles(ABC):
                 except UnicodeEncodeError as e:
                     extension = None
 
-                if extension in self.configuration.extension:
-                    # layer_path = os.path.join( self.decodeName( root ), file_ )
-                    layer_path = os.path.join(root, file_)
+                if extension in self.configuration.extension or (
+                        extension == '.zip' and self.configuration.b_search_in_zip_files):
+                    # current_layer_path = os.path.join( self.decodeName( root ), file_ )
+                    current_layer_path = os.path.join(root, file_)
 
-                    if self.dataType == 'vector':
-                        layer = QgsVectorLayer(layer_path, "", "ogr")
-                        if layer.isValid():
-                            # Do we have sublayers?
-                            if len(layer.dataProvider().subLayers()) > 1:
-                                # Sample: ['0!!::!!line_intersection_collection!!::!!12!!::!!LineString!!::!!geometryProperty']
-                                subLayers = dict()
-                                for subLayer in layer.dataProvider().subLayers():
-                                    parts = subLayer.split("!!::!!")  # 1: name, 3: geometry type
-                                    # Sublayers might share layer name, we need to get geometry types just in case
-                                    if parts[1] in subLayers:
-                                        subLayers[parts[1]].append(parts[3])
-                                    else:
-                                        subLayers[parts[1]] = [parts[3]]
+                    if extension == '.zip':
+                        layer_paths = get_zip_files_to_load(current_layer_path, self.configuration.extension)
+                    else:
+                        layer_paths = [current_layer_path]
 
-                                for subLayerName, subLayerGeometries in subLayers.items():
-                                    if len(subLayerGeometries) > 1:
-                                        for subLayerGeometry in subLayerGeometries:
-                                            layer_dict["{}|layername={}|geometrytype={}".format(layer_path,
-                                                                                                subLayerName,
-                                                                                                subLayerGeometry)] = None
-                                    else:
-                                        layer_dict["{}|layername={}".format(layer_path, subLayerName)] = None
-                            else:
-                                layer_dict[layer_path] = layer
-                    else:  # 'raster'
-                        layer_dict[layer_path] = None
+                    for layer_path in layer_paths:
+                        if self.dataType == 'vector':
+                            layer = QgsVectorLayer(layer_path, "", "ogr")
+                            if layer.isValid():
+                                # Do we have sublayers?
+                                if len(layer.dataProvider().subLayers()) > 1:
+                                    # Sample: ['0!!::!!line_intersection_collection!!::!!12!!::!!LineString!!::!!geometryProperty']
+                                    subLayers = dict()
+                                    for subLayer in layer.dataProvider().subLayers():
+                                        parts = subLayer.split("!!::!!")  # 1: name, 3: geometry type
+                                        # Sublayers might share layer name, we need to get geometry types just in case
+                                        if parts[1] in subLayers:
+                                            subLayers[parts[1]].append(parts[3])
+                                        else:
+                                            subLayers[parts[1]] = [parts[3]]
+
+                                    for subLayerName, subLayerGeometries in subLayers.items():
+                                        if len(subLayerGeometries) > 1:
+                                            for subLayerGeometry in subLayerGeometries:
+                                                layer_dict["{}|layername={}|geometrytype={}".format(layer_path,
+                                                                                                    subLayerName,
+                                                                                                    subLayerGeometry)] = None
+                                        else:
+                                            layer_dict["{}|layername={}".format(layer_path, subLayerName)] = None
+                                else:
+                                    layer_dict[layer_path] = layer
+                        else:  # 'raster'
+                            layer_dict[layer_path] = None
 
         for path in layer_dict:
             QApplication.processEvents()
@@ -170,7 +178,7 @@ class LoadFiles(ABC):
 
                     # Finally add the layer and apply the options the user chose
                     if self.configuration.b_groups:
-                        group = self.tree.add_group(os.path.dirname(layer_path))
+                        group = self.tree.add_group(get_parent_folder(layer_path))
 
                     baseName = os.path.basename(layer_path)
                     layerName = os.path.splitext(baseName)[0]
