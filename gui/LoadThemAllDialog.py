@@ -55,6 +55,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
         self.tabWidget.currentChanged.connect(self.tabChanged)
         self.chkGroups.stateChanged.connect(self.saveConfigTabSettings)
+        self.chkSearchInZIPs.stateChanged.connect(self.saveConfigTabSettings)
         self.chkLayersOff.stateChanged.connect(self.saveConfigTabSettings)
         self.chkDoNotEmpty.stateChanged.connect(self.saveConfigTabSettings)
         self.chkSort.stateChanged.connect(self.saveConfigTabSettings)
@@ -113,6 +114,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             # Configuration
             configuration = LoadConfiguration()
             configuration.b_groups = self.chkGroups.isChecked()
+            configuration.b_search_in_zip_files = self.chkSearchInZIPs.isChecked()
             configuration.b_layers_off = self.chkLayersOff.isChecked()
             configuration.b_not_empty = self.chkDoNotEmpty.isChecked()
             configuration.b_sort = self.chkSort.isChecked()
@@ -309,6 +311,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         settings = QSettings()
         settings.beginGroup("/Load_Them_All/config")
         settings.setValue("groups", self.chkGroups.isChecked())
+        settings.setValue("searchInZIPs", self.chkSearchInZIPs.isChecked())
         settings.setValue("layersOff", self.chkLayersOff.isChecked())
         settings.setValue("doNotEmpty", self.chkDoNotEmpty.isChecked())
 
@@ -445,6 +448,10 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             self.chkGroups.setChecked(settings.value("groups", type=bool))
         else:
             self.chkGroups.setChecked(False)
+        if not settings.value("searchInZIPs") is None:
+            self.chkSearchInZIPs.setChecked(settings.value("searchInZIPs", type=bool))
+        else:
+            self.chkSearchInZIPs.setChecked(False)
         if not settings.value("layersOff") is None:
             self.chkLayersOff.setChecked(settings.value("layersOff", type=bool))
         else:

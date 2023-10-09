@@ -79,7 +79,8 @@ class LoadFiles(ABC):
                 except UnicodeEncodeError as e:
                     extension = None
 
-                if extension in self.configuration.extension or extension == '.zip':
+                if extension in self.configuration.extension or (
+                        extension == '.zip' and self.configuration.b_search_in_zip_files):
                     # current_layer_path = os.path.join( self.decodeName( root ), file_ )
                     current_layer_path = os.path.join(root, file_)
 
