@@ -33,6 +33,9 @@ from qgis.core import (Qgis,
                        QgsMapLayer,
                        QgsCoordinateReferenceSystem)
 
+if Qgis.versionInt() >= 31800:
+    from qgis.core import QgsPointCloudLayer
+
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (get_vector_layer,
@@ -374,5 +377,13 @@ class LoadPointClouds(LoadFiles):
         return files_to_load[layer_path]
 
     def _isEmptyLayer(self, layer_path, layer_dict):
-        """ Do not check this on raster layers """
+        if Qgis.versionInt() < 31800:
+            return False
+
+        if layer_dict[layer_path] is None:
+            layer_dict[layer_path] = get_point_cloud_layer(layer_path, '', layer_dict)
+
+        if isinstance(layer_dict[layer_path], QgsPointCloudLayer):
+            if layer_dict[layer_path].dataProvider().pointCount() == 0:
+                return True
         return False
