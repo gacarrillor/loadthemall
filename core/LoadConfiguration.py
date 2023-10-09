@@ -27,6 +27,7 @@ class LoadConfiguration:
 
         # Configuration tab
         self.b_groups = False
+        self.b_search_in_zip_files = False
         self.b_layers_off = False
         self.b_not_empty = True
         self.b_sort = True
