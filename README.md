@@ -41,6 +41,8 @@ There are several options for you to configure how layers should be loaded to QG
 
 * **Groups**: Whether or not to create groups based on directories' names. When groups are created, they reflect the directory structure, i.e., groups are nested if necessary.
 
+* **Also search inside ZIP files**: Enable searching layers inside compressed files.
+
 * **Turn off layers**: Make loaded layers invisible (it improves performance).
 
 * **Do not load empty layers**.

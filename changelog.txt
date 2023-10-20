@@ -1,5 +1,9 @@
 Changes:
 
+3.5-beta (20231020):
+    * Support for Point Cloud Layers.
+    * Support for vector/raster zipped files (optional).
+
 3.4 (20231005):
     * Support for .KAP files.
     * Plugin button can be found in:

@@ -16,7 +16,8 @@ experimental=False
 deprecated=False
 
 
-changelog=3.5-beta (20231006):
+changelog=3.5-beta (20231020):
+    ...* Support for Point Cloud Layers.
     ...* Support for vector/raster zipped files (optional).
 
     3.4 (20231005):
