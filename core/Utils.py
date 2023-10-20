@@ -22,7 +22,12 @@ import os.path
 
 from qgis.core import (QgsRasterLayer,
                        QgsVectorLayer,
-                       QgsProviderRegistry)
+                       QgsCoordinateReferenceSystem,
+                       QgsProviderRegistry,
+                       Qgis)
+
+if Qgis.versionInt() >= 31800:
+    from qgis.core import QgsPointCloudLayer
 
 
 def get_vector_layer(layer_path, layer_name, layer_dict, rename=False):
@@ -44,6 +49,23 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
 
     return res
 
+def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
+    if Qgis.versionInt() < 31800:
+        return None
+
+    res = layer_dict[layer_path]
+    if res is None:
+        provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
+        if not provider:
+            return None
+        res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
+    elif rename:
+        res.setName(layer_name)
+
+    if default_crs:
+        res.setCrs(default_crs)
+
+    return res
 
 def get_zip_files_to_load(path, extensions):
     """
@@ -94,3 +116,14 @@ def get_parent_folder(layer_path):
     """
     parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
     return os.path.dirname(parts['path'])
+
+
+def has_point_cloud_provider() -> bool:
+    qgis_providers = QgsProviderRegistry.instance().providerList()
+    point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
+    if not point_cloud_providers:
+        return False
+    for point_cloud_provider in point_cloud_providers:
+        if point_cloud_provider in qgis_providers:
+            return True
+    return False

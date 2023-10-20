@@ -27,8 +27,10 @@ from qgis.PyQt.QtCore import QDateTime
 from qgis.core import (QgsRectangle,
                        QgsWkbTypes)
 
+from .LayerTypes import LayerType
 from .Utils import (get_raster_layer,
-                    get_vector_layer)
+                    get_vector_layer,
+                    get_point_cloud_layer)
 
 
 class Filter(ABC):
@@ -146,9 +148,9 @@ class InvertedAlphanumericFilter(Filter):
 
 class BoundingBoxFilter(Filter):
     """ Filter based on a bounding box """
-    def __init__(self, layerType, boundingBox, method):
+    def __init__(self, layerType: LayerType, boundingBox, method):
         """
-        :param layerType: "raster" or "vector"
+        :param layerType: LayerType enum
         :type string:
         :param boundingBox: The bounding box for selection
         :type QgsRectangle:
@@ -162,12 +164,15 @@ class BoundingBoxFilter(Filter):
     def apply(self, layer_path, layer_dict):
         """ Apply the bounding box filter """
 
-        if self.layerType == "vector":
+        if self.layerType == LayerType.VECTOR:
             if layer_dict[layer_path] is None:
                 layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
-        else:
+        elif self.layerType == LayerType.RASTER:
             if layer_dict[layer_path] is None:
                 layer_dict[layer_path] = get_raster_layer(layer_path, '', layer_dict)
+        elif self.layerType == LayerType.POINTCLOUD:
+            if layer_dict[layer_path] is None:
+                layer_dict[layer_path] = get_point_cloud_layer(layer_path, '', layer_dict)
 
         bbox = layer_dict[layer_path].extent()
 

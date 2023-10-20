@@ -26,6 +26,7 @@ from qgis.core import (QgsRectangle,
                        Qgis)
 
 from .BaseLoadThemAllDialog import BaseLoadThemAllDialog
+from ..core.LayerTypes import LayerType
 from ..core.LoadConfiguration import LoadConfiguration
 from ..core.Filter import (AlphanumericFilter,
                            BoundingBoxFilter,
@@ -34,6 +35,7 @@ from ..core.Filter import (AlphanumericFilter,
                            InvertedAlphanumericFilter,
                            RasterTypeFilter)
 from ..core.LoadFiles import *
+from ..core.Utils import has_point_cloud_provider
 from ..ui.Ui_DockWidget import Ui_DockWidget
 
 
@@ -71,6 +73,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.btnCancel.setVisible(False)
         self.btnCancel.clicked.connect(self.cancelLoad)
 
+        if Qgis.versionInt() < 31800 and has_point_cloud_provider():
+            self.tabWidget.widget(2).setEnabled(False)
+
     def updateControls(self):
         """ Read stored settings and put them into the appropriate tab """
         settings = QSettings()
@@ -91,14 +96,19 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         if self.tabWidget.tabText(index) == "Vecteur" or \
                 self.tabWidget.tabText(index) == "Vector":
             self.currentTab = 'v'
-            self.dlgBase = BaseLoadThemAllDialog(True, self.iface)
+            self.dlgBase = BaseLoadThemAllDialog(LayerType.VECTOR, self.iface)
             self.stackedWidgetVector.addWidget(self.dlgBase)
             self.stackedWidgetVector.setCurrentWidget(self.dlgBase)
         elif self.tabWidget.tabText(index) == "Raster":
             self.currentTab = 'r'
-            self.dlgBase = BaseLoadThemAllDialog(False, self.iface)
+            self.dlgBase = BaseLoadThemAllDialog(LayerType.RASTER, self.iface)
             self.stackedWidgetRaster.addWidget(self.dlgBase)
             self.stackedWidgetRaster.setCurrentWidget(self.dlgBase)
+        elif self.tabWidget.tabText(index) == "Point Cloud":
+            self.currentTab = 'p'
+            self.dlgBase = BaseLoadThemAllDialog(LayerType.POINTCLOUD, self.iface)
+            self.stackedWidgetPointCloud.addWidget(self.dlgBase)
+            self.stackedWidgetPointCloud.setCurrentWidget(self.dlgBase)
         else:
             self.currentTab = 'a'
 
@@ -109,7 +119,8 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         # TODO : Trouver un translation tips pour éviter ce test
         if self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vector" or \
                 self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vecteur" or \
-                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster":
+                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster" or \
+                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
 
             # Configuration
             configuration = LoadConfiguration()
@@ -217,9 +228,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
-                            filter = BoundingBoxFilter("vector", extent, "contains")
+                            filter = BoundingBoxFilter(LayerType.VECTOR, extent, "contains")
                         else:
-                            filter = BoundingBoxFilter("vector", extent, "intersects")
+                            filter = BoundingBoxFilter(LayerType.VECTOR, extent, "intersects")
                         filterList.addFilter(filter)
 
                     loader = LoadVectors(self.iface, self.progressBar, configuration)
@@ -248,12 +259,32 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                     # Bounding Box Filter (part 2 out of 2)
                     if bBoundingBoxFilter is True:
                         if self.dlgBase.radContains.isChecked():
-                            filter = BoundingBoxFilter("raster", extent, "contains")
+                            filter = BoundingBoxFilter(LayerType.RASTER, extent, "contains")
                         else:
-                            filter = BoundingBoxFilter("raster", extent, "intersects")
+                            filter = BoundingBoxFilter(LayerType.RASTER, extent, "intersects")
                         filterList.addFilter(filter)
 
                     loader = LoadRasters(self.iface, self.progressBar, configuration)
+
+                elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
+
+                    crs = None
+                    if self.groupBoxPointCloudsCrs.isChecked():
+                        temp_crs = self.pointCloudCrs.crs()
+                        if temp_crs.isValid():
+                            crs = self.pointCloudCrs.crs()
+
+                    # Bounding Box Filter (part 2 out of 2)
+                    if bBoundingBoxFilter is True:
+                        if self.dlgBase.radContains.isChecked():
+                            filter = BoundingBoxFilter(LayerType.POINTCLOUD, extent, "contains")
+                        else:
+                            filter = BoundingBoxFilter(LayerType.POINTCLOUD, extent, "intersects")
+                        filterList.addFilter(filter)
+
+                    loader = LoadPointClouds(self.iface, self.progressBar, configuration)
+                    if crs:
+                        loader.set_default_crs(crs)
 
                 if loader:
                     loader.filterList = filterList
@@ -550,5 +581,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                 self.chkColorLayer.setChecked(False)
             settings.endGroup()
             self.btnLoadLayers.setEnabled(True)
+
+        elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
+            self.btnLoadLayers.setEnabled(True)
+
         else:
             self.btnLoadLayers.setEnabled(False)

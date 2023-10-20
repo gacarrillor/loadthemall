@@ -22,6 +22,7 @@ import os
 import locale
 from abc import (ABC,
                  abstractmethod)
+import pathlib
 
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtWidgets import (QApplication,
@@ -29,15 +30,19 @@ from qgis.PyQt.QtWidgets import (QApplication,
 from qgis.core import (Qgis,
                        QgsApplication,
                        QgsVectorLayer,
-                       QgsMapLayer)
+                       QgsMapLayer,
+                       QgsCoordinateReferenceSystem)
+
+if Qgis.versionInt() >= 31800:
+    from qgis.core import QgsPointCloudLayer
 
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (get_vector_layer,
                     get_raster_layer,
+                    get_point_cloud_layer,
                     get_zip_files_to_load,
                     get_parent_folder)
-
 
 class LoadFiles(ABC):
     """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
@@ -48,6 +53,8 @@ class LoadFiles(ABC):
         self.iface = iface
         self.files_to_load = dict()  # {'layer_path_1': layer_obj_1, ...}
         self.dataType = ''
+
+        self.defaultCrs: QgsCoordinateReferenceSystem = None
 
         # Configuration parameters
         self.configuration = configuration
@@ -76,6 +83,10 @@ class LoadFiles(ABC):
                 try:  # TODO: do we need this in Python 3?
                     # Nasty file names like those created by malware should be caught and ignored
                     extension = str.lower(str(os.path.splitext(file_)[1]))
+                    # check for multiple suffixes - i.e. point clouds can have ".copc.laz"
+                    suffixes = pathlib.Path(file_).suffixes
+                    if len(suffixes) > 1:
+                        extension = "".join(suffixes)
                 except UnicodeEncodeError as e:
                     extension = None
 
@@ -311,6 +322,9 @@ class LoadFiles(ABC):
         """ To be overwritten by subclasses """
         pass
 
+    def set_default_crs(self, default_crs: QgsCoordinateReferenceSystem) -> None:
+        self.defaultCrs = default_crs
+
 
 class LoadVectors(LoadFiles):
     """ Subclass to load vector layers """
@@ -353,4 +367,31 @@ class LoadRasters(LoadFiles):
 
     def _isEmptyLayer(self, layer_path, layer_dict):
         """ Do not check this on raster layers """
+        return False
+
+
+class LoadPointClouds(LoadFiles):
+    """ Subclass to load point cloud layers """
+
+    def __init__(self, iface, progressBar, configuration):
+        LoadFiles.__init__(self, iface, progressBar, configuration)
+
+        self.dataType = 'point cloud'
+
+    def _createLayer(self, layer_path, layer_base_name, files_to_load):
+        """ Create a point cloud layer """
+        files_to_load[layer_path] = get_point_cloud_layer(layer_path, layer_base_name, files_to_load, True, self.defaultCrs)
+
+        return files_to_load[layer_path]
+
+    def _isEmptyLayer(self, layer_path, layer_dict):
+        if Qgis.versionInt() < 31800:
+            return False
+
+        if layer_dict[layer_path] is None:
+            layer_dict[layer_path] = get_point_cloud_layer(layer_path, '', layer_dict)
+
+        if isinstance(layer_dict[layer_path], QgsPointCloudLayer):
+            if layer_dict[layer_path].dataProvider().pointCount() == 0:
+                return True
         return False
