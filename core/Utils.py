@@ -56,6 +56,8 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
     res = layer_dict[layer_path]
     if res is None:
         provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
+        if not provider:
+            return None
         res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
     elif rename:
         res.setName(layer_name)
