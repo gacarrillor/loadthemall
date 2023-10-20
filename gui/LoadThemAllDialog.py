@@ -35,6 +35,7 @@ from ..core.Filter import (AlphanumericFilter,
                            InvertedAlphanumericFilter,
                            RasterTypeFilter)
 from ..core.LoadFiles import *
+from ..core.Utils import has_point_cloud_provider
 from ..ui.Ui_DockWidget import Ui_DockWidget
 
 
@@ -72,7 +73,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.btnCancel.setVisible(False)
         self.btnCancel.clicked.connect(self.cancelLoad)
 
-        if Qgis.versionInt() < 31800:
+        if Qgis.versionInt() < 31800 and has_point_cloud_provider():
             self.tabWidget.widget(2).setEnabled(False)
 
     def updateControls(self):

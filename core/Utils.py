@@ -117,3 +117,13 @@ def get_parent_folder(layer_path):
     parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
     return os.path.dirname(parts['path'])
 
+
+def has_point_cloud_provider() -> bool:
+    qgis_providers = QgsProviderRegistry.instance().providerList()
+    point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
+    if not point_cloud_providers:
+        return False
+    for point_cloud_provider in point_cloud_providers:
+        if point_cloud_provider in qgis_providers:
+            return True
+    return False
