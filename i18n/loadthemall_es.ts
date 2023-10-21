@@ -345,22 +345,22 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
     </message>
     <message>
         <location filename="../LoadFiles.py" line="236"/>
-        <source>layers were loaded succesfully.</source>
+        <source>layers were loaded successfully.</source>
         <translation>capas fueron cargadas exitosamente.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="238"/>
-        <source>layers loaded succesfully.</source>
+        <source>layers loaded successfully.</source>
         <translation>capas cargadas exitosamente.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="240"/>
-        <source>layers was loaded succesfully.</source>
+        <source>layers was loaded successfully.</source>
         <translation>capas fue cargada exitosamente.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="242"/>
-        <source>layer was loaded succesfully.</source>
+        <source>layer was loaded successfully.</source>
         <translation>capa fue cargada exitosamente.</translation>
     </message>
     <message>

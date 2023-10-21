@@ -112,9 +112,9 @@ changelog=3.5-beta (20231020):
           ......(Taken from http://pyqgis.blogspot.com/)
       ...Messages in done dialogs were adjusted to account for different situations:
          ......0 layers loaded, 1 layer loaded, various layers loaded. Messages now
-         ......also include how many layers were loaded succesfully out of all
+         ......also include how many layers were loaded successfully out of all
          ......possible layers to load, e.g. "5 out of 9 layers were loaded
-         ......succesfully," which means 4 were not valid layers.
+         ......successfully," which means 4 were not valid layers.
       ...XML removed as vector format because it causes nasty bugs and, after all,
          ......it's rarely used as a vector format. I recommend using GML, KML or
          ......others.

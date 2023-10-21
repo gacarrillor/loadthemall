@@ -44,6 +44,7 @@ from .Utils import (get_vector_layer,
                     get_zip_files_to_load,
                     get_parent_folder)
 
+
 class LoadFiles(ABC):
     """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
 
@@ -192,7 +193,7 @@ class LoadFiles(ABC):
                             layerName = subLayerName
 
                     ml = self._createLayer(layer_path, layerName, self.files_to_load)
-                    if ml.isValid():
+                    if ml and ml.isValid():
                         layersLoaded += 1
                         if self.configuration.b_groups:
                             self.tree.add_layer_to_group(ml, group)
@@ -225,7 +226,7 @@ class LoadFiles(ABC):
 
                     else:
                         QgsApplication.messageLog().logMessage(
-                            "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid?".format(
+                            "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid? Is the corresponding provider properly installed?".format(
                                 layer_path),
                             "Load Them All", Qgis.Warning)
 
@@ -243,13 +244,13 @@ class LoadFiles(ABC):
                                                          " You can see a list of not loaded layers in the QGIS log (tab 'Load Them All').")
 
                 if layersLoaded > 1 and numLayers > 1:
-                    doneMsg = QCoreApplication.translate("Load Them All", "layers were loaded succesfully.")
+                    doneMsg = QCoreApplication.translate("Load Them All", "layers were loaded successfully.")
                 elif layersLoaded < 1:
-                    doneMsg = QCoreApplication.translate("Load Them All", "layers loaded succesfully.")
+                    doneMsg = QCoreApplication.translate("Load Them All", "layers loaded successfully.")
                 elif layersLoaded == 1 and numLayers > 1:
-                    doneMsg = QCoreApplication.translate("Load Them All", "layers was loaded succesfully.")
+                    doneMsg = QCoreApplication.translate("Load Them All", "layers was loaded successfully.")
                 else:
-                    doneMsg = QCoreApplication.translate("Load Them All", "layer was loaded succesfully.")
+                    doneMsg = QCoreApplication.translate("Load Them All", "layer was loaded successfully.")
 
                 self.iface.messageBar().pushMessage("Load Them All",
                                                     "{} {} {} {}{}".format(layersLoaded,

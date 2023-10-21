@@ -20,7 +20,8 @@ email                : gcarrillo@linuxmail.org
 """
 import os.path
 
-from qgis.core import (QgsRasterLayer,
+from qgis.core import (QgsApplication,
+                       QgsRasterLayer,
                        QgsVectorLayer,
                        QgsCoordinateReferenceSystem,
                        QgsProviderRegistry,
@@ -50,6 +51,7 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
 
     return res
 
+
 def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
     if Qgis.versionInt() < 31800:
         return None
@@ -58,6 +60,8 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
     if res is None:
         provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
         if not provider:
+            QgsApplication.messageLog().logMessage(
+                "No provider found for layer '{}'!".format(layer_path), "Load Them All", Qgis.Warning)
             return None
         res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
     elif rename:
@@ -67,6 +71,7 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
         res.setCrs(default_crs)
 
     return res
+
 
 def get_zip_files_to_load(path, extensions):
     """

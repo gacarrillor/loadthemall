@@ -348,22 +348,22 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
     </message>
     <message>
         <location filename="../LoadFiles.py" line="236"/>
-        <source>layers were loaded succesfully.</source>
+        <source>layers were loaded successfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="238"/>
-        <source>layers loaded succesfully.</source>
+        <source>layers loaded successfully.</source>
         <translation>couches déjà chargées.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="240"/>
-        <source>layers was loaded succesfully.</source>
+        <source>layers was loaded successfully.</source>
         <translation>couche déjà chargée.</translation>
     </message>
     <message>
         <location filename="../LoadFiles.py" line="242"/>
-        <source>layer was loaded succesfully.</source>
+        <source>layer was loaded successfully.</source>
         <translation>couche déjà chargée.</translation>
     </message>
     <message>
