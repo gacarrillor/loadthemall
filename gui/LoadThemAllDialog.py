@@ -89,7 +89,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
     def tabChanged(self, index):
         """ Save settings from the previous tab and prepare the current one """
         self.progressBar.setValue(0)
-        self.saveSettings()  # Save the previous tab settings if it was vector or raster
+        self.saveSettings()  # Save the previous tab settings if it was vector, raster or point cloud
         self.configureTabs(index)
 
     def configureTabs(self, index):
@@ -404,6 +404,10 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             settings.setValue("Multiband", self.chkMultiband.isChecked())
             settings.setValue("ColorLayer", self.chkColorLayer.isChecked())
             settings.endGroup()
+        elif self.currentTab == 'p':  # Point Cloud parameters
+            settings.beginGroup("/Load_Them_All/pointcloud")
+            self.saveBaseSettings(settings)
+            settings.endGroup()
 
     def restoreBaseSettings(self, settings):
         """ Restore settings of the base dialog """
@@ -583,6 +587,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             self.btnLoadLayers.setEnabled(True)
 
         elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
+            settings.beginGroup("/Load_Them_All/pointcloud")
+            self.restoreBaseSettings(settings)
+            settings.endGroup()
             self.btnLoadLayers.setEnabled(True)
 
         else:

@@ -386,6 +386,7 @@ class LoadPointClouds(LoadFiles):
         return files_to_load[layer_path]
 
     def _isEmptyLayer(self, layer_path, layer_dict):
+        """ Check whether a point cloud layer has no points """
         if Qgis.versionInt() < 31800:
             return False
 
