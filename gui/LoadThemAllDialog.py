@@ -73,7 +73,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.btnCancel.setVisible(False)
         self.btnCancel.clicked.connect(self.cancelLoad)
 
-        if Qgis.versionInt() < 31800 and has_point_cloud_provider():
+        if Qgis.versionInt() < 31800 or not has_point_cloud_provider():
             self.tabWidget.widget(2).setEnabled(False)
 
     def updateControls(self):

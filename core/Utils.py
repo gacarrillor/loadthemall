@@ -24,7 +24,8 @@ from qgis.core import (QgsRasterLayer,
                        QgsVectorLayer,
                        QgsCoordinateReferenceSystem,
                        QgsProviderRegistry,
-                       Qgis)
+                       Qgis,
+                       QgsMapLayerType)
 
 if Qgis.versionInt() >= 31800:
     from qgis.core import QgsPointCloudLayer
@@ -119,11 +120,17 @@ def get_parent_folder(layer_path):
 
 
 def has_point_cloud_provider() -> bool:
-    qgis_providers = QgsProviderRegistry.instance().providerList()
-    point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
+    if Qgis.versionInt() < 33000:
+        point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(QgsMapLayerType.PointCloudLayer)
+    else:
+        point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
+
     if not point_cloud_providers:
         return False
+
+    qgis_providers = QgsProviderRegistry.instance().providerList()
     for point_cloud_provider in point_cloud_providers:
         if point_cloud_provider in qgis_providers:
             return True
+
     return False
