@@ -1,6 +1,6 @@
 # Load Them All
 
-QGIS plugin that recursively loads vector and raster layers stored in a directory structure, based on several filters.
+QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** layers stored in a directory structure, based on several filters.
 
 ![Load Them All 3][2]
 
@@ -109,6 +109,13 @@ The plugin supports the following file extensions:
   * SAGA GIS Binary Grid (*.sdat)
   * Multi-resolution Seamless Image Database (*.sid)
 
+
+* Point Clouds
+  * COPC Point Clouds (*.copc.laz)
+  * Entwine Point Clouds (*.ept.json)
+  * PDAL Point Clouds (*.bpf, *.e57, *.las, *.laz)
+  * Virtual Point Clouds (*.vpc)
+
 Where to find Load Them All after installation
 
  + `Data source manager` toolbar:
@@ -133,6 +140,7 @@ Code contributors:
 * Sören Gebbert (v2.3)
 * Jean Hemmi (v3.1 and French translation)
 * Guillaume Lostis (v3.3)
+* Jan Caha (v3.5)
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 

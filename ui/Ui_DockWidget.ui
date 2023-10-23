@@ -301,9 +301,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-101</y>
-             <width>323</width>
-             <height>574</height>
+             <y>0</y>
+             <width>322</width>
+             <height>556</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
@@ -344,7 +344,7 @@
                 <number>9</number>
                </property>
                <item row="0" column="0">
-                <widget class="QgsProjectionSelectionWidget" name="pointCloudCrs"/>
+                <widget class="QgsProjectionSelectionWidget" name="pointCloudCrs" native="true"/>
                </item>
               </layout>
              </widget>
@@ -1074,7 +1074,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
                    <string notr="true">font: 8pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jan Caha (v3.5)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>

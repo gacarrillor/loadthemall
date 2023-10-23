@@ -7,6 +7,6 @@ SOURCES = ../Base_LoadThemAllDialog.py \
           ../LoadThemAllDialog.py \
           ../LoadThemAll.py \
           ../ui/Ui_Base_LoadThemAll.py \
-          ../ui/Ui_DockWidget.py \
+          ../ui/Ui_DockWidget.py
 
 TRANSLATIONS = loadthemall_es.ts loadthemall_fr.ts

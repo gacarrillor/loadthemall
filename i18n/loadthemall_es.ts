@@ -106,19 +106,16 @@
         <translation type="obsolete">Selecciona un directorio base</translation>
     </message>
     <message>
-        <location filename="../Base_LoadThemAllDialog.py" line="100"/>
         <source>Before</source>
-        <translation>Antes de</translation>
+        <translation type="vanished">Antes de</translation>
     </message>
     <message>
-        <location filename="../Base_LoadThemAllDialog.py" line="101"/>
         <source>Exact date</source>
-        <translation>Fecha exacta</translation>
+        <translation type="vanished">Fecha exacta</translation>
     </message>
     <message>
-        <location filename="../Base_LoadThemAllDialog.py" line="102"/>
         <source>After</source>
-        <translation>Después de</translation>
+        <translation type="vanished">Después de</translation>
     </message>
 </context>
 <context>
@@ -184,92 +181,115 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="280"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="274"/>
+        <source>Point Cloud</source>
+        <translation>Nube de puntos</translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="328"/>
+        <source>Set CRS to all Point Cloud Layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="366"/>
         <source>Configuration</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="376"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="599"/>
         <source>Create groups based on directories&apos; names</source>
         <translation>Crear grupos con base en nombres de directorios</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="398"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="640"/>
         <source>Turn off the loaded layers</source>
         <translation>Apagar las capas cargadas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="414"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="734"/>
+        <source>Also search inside ZIP files</source>
+        <translation>Buscar también dentro de archivos ZIP</translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="1011"/>
+        <source>Copyright (C) 2010-2023 Germán Carrillo</source>
+        <translation>Copyright (C) 2010-2023 Germán Carrillo</translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="1077"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jan Caha (v3.5)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Colaboradores de código:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 y v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; trad. al francés)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jan Caha (v3.5)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="561"/>
         <source>Do not load empty vector layers </source>
         <translation>No cargar capas vacías </translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="430"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="577"/>
         <source>Sort loaded layers by name</source>
         <translation>Ordenar por nombre las capas cargadas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="464"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="514"/>
         <source>Reverse sort order</source>
         <translation>Ordenar de manera inversa</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="479"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="456"/>
         <source>Ignore case in the alphanumeric filter</source>
         <translation>Ignorar mayúsculas/minúsculas en filtros</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="495"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="615"/>
         <source>This option requires the Python lib &apos;unidecode&apos;</source>
         <translation>Esta opción requiere la librería de Python &apos;unidecode&apos;</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="498"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="618"/>
         <source>Ignore accents in the alphanumeric filter</source>
         <translation>Ignorar caracteres especiales en filtros</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="514"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="529"/>
         <source>SubLayers</source>
         <translation>Subcapas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="520"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="535"/>
         <source>Include parent in search</source>
         <translation>Incluir capa padre en búsquedas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="527"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="542"/>
         <source>Include parent name in loaded sublayers</source>
         <translation>Incluir nombre de capa padre en subcapas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="590"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="716"/>
         <source>Number of layers to show you a confirmation dialog before the load</source>
         <translation>Número de capas para mostrar un diálogo de confirmación antes del cargue</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="628"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="470"/>
         <source>Apply group style to layers</source>
         <translation>Aplicar estilo de grupo a las capas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="918"/>
         <source>Copyright (C) 2010-2021 Germán Carrillo</source>
-        <translation>Copyright (C) 2010-2021 Germán Carrillo</translation>
+        <translation type="vanished">Copyright (C) 2010-2021 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="984"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Colaboradores:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 y v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 y trad. al francés)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Colaboradores:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 y v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 y trad. al francés)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="572"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="698"/>
         <source>50</source>
         <translation>50</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="624"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="466"/>
         <source>When checked, if groups are checked and a QML is found inside a layer folder with the
 same folder name (e.g., my_group.qml), it will be applied to all layers inside that group.</source>
         <oldsource>When checked, if a QML file shares a layer&apos;s name and path, it will be applied. If groups are checked and a QML has the group name, it will be applied to all layers inside that group.</oldsource>
@@ -281,22 +301,22 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
         <translation type="vanished">Aplicar estilos a las capas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="655"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="748"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="713"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="806"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>El plugin &lt;i&gt;Load Them All&lt;/i&gt; permite cargar de forma simultánea varias capas almacenadas en una estructura de directorios, con base en una serie de filtros que se pueden personalizar.</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="760"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="853"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="813"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="906"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reporta bugs, sugiere mejoras o saluda :D en gcarrillo@linuxmail.org o directamente en el &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;repositorio de GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -305,7 +325,7 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
         <translation type="vanished">Copyright (C) 2010-2020 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="943"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1036"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
@@ -314,12 +334,12 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1073"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1166"/>
         <source>Load layers</source>
         <translation>Cargar capas</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1080"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1173"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -327,68 +347,56 @@ una capa con el nombre del grupo (ej. mi_grupo.qml), este será aplicado a todas
 <context>
     <name>Load Them All</name>
     <message>
-        <location filename="../LoadFiles.py" line="140"/>
         <source>Load Them All</source>
-        <translation>Load Them All</translation>
+        <translation type="vanished">Load Them All</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="141"/>
         <source>There are {} layers to load.
  Do you want to continue?</source>
-        <translation>Hay {} capas para cargar.
+        <translation type="vanished">Hay {} capas para cargar.
 ¿Quieres continuar?</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="232"/>
         <source> You can see a list of not loaded layers in the QGIS log (tab &apos;Load Them All&apos;).</source>
-        <translation> Puedes ver un listado de capas no cargadas en la pestaña &apos;Load Them All&apos; del log de QGIS.</translation>
+        <translation type="vanished"> Puedes ver un listado de capas no cargadas en la pestaña &apos;Load Them All&apos; del log de QGIS.</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="236"/>
         <source>layers were loaded successfully.</source>
-        <translation>capas fueron cargadas exitosamente.</translation>
+        <translation type="vanished">capas fueron cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="238"/>
         <source>layers loaded successfully.</source>
-        <translation>capas cargadas exitosamente.</translation>
+        <translation type="vanished">capas cargadas exitosamente.</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="240"/>
         <source>layers was loaded successfully.</source>
-        <translation>capas fue cargada exitosamente.</translation>
+        <translation type="vanished">capas fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="242"/>
         <source>layer was loaded successfully.</source>
-        <translation>capa fue cargada exitosamente.</translation>
+        <translation type="vanished">capa fue cargada exitosamente.</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="246"/>
         <source> out of </source>
-        <translation> de </translation>
+        <translation type="vanished"> de </translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="265"/>
         <source> or </source>
-        <translation> o </translation>
+        <translation type="vanished"> o </translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="268"/>
         <source>There are no &lt;i&gt;</source>
-        <translation>No hay archivos &lt;i&gt;</translation>
+        <translation type="vanished">No hay archivos &lt;i&gt;</translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="269"/>
         <source>&lt;/i&gt; files to load from the base directory with this filter.
 </source>
-        <translation>&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
+        <translation type="vanished">&lt;/i&gt; para cargar desde el directorio elegido y con el filtro especificado.
 </translation>
     </message>
     <message>
-        <location filename="../LoadFiles.py" line="271"/>
         <source>Change those parameters and try again.</source>
-        <translation>Cambia esos parámetros e intenta de nuevo.</translation>
+        <translation type="vanished">Cambia esos parámetros e intenta de nuevo.</translation>
     </message>
 </context>
 <context>
