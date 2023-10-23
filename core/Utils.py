@@ -130,12 +130,4 @@ def has_point_cloud_provider() -> bool:
     else:
         point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
 
-    if not point_cloud_providers:
-        return False
-
-    qgis_providers = QgsProviderRegistry.instance().providerList()
-    for point_cloud_provider in point_cloud_providers:
-        if point_cloud_provider in qgis_providers:
-            return True
-
-    return False
+    return bool(point_cloud_providers)
