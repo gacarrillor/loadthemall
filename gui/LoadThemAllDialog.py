@@ -39,6 +39,11 @@ from ..core.Utils import has_point_cloud_provider
 from ..ui.Ui_DockWidget import Ui_DockWidget
 
 
+VECTOR_TAB_INDEX = 0
+RASTER_TAB_INDEX = 1
+POINT_CLOUD_TAB_INDEX = 2
+
+
 class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
     def __init__(self, parent, iface):
         QDockWidget.__init__(self, parent)
@@ -49,7 +54,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.dlgBase = None  # It permits to reuse a base dialog
 
         # To remember the last tab before a tab switch to save settings
-        self.currentTab = 'a'  # a:another, v:vector, r:raster
+        self.currentTab = 'a'  # a:another, v:vector, r:raster, p:point cloud
 
         self.updateControls()
         self.progressBar.setMinimum(0)
@@ -93,18 +98,17 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.configureTabs(index)
 
     def configureTabs(self, index):
-        if self.tabWidget.tabText(index) == "Vecteur" or \
-                self.tabWidget.tabText(index) == "Vector":
+        if self.tabWidget.currentIndex() == VECTOR_TAB_INDEX:
             self.currentTab = 'v'
             self.dlgBase = BaseLoadThemAllDialog(LayerType.VECTOR, self.iface)
             self.stackedWidgetVector.addWidget(self.dlgBase)
             self.stackedWidgetVector.setCurrentWidget(self.dlgBase)
-        elif self.tabWidget.tabText(index) == "Raster":
+        elif self.tabWidget.currentIndex() == RASTER_TAB_INDEX:
             self.currentTab = 'r'
             self.dlgBase = BaseLoadThemAllDialog(LayerType.RASTER, self.iface)
             self.stackedWidgetRaster.addWidget(self.dlgBase)
             self.stackedWidgetRaster.setCurrentWidget(self.dlgBase)
-        elif self.tabWidget.tabText(index) == "Point Cloud":
+        elif self.tabWidget.currentIndex() == POINT_CLOUD_TAB_INDEX:
             self.currentTab = 'p'
             self.dlgBase = BaseLoadThemAllDialog(LayerType.POINTCLOUD, self.iface)
             self.stackedWidgetPointCloud.addWidget(self.dlgBase)
@@ -116,12 +120,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
     def apply(self):
         """ Read parameters and create the LoadFiles instance """
-        # TODO : Trouver un translation tips pour éviter ce test
-        if self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vector" or \
-                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vecteur" or \
-                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster" or \
-                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
-
+        if self.tabWidget.currentIndex() in [VECTOR_TAB_INDEX, RASTER_TAB_INDEX, POINT_CLOUD_TAB_INDEX]:
             # Configuration
             configuration = LoadConfiguration()
             configuration.b_groups = self.chkGroups.isChecked()
@@ -211,8 +210,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
                 # Vector/Raster particular Filters
                 loader = None
-                if self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vecteur" or \
-                        self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vector":
+                if self.tabWidget.currentIndex() == VECTOR_TAB_INDEX:
 
                     # Vector Type Filter
                     if self.groupBoxGeometryTypeFilter.isChecked() and \
@@ -235,7 +233,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
                     loader = LoadVectors(self.iface, self.progressBar, configuration)
 
-                elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster":
+                elif self.tabWidget.currentIndex() == RASTER_TAB_INDEX:
 
                     # Raster Type Filter
                     if self.groupBoxRasterTypeFilter.isChecked() and \
@@ -266,7 +264,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
                     loader = LoadRasters(self.iface, self.progressBar, configuration)
 
-                elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
+                elif self.tabWidget.currentIndex() == POINT_CLOUD_TAB_INDEX:
 
                     crs = None
                     if self.groupBoxPointCloudsCrs.isChecked():
@@ -535,8 +533,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.txtNumLayersToConfirm.setText(str(n))
         settings.endGroup()
 
-        if self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vecteur" or \
-                self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Vector":
+        if self.tabWidget.currentIndex() == VECTOR_TAB_INDEX:
             settings.beginGroup("/Load_Them_All/vector")
             self.restoreBaseSettings(settings)
 
@@ -559,7 +556,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             settings.endGroup()
             self.btnLoadLayers.setEnabled(True)
 
-        elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Raster":
+        elif self.tabWidget.currentIndex() == RASTER_TAB_INDEX:
             settings.beginGroup("/Load_Them_All/raster")
             self.restoreBaseSettings(settings)
 
@@ -586,7 +583,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             settings.endGroup()
             self.btnLoadLayers.setEnabled(True)
 
-        elif self.tabWidget.tabText(self.tabWidget.currentIndex()) == "Point Cloud":
+        elif self.tabWidget.currentIndex() == POINT_CLOUD_TAB_INDEX:
             settings.beginGroup("/Load_Them_All/pointcloud")
             self.restoreBaseSettings(settings)
             settings.endGroup()

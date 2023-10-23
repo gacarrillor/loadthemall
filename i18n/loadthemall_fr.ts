@@ -298,7 +298,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
     <message>
         <location filename="../ui/Ui_DockWidget.ui" line="748"/>
         <source>About</source>
-        <translation>A propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../ui/Ui_DockWidget.ui" line="806"/>
