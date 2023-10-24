@@ -28,12 +28,23 @@ from qgis.core import (QgsApplication,
                        QgsProviderRegistry,
                        Qgis,
                        QgsMapLayerType)
+if Qgis.versionInt() >= 31800:
+    from qgis.core import QgsPointCloudLayer
+
+from processing.algs.gdal.GdalUtils import GdalUtils
 
 from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 
 
-if Qgis.versionInt() >= 31800:
-    from qgis.core import QgsPointCloudLayer
+_gdal_version = None  # Global variable, use get_gdal_version() instead
+
+
+def get_gdal_version():
+    global _gdal_version
+    if _gdal_version is None:
+        _gdal_version = GdalUtils.version()  # e.g., 3040100 --> 3.4.1
+
+    return _gdal_version
 
 
 def get_vector_layer(layer_path, layer_name, layer_dict, rename=False):
@@ -90,6 +101,8 @@ def get_compressed_files_to_load(path, extensions):
 
     if extension == ".zip":
         files_to_load += get_zip_files_to_load(path, extensions)
+    elif extension == ".rar":
+        files_to_load += get_rar_files_to_load(path, extensions)
 
     return files_to_load
 
@@ -117,6 +130,47 @@ def get_zip_files_to_load(path, extensions):
     return files_to_load
 
 
+def get_rar_files_to_load(path, extensions):
+    """
+    Recursive function to get all the files inside a RAR file that match the expected extensions.
+
+    :param path: Root RAR file
+    :param extensions: List of chosen extensions
+    :return: List of files found inside the RAR file
+    """
+    # Check GDAL >= v3.7
+    if get_gdal_version() < 3070000:
+        QgsApplication.messageLog().logMessage(
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+        QgsApplication.messageLog().logMessage(
+            "To load RAR files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
+            Qgis.Warning)
+        return []
+
+    try:
+        import rarfile
+    except ModuleNotFoundError as e:
+        QgsApplication.messageLog().logMessage(
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+        QgsApplication.messageLog().logMessage(
+            "To search inside RAR files you need to install the module 'rarfile' (e.g., pip install rarfile)!",
+            "Load Them All", Qgis.Warning)
+        return []
+
+    rf = rarfile.RarFile(path)
+    files_to_load = []
+
+    for file_ in rf.namelist():
+        extension = get_file_extension(file_)
+
+        if extension in extensions:
+            files_to_load.append('/vsirar/' + path + '/' + file_)
+        elif extension in COMPRESSED_FILE_EXTENSIONS:
+            files_to_load += get_compressed_files_to_load(file_, extensions)
+
+    return files_to_load
+
+
 def get_parent_folder(layer_path):
     """
     For ZIP files:
@@ -137,8 +191,16 @@ def get_parent_folder(layer_path):
     :param layer_path: Full layer path
     :return: Folder in which we can find the layer
     """
-    parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
-    return os.path.dirname(parts['path'])
+    folder = ''
+    if layer_path.startswith('/vsirar/'):
+        import re
+        base = re.split("\\.rar", layer_path[8:], flags=re.IGNORECASE)[0]  # Get rid of prefix & case-insensitive split
+        folder = os.path.dirname(base)
+    else:
+        parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
+        folder = os.path.dirname(parts['path'])
+
+    return folder
 
 
 def has_point_cloud_provider() -> bool:

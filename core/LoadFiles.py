@@ -97,6 +97,7 @@ class LoadFiles(ABC):
 
                     for layer_path in layer_paths:
                         if self.dataType == 'vector':
+                            # Since vectors might have sublayers, treat them specially here
                             layer = QgsVectorLayer(layer_path, "", "ogr")
                             if layer.isValid():
                                 # Do we have sublayers?
@@ -121,7 +122,9 @@ class LoadFiles(ABC):
                                             layer_dict["{}|layername={}".format(layer_path, subLayerName)] = None
                                 else:
                                     layer_dict[layer_path] = layer
-                        else:  # 'raster'
+                            else:
+                                layer_dict[layer_path] = layer  # We'll take it into account for statistics anyways
+                        else:  # 'raster' or 'point cloud'
                             layer_dict[layer_path] = None
 
         for path in layer_dict:
