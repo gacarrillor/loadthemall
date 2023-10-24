@@ -19,6 +19,7 @@ email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 """
 import os.path
+import pathlib
 
 from qgis.core import (QgsApplication,
                        QgsRasterLayer,
@@ -27,6 +28,9 @@ from qgis.core import (QgsApplication,
                        QgsProviderRegistry,
                        Qgis,
                        QgsMapLayerType)
+
+from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
+
 
 if Qgis.versionInt() >= 31800:
     from qgis.core import QgsPointCloudLayer
@@ -73,11 +77,28 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
     return res
 
 
+def get_compressed_files_to_load(path, extensions):
+    """
+    Recursive function to get all the files inside a compressed file that match the expected extensions.
+
+    :param path: Root compressed file
+    :param extensions: List of chosen extensions
+    :return: List of files found inside the compressed file
+    """
+    extension = get_file_extension(path)
+    files_to_load = []
+
+    if extension == ".zip":
+        files_to_load += get_zip_files_to_load(path, extensions)
+
+    return files_to_load
+
+
 def get_zip_files_to_load(path, extensions):
     """
     Recursive function to get all the files inside a ZIP file that match the expected extensions.
 
-    :param layer_path: Root ZIP file
+    :param path: Root ZIP file
     :param extensions: List of chosen extensions
     :return: List of files found inside the ZIP file
     """
@@ -86,16 +107,12 @@ def get_zip_files_to_load(path, extensions):
     files_to_load = []
 
     for file_ in zip.namelist():
-        try:  # TODO: do we need this in Python 3?
-            # Nasty file names like those created by malware should be caught and ignored
-            extension = str.lower(str(os.path.splitext(file_)[1]))
-        except UnicodeEncodeError as e:
-            extension = None
+        extension = get_file_extension(file_)
 
         if extension in extensions:
             files_to_load.append('/vsizip/' + path + '/' + file_)
-        elif extension == '.zip':
-            files_to_load += get_zip_files_to_load(file_, extensions)
+        elif extension in COMPRESSED_FILE_EXTENSIONS:
+            files_to_load += get_compressed_files_to_load(file_, extensions)
 
     return files_to_load
 
@@ -131,3 +148,15 @@ def has_point_cloud_provider() -> bool:
         point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
 
     return bool(point_cloud_providers)
+
+
+def get_file_extension(file_path):
+    try:  # TODO: do we need this in Python 3?
+        # Nasty file names like those created by malware should be caught and ignored
+        # Check even multiple suffixes (e.g. point clouds can have ".copc.laz")
+        suffixes = pathlib.Path(file_path).suffixes
+        extension = "".join(suffixes).lower() or None
+    except UnicodeEncodeError as e:
+        extension = None
+
+    return extension

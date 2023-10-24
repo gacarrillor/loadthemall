@@ -36,12 +36,14 @@ from qgis.core import (Qgis,
 if Qgis.versionInt() >= 31800:
     from qgis.core import QgsPointCloudLayer
 
+from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (get_vector_layer,
                     get_raster_layer,
                     get_point_cloud_layer,
-                    get_zip_files_to_load,
+                    get_compressed_files_to_load,
+                    get_file_extension,
                     get_parent_folder)
 
 
@@ -81,23 +83,15 @@ class LoadFiles(ABC):
                 if self._process_cancelled():
                     return False
 
-                try:  # TODO: do we need this in Python 3?
-                    # Nasty file names like those created by malware should be caught and ignored
-                    extension = str.lower(str(os.path.splitext(file_)[1]))
-                    # check for multiple suffixes - i.e. point clouds can have ".copc.laz"
-                    suffixes = pathlib.Path(file_).suffixes
-                    if len(suffixes) > 1:
-                        extension = "".join(suffixes)
-                except UnicodeEncodeError as e:
-                    extension = None
+                extension = get_file_extension(file_)
 
                 if extension in self.configuration.extension or (
-                        extension == '.zip' and self.configuration.b_search_in_zip_files):
+                        extension in COMPRESSED_FILE_EXTENSIONS and self.configuration.b_search_in_zip_files):
                     # current_layer_path = os.path.join( self.decodeName( root ), file_ )
                     current_layer_path = os.path.join(root, file_)
 
-                    if extension == '.zip':
-                        layer_paths = get_zip_files_to_load(current_layer_path, self.configuration.extension)
+                    if extension in COMPRESSED_FILE_EXTENSIONS:
+                        layer_paths = get_compressed_files_to_load(current_layer_path, self.configuration.extension)
                     else:
                         layer_paths = [current_layer_path]
 
