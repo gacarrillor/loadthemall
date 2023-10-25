@@ -3,7 +3,9 @@
 #      All file extensions should be written in lower case.
 #      In the code we make sure to properly test against variations (e.g., uppercase).
 
-COMPRESSED_FILE_EXTENSIONS = [".zip", ".rar"]
+COMPRESSED_FILE_EXTENSIONS = [".zip",
+                              ".rar",
+                              ".tar", ".tar.gz", ".tgz"]
 
 VECTOR_FORMATS = [
     ("GeoPackage (*.gpkg)", [".gpkg"]),
