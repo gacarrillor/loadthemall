@@ -103,6 +103,8 @@ def get_compressed_files_to_load(path, extensions):
         files_to_load += get_zip_files_to_load(path, extensions)
     elif extension == ".rar":
         files_to_load += get_rar_files_to_load(path, extensions)
+    elif extension in [".tar", ".tar.gz", ".tgz"]:
+        files_to_load += get_tar_files_to_load(path, extensions)
 
     return files_to_load
 
@@ -167,6 +169,36 @@ def get_rar_files_to_load(path, extensions):
             files_to_load.append('/vsirar/' + path + '/' + file_)
         elif extension in COMPRESSED_FILE_EXTENSIONS:
             files_to_load += get_compressed_files_to_load(file_, extensions)
+
+    return files_to_load
+
+
+def get_tar_files_to_load(path, extensions):
+    """
+    Recursive function to get all the files inside a TAR file that match the expected extensions.
+
+    :param path: Root TAR file
+    :param extensions: List of chosen extensions
+    :return: List of files found inside the TAR file
+    """
+    import tarfile
+    if get_file_extension(path) == ".tar":
+        tar = tarfile.TarFile(path)
+    elif get_file_extension(path) in [".tar.gz", ".tgz"]:
+        tar = tarfile.open(path, "r:gz")
+
+    files_to_load = []
+
+    for file_ in tar.getnames():
+        extension = get_file_extension(file_)
+
+        if extension in extensions:
+            files_to_load.append('/vsitar/' + path + '/' + file_)
+        elif extension in COMPRESSED_FILE_EXTENSIONS:
+            files_to_load += get_compressed_files_to_load(file_, extensions)
+
+    if get_file_extension(path) in [".tar.gz", ".tgz"]:
+        tar.close()
 
     return files_to_load
 
