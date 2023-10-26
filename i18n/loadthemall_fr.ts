@@ -207,16 +207,21 @@
     </message>
     <message>
         <location filename="../ui/Ui_DockWidget.ui" line="734"/>
-        <source>Also search inside ZIP files</source>
-        <translation>Chercher aussi dans les fichiers ZIP</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Supported compressed files:&lt;/p&gt;&lt;p&gt;ZIP, Gzip (.gz), 7zip (.7z), TAR, and RAR.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;For 7zip: Module &apos;py7zr&apos; is required.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;For RAR: Module &apos;rarfile&apos; is required.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fichiers compressés supportés :&lt;/p&gt;&lt;p&gt;ZIP, Gzip (.gz), 7zip (.7z), TAR et RAR.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Pour 7zip : Le module &apos;py7zr&apos; est requis.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Pour RAR : Le module &apos;rarfile&apos; est requis.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1011"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="737"/>
+        <source>Also search inside compressed files</source>
+        <translation>Chercher aussi dans les fichiers compressés</translation>
+    </message>
+    <message>
+        <location filename="../ui/Ui_DockWidget.ui" line="1014"/>
         <source>Copyright (C) 2010-2023 Germán Carrillo</source>
         <translation>Copyright (C) 2010-2023 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1077"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1080"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 and v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jan Caha (v3.5)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Collaborateurs :&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;David Bakeman (v2.1 et v2.4)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Soeren Gebbert (v2.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jean Hemmi (v3.1 &amp;amp; traduction FR)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Guillaume Lostis (v3.3)&lt;br/&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Jan Caha (v3.5)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -296,22 +301,22 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
         <translation type="vanished">Appliquer vos styles</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="748"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="751"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="806"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="809"/>
         <source>The &lt;i&gt;Load Them All&lt;/i&gt; plugin allows you to load at the same time a number of layers stored in a directory structure, based on a variety of filters you may customize.</source>
         <translation>L&apos;extension &lt;i&gt;Load Them All&lt;/i&gt; permet de charger un lot de couches ainsi que la structure des répertoires. En option, on peut personnaliser le chargement par plusieurs filtres.</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="853"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="856"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="906"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="909"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feel free to report bugs, suggest improvements or say hello at gcarrillo@linuxmail.org or directly at the &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GitHub repository&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Retour de bugs, proposition d&apos;améliorations ou salutations à gcarrillo@linuxmail.org ou directement dans le &lt;a href=&quot;https://github.com/gacarrillor/loadthemall&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;dépôt GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -320,7 +325,7 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
         <translation type="vanished">Copyright (C) 2010-2020 Germán Carrillo</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1036"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1039"/>
         <source>&lt;i&gt;Licensed under the terms of GNU GPL 2&lt;/i&gt;</source>
         <translation>&lt;i&gt;Licencia GNU GPL 2&lt;/i&gt;</translation>
     </message>
@@ -329,12 +334,12 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Code contributors:&lt;/span&gt;&lt;br/&gt;&lt;br/&gt;     David Bakeman (v2.1 and v2.4)&lt;br/&gt;     Soeren Gebbert (v2.3)&lt;br/&gt;     Jean Hemmi (v3.1 &amp;amp; French transl.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1166"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1169"/>
         <source>Load layers</source>
         <translation>Charger les couches</translation>
     </message>
     <message>
-        <location filename="../ui/Ui_DockWidget.ui" line="1173"/>
+        <location filename="../ui/Ui_DockWidget.ui" line="1176"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>

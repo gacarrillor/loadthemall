@@ -16,9 +16,10 @@ experimental=False
 deprecated=False
 
 
-changelog=3.5-beta (20231020):
+changelog=3.5-beta (20231026):
     ...* Support for Point Cloud Layers.
-    ...* Support for searching layers in zipped files (optional).
+    ...* Support for searching layers in compressed files (optional)
+    ......[ZIP, Gzip, 7zip, TAR, and RAR].
 
     3.4 (20231005):
     ...* Support for .KAP files.
