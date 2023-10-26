@@ -105,6 +105,8 @@ def get_compressed_files_to_load(path, extensions):
         files_to_load += get_rar_files_to_load(path, extensions)
     elif extension in [".tar", ".tar.gz", ".tgz"]:
         files_to_load += get_tar_files_to_load(path, extensions)
+    elif extension == ".gz":  # Order and 'elif' is important here to avoid getting .tar.gz files
+        files_to_load += get_gzip_file_to_load(path, extensions)
 
     return files_to_load
 
@@ -203,6 +205,25 @@ def get_tar_files_to_load(path, extensions):
     return files_to_load
 
 
+def get_gzip_file_to_load(path, extensions):
+    """
+    Get a GDAL-ready url to the GZIP file that match the expected extensions.
+
+    :param path: GZIP file path
+    :param extensions: List of chosen extensions
+    :return: List with the GZipped file's GDAL-ready url (if it matches the chosen extensions)
+    """
+    files_to_load = []
+    extension = get_file_extension(path[:-3])  # Get rid of '.gz' to get the path to the real file
+
+    if extension in extensions:
+        files_to_load.append('/vsigzip/' + path)  # This time path should include the .gz suffix
+    elif extension in COMPRESSED_FILE_EXTENSIONS:
+        files_to_load += get_compressed_files_to_load(file_, extensions)
+
+    return files_to_load
+
+
 def get_parent_folder(layer_path):
     """
     For ZIP files:
@@ -249,7 +270,11 @@ def get_file_extension(file_path):
         # Nasty file names like those created by malware should be caught and ignored
         # Check even multiple suffixes (e.g. point clouds can have ".copc.laz")
         suffixes = pathlib.Path(file_path).suffixes
-        extension = "".join(suffixes).lower() or None
+        if ".gz" in suffixes and not ".tar" in suffixes:
+            # If we have a .gz file that is not a tar, we only return the ".gz" part (avoiding e.g., ".geojson.gz")
+            extension = ".gz"
+        else:
+            extension = "".join(suffixes).lower() or None
     except UnicodeEncodeError as e:
         extension = None
 
