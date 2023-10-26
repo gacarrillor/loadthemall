@@ -107,6 +107,8 @@ def get_compressed_files_to_load(path, extensions):
         files_to_load += get_tar_files_to_load(path, extensions)
     elif extension == ".gz":  # Order and 'elif' is important here to avoid getting .tar.gz files
         files_to_load += get_gzip_file_to_load(path, extensions)
+    elif extension == ".7z":
+        files_to_load += get_7zip_files_to_load(path, extensions)
 
     return files_to_load
 
@@ -224,6 +226,48 @@ def get_gzip_file_to_load(path, extensions):
     return files_to_load
 
 
+def get_7zip_files_to_load(path, extensions):
+    """
+    Recursive function to get all the files inside a 7zip file that match the expected extensions.
+
+    :param path: Root 7zip file
+    :param extensions: List of chosen extensions
+    :return: List of files found inside the 7zip file
+    """
+    # Check GDAL >= v3.7
+    if get_gdal_version() < 3070000:
+        QgsApplication.messageLog().logMessage(
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+        QgsApplication.messageLog().logMessage(
+            "To load 7zip files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
+            Qgis.Warning)
+        return []
+
+    try:
+        import py7zr
+    except ModuleNotFoundError as e:
+        QgsApplication.messageLog().logMessage(
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+        QgsApplication.messageLog().logMessage(
+            "To search inside 7z files you need to install the module 'py7zr' (e.g., pip install py7zr)!",
+            "Load Them All", Qgis.Warning)
+        return []
+
+    zip = py7zr.SevenZipFile(path)
+    files_to_load = []
+
+    for file_ in zip.getnames():
+        extension = get_file_extension(file_)
+
+        if extension in extensions:
+            files_to_load.append('/vsi7z/' + path + '/' + file_)
+        elif extension in COMPRESSED_FILE_EXTENSIONS:
+            files_to_load += get_compressed_files_to_load(file_, extensions)
+
+    print(files_to_load)
+    return files_to_load
+
+
 def get_parent_folder(layer_path):
     """
     For ZIP files:
@@ -245,7 +289,7 @@ def get_parent_folder(layer_path):
     :return: Folder in which we can find the layer
     """
     folder = ''
-    if layer_path.startswith('/vsirar/'):
+    if layer_path.startswith('/vsirar/'):  # TODO: Verify if we need this with GDAL v3.7+
         import re
         base = re.split("\\.rar", layer_path[8:], flags=re.IGNORECASE)[0]  # Get rid of prefix & case-insensitive split
         folder = os.path.dirname(base)
