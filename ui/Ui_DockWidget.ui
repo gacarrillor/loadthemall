@@ -730,8 +730,11 @@ same folder name (e.g., my_group.qml), it will be applied to all layers inside t
               </item>
               <item row="2" column="0">
                <widget class="QCheckBox" name="chkSearchInZIPs">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Supported compressed files:&lt;/p&gt;&lt;p&gt;ZIP, Gzip (.gz), 7zip (.7z), TAR, and RAR.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;For 7zip: Module 'py7zr' is required.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;For RAR: Module 'rarfile' is required.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
-                 <string>Also search inside ZIP files</string>
+                 <string>Also search inside compressed files</string>
                 </property>
                </widget>
               </item>

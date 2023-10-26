@@ -86,7 +86,7 @@ class LoadFiles(ABC):
                 extension = get_file_extension(file_)
 
                 if extension in self.configuration.extension or (
-                        extension in COMPRESSED_FILE_EXTENSIONS and self.configuration.b_search_in_zip_files):
+                        extension in COMPRESSED_FILE_EXTENSIONS and self.configuration.b_search_in_compressed_files):
                     # current_layer_path = os.path.join( self.decodeName( root ), file_ )
                     current_layer_path = os.path.join(root, file_)
 

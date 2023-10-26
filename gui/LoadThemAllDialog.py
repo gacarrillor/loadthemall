@@ -124,7 +124,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             # Configuration
             configuration = LoadConfiguration()
             configuration.b_groups = self.chkGroups.isChecked()
-            configuration.b_search_in_zip_files = self.chkSearchInZIPs.isChecked()
+            configuration.b_search_in_compressed_files = self.chkSearchInZIPs.isChecked()
             configuration.b_layers_off = self.chkLayersOff.isChecked()
             configuration.b_not_empty = self.chkDoNotEmpty.isChecked()
             configuration.b_sort = self.chkSort.isChecked()
