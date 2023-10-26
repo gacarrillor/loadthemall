@@ -6,7 +6,8 @@
 COMPRESSED_FILE_EXTENSIONS = [".zip",
                               ".rar",
                               ".tar", ".tar.gz", ".tgz",
-                              ".gz"]
+                              ".gz",
+                              ".7z"]
 
 VECTOR_FORMATS = [
     ("GeoPackage (*.gpkg)", [".gpkg"]),
