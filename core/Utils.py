@@ -310,16 +310,70 @@ def has_point_cloud_provider() -> bool:
 
 
 def get_file_extension(file_path):
-    try:  # TODO: do we need this in Python 3?
+    """
+    Get the file extension considering some special cases.
+
+    abc.zip             --> .zip
+    abc.shp             --> .shp
+    abc.shp.zip         --> .shp.zip (special format handled by GDAL/OGR)
+    a.b.c.shp.zip       --> .shp.zip
+    abc.gz              --> .gz
+    a.b.c.gz            --> .gz
+    abc.geojson.gz      --> .gz
+    a.b.c.geojson       --> .geojson
+    abc.tar.gz          --> .tar.gz
+    a.b.c.tar.gz        --> .tar.gz
+    abc.copc.laz        --> .copc.laz
+    a.b.c.copc.laz      --> .copc.laz
+    abc.laz             --> .laz
+    a.b.c.laz           --> .laz
+    abc.ept.json        --> .ept.json
+    a.b.c.ept.json      --> .ept.json
+    a.b.c.json          --> .json
+
+    :param file_path: String with the full file path
+    :return: String of the file extension
+    """
+    extension = None
+    try:
         # Nasty file names like those created by malware should be caught and ignored
-        # Check even multiple suffixes (e.g. point clouds can have ".copc.laz")
         suffixes = pathlib.Path(file_path).suffixes
-        if ".gz" in suffixes and not ".tar" in suffixes:
-            # If we have a .gz file that is not a tar, we only return the ".gz" part (avoiding e.g., ".geojson.gz")
-            extension = ".gz"
-        else:
-            extension = "".join(suffixes).lower() or None
+
+        if not suffixes:
+            return None
+
+        if len(suffixes) == 1:
+            extension = suffixes[0]
+        elif len(suffixes) >= 2:
+            tmp_extension = "".join(suffixes[-2:]).lower()
+            if tmp_extension in [".shp.zip", ".tar.gz", ".copc.laz", ".ept.json"]:
+                # These are well-known 'double' extensions that QGIS will handle
+                extension = tmp_extension
+
+        if extension is None:
+            # Take the latest extension, chances are it's a filename with points in it
+            extension = suffixes[-1]
+
     except UnicodeEncodeError as e:
         extension = None
 
     return extension
+
+
+# assert(get_file_extension("abc.zip") == ".zip")
+# assert(get_file_extension("abc.shp") == ".shp")
+# assert(get_file_extension("abc.shp.zip") == ".shp.zip")
+# assert(get_file_extension("a.b.c.shp.zip") == ".shp.zip")
+# assert(get_file_extension("abc.gz") == ".gz")
+# assert(get_file_extension("a.b.c.gz") == ".gz")
+# assert(get_file_extension("abc.geojson.gz") == ".gz")
+# assert(get_file_extension("a.b.c.geojson") == ".geojson")
+# assert(get_file_extension("abc.tar.gz") == ".tar.gz")
+# assert(get_file_extension("a.b.c.tar.gz") == ".tar.gz")
+# assert(get_file_extension("abc.copc.laz") == ".copc.laz")
+# assert(get_file_extension("a.b.c.copc.laz") == ".copc.laz")
+# assert(get_file_extension("abc.laz") == ".laz")
+# assert(get_file_extension("a.b.c.laz") == ".laz")
+# assert(get_file_extension("abc.ept.json") == ".ept.json")
+# assert(get_file_extension("a.b.c.ept.json") == ".ept.json")
+# assert(get_file_extension("a.b.c.json") == ".json")
