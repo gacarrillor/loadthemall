@@ -20,6 +20,9 @@ changelog=3.5-beta (20231026):
     ...* Support for Point Cloud Layers.
     ...* Support for searching layers in compressed files (optional)
     ......[ZIP, Gzip, 7zip, TAR, and RAR].
+    ...* Support .gen, .dwg, .bag, .vfk, .fgb, .fits, .gxt, .txt, .geojsonl, .geojsons,
+    .......nlgeojson, .mdb, .pdf, .gtm, .gtz, .xtf, .xml, .ili, .mvt, .mvt.gz, .pbf,
+    .......mbtiles, .jml, .osm, .pix, .svg, and .topojson files.
 
     3.4 (20231005):
     ...* Support for .KAP files.

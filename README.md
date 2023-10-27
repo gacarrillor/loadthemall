@@ -62,21 +62,41 @@ There are several options for you to configure how layers should be loaded to QG
 
 The plugin supports the following file extensions:
 * Vectors
-  * GeoPackage (*.gpkg)", [".gpkg"]
-  * ESRI Shapefile (*.shp)", [".shp"]
-  * Mapinfo File (*.mif, *.tab)", [".mif", ".tab"]
-  * Microstation DGN (*.dgn)", [".dgn"]
-  * VRT - Virtual Datasource (*.vrt)
-  * Comma Separated Value (*.csv)
-  * Geography Markup Language (*.gml)
-  * GPX (*.gpx)
-  * KML - Keyhole Markup Language (*.kml, *kmz)
-  * GeoJSON (*.geojson)
-  * GMT (*.gmt)
-  * SQLite (*.sqlite)
   * Arc/Info ASCII Coverage (*.e00)
+  * Arc/Info Generate (*.gen)
+  * AutoCAD Driver (*.dwg)
   * AutoCAD DXF (*.dxf)
+  * Bathymetry Attributed Grid (*.bag)
+  * Comma Separated Value (*.csv)
+  * Czech Cadastral Exchange Data Format (*.vfk)
+  * ESRI Shapefile (*.shp *.shz *.shp.zip)
+  * FlatGeobuf (*.fgb)
+  * Flexible Image Transport System (*.fits)
+  * Geoconcept (*.gxt *.txt)
+  * GeoJSON (*.geojson)
+  * GeoJSON Newline Delimited JSON (*.geojsonl *.geojsons *.nlgeojson *.json)
+  * Geography Markup Language [GML] (*.gml)
+  * Geomedia .mdb (*.mdb)
+  * GeoPackage (*.gpkg)
+  * GeoRSS (*.xml)
+  * Geospatial PDF (*.pdf)
+  * GMT ASCII Vectors (*.gmt)
+  * GPS eXchange Format [GPX] (*.gpx)
+  * GPSTrackMaker (*.gtm *.gtz)
+  * INTERLIS 2 (*.xtf *.xml *.ili)
   * JSON (*.json)
+  * Keyhole Markup Language [KML] (*.kml *.kmz)
+  * Mapbox Vector Tiles (*.mvt *.mvt.gz *.pbf)
+  * Mapinfo File (*.mif *.tab)
+  * MBTiles (*.mbtiles)
+  * Microstation DGN (*.dgn)
+  * OpenJUMP JML (*.jml)
+  * OpenStreetMap (*.osm *.pbf)
+  * PCI Geomatics Database File (*.pix)
+  * Scalable Vector Graphics (*.svg)
+  * SQLite/SpatiaLite (*.sqlite *.db *.sqlite3 *.db3 *.s3db *.sl3)
+  * TopoJSON (*.json *.topojson)
+  * Virtual Datasource [VRT] (*.vrt *.ovf)
 
 
 * Rasters
