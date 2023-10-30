@@ -2,6 +2,20 @@
 
 QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** layers stored in a directory structure, based on several filters.
 
+**License**: This plugin is distributed under the [GNU GPL v2 license](https://github.com/gacarrillor/loadthemall/blob/master/LICENSE).
+
+📹  [Screencasts](#-screencasts)<br>
+🚦  [Available filters](#-available-filters)<br>
+⚙️  [Configuration](#%EF%B8%8F-configuration)<br>
+📁  [Supported file formats](#-supported-flle-formats)<br>
+🔎  [Where to find the plugin in QGIS](#-where-to-find-the-plugin-in-qgis)<br>
+💻  [For developers](#-for-developers)<br>
+🙋‍♂️  [Code contributors](#%EF%B8%8F-code-contributors)<br>
+ℹ️  [More info](#%E2%84%B9%EF%B8%8F-more-info)
+
+-----------
+### 📹 Screencasts
+
 ![Load Them All 3][2]
 
 ![Load Them All][1]
@@ -10,7 +24,9 @@ QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** l
 
 
 
-Available filters are:
+### 🚦 Available filters
+
+Load Them All offers you several filters to properly choose the layers to be loaded. These are:
 
 * **Alphanumeric**:
 
@@ -36,6 +52,7 @@ Available filters are:
   Choose which raster type you want to load: `Gray or undefined`, `Palette`, `Multiband`, or `Color Layer`.
 
 
+### ⚙️ Configuration
 
 There are several options for you to configure how layers should be loaded to QGIS:
 
@@ -60,7 +77,11 @@ There are several options for you to configure how layers should be loaded to QG
 
 * **Apply group style to layers**: Whether or not to load QML style (group_name.qml) for all layers inside a group. The QML file must have the same name as the parent folder and must be found in the layer folder.
 
+
+### 📁 Supported flle formats
+
 The plugin supports the following file extensions:
+
 * Vectors
   * Arc/Info ASCII Coverage (*.e00)
   * Arc/Info Generate (*.gen)
@@ -136,7 +157,10 @@ The plugin supports the following file extensions:
   * PDAL Point Clouds (*.bpf, *.e57, *.las, *.laz)
   * Virtual Point Clouds (*.vpc)
 
-Where to find Load Them All after installation
+
+### 🔎 Where to find the plugin in QGIS
+
+After installation, Load Them All can be found in these places:
 
  + `Data source manager` toolbar:
 
@@ -151,16 +175,20 @@ Where to find Load Them All after installation
     ![image](https://user-images.githubusercontent.com/652785/157999941-b25b70ec-aa65-4631-8d87-91ecece7f460.png)
 
 
+### 💻 For developers
 
 
-LICENSE: GPL v2.0
 
-Code contributors:
+### 🙋‍♂️ Code contributors
+
 * David Bakeman (v2.1 and v2.4)
 * Sören Gebbert (v2.3)
 * Jean Hemmi (v3.1 and French translation)
 * Guillaume Lostis (v3.3)
 * Jan Caha (v3.5)
+
+
+### ℹ️ More info
 
 More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 
