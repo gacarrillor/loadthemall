@@ -1,13 +1,13 @@
 # Load Them All
 
-QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** layers stored in a directory structure, based on several filters.
+QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** (🆕✨) layers stored in a directory structure, based on several filters.
 
 **License**: This plugin is distributed under the [GNU GPL v2 license](https://github.com/gacarrillor/loadthemall/blob/master/LICENSE).
 
 📹  [Screencasts](#-screencasts)<br>
 🚦  [Available filters](#-available-filters)<br>
 ⚙️  [Configuration](#%EF%B8%8F-configuration)<br>
-📁  [Supported file formats](#-supported-flle-formats)<br>
+🗄️  [Supported file formats](#%EF%B8%8F-supported-flle-formats)<br>
 🔎  [Where to find the plugin in QGIS](#-where-to-find-the-plugin-in-qgis)<br>
 💻  [For developers](#-for-developers)<br>
 🙋‍♂️  [Code contributors](#%EF%B8%8F-code-contributors)<br>
@@ -58,7 +58,7 @@ There are several options for you to configure how layers should be loaded to QG
 
 * **Groups**: Whether or not to create groups based on directories' names. When groups are created, they reflect the directory structure, i.e., groups are nested if necessary.
 
-* **Also search inside compressed files**: Enable searching layers inside compressed files (ZIP, Gzip, 7zip, TAR, and RAR).
+* **Also search inside compressed files** 📦: Enable searching layers inside compressed files (ZIP, Gzip, 7zip, TAR, and RAR). 🆕✨
 
 * **Turn off layers**: Make loaded layers invisible (it improves performance).
 
@@ -78,46 +78,46 @@ There are several options for you to configure how layers should be loaded to QG
 * **Apply group style to layers**: Whether or not to load QML style (group_name.qml) for all layers inside a group. The QML file must have the same name as the parent folder and must be found in the layer folder.
 
 
-### 📁 Supported flle formats
+### 🗄️ Supported flle formats
 
 The plugin supports the following file extensions:
 
 * Vectors
   * Arc/Info ASCII Coverage (*.e00)
-  * Arc/Info Generate (*.gen)
-  * AutoCAD Driver (*.dwg)
+  * Arc/Info Generate (*.gen) 🆕
+  * AutoCAD Driver (*.dwg) 🆕
   * AutoCAD DXF (*.dxf)
-  * Bathymetry Attributed Grid (*.bag)
+  * Bathymetry Attributed Grid (*.bag) 🆕
   * Comma Separated Value (*.csv)
-  * Czech Cadastral Exchange Data Format (*.vfk)
-  * ESRI Shapefile (*.shp *.shz *.shp.zip)
-  * FlatGeobuf (*.fgb)
-  * Flexible Image Transport System (*.fits)
-  * Geoconcept (*.gxt *.txt)
+  * Czech Cadastral Exchange Data Format (*.vfk) 🆕
+  * ESRI Shapefile (*.shp *.shz 🆕 *.shp.zip 🆕)
+  * FlatGeobuf (*.fgb) 🆕
+  * Flexible Image Transport System (*.fits) 🆕
+  * Geoconcept (*.gxt *.txt) 🆕
   * GeoJSON (*.geojson)
-  * GeoJSON Newline Delimited JSON (*.geojsonl *.geojsons *.nlgeojson *.json)
+  * GeoJSON Newline Delimited JSON (*.geojsonl *.geojsons *.nlgeojson *.json) 🆕
   * Geography Markup Language [GML] (*.gml)
-  * Geomedia .mdb (*.mdb)
+  * Geomedia .mdb (*.mdb) 🆕
   * GeoPackage (*.gpkg)
-  * GeoRSS (*.xml)
-  * Geospatial PDF (*.pdf)
+  * GeoRSS (*.xml) 🆕
+  * Geospatial PDF (*.pdf) 🆕
   * GMT ASCII Vectors (*.gmt)
   * GPS eXchange Format [GPX] (*.gpx)
-  * GPSTrackMaker (*.gtm *.gtz)
-  * INTERLIS 2 (*.xtf *.xml *.ili)
+  * GPSTrackMaker (*.gtm *.gtz) 🆕
+  * INTERLIS 2 (*.xtf *.xml *.ili) 🆕
   * JSON (*.json)
   * Keyhole Markup Language [KML] (*.kml *.kmz)
-  * Mapbox Vector Tiles (*.mvt *.mvt.gz *.pbf)
+  * Mapbox Vector Tiles (*.mvt *.mvt.gz *.pbf) 🆕
   * Mapinfo File (*.mif *.tab)
-  * MBTiles (*.mbtiles)
+  * MBTiles (*.mbtiles) 🆕
   * Microstation DGN (*.dgn)
-  * OpenJUMP JML (*.jml)
-  * OpenStreetMap (*.osm *.pbf)
-  * PCI Geomatics Database File (*.pix)
-  * Scalable Vector Graphics (*.svg)
-  * SQLite/SpatiaLite (*.sqlite *.db *.sqlite3 *.db3 *.s3db *.sl3)
-  * TopoJSON (*.json *.topojson)
-  * Virtual Datasource [VRT] (*.vrt *.ovf)
+  * OpenJUMP JML (*.jml) 🆕
+  * OpenStreetMap (*.osm *.pbf) 🆕
+  * PCI Geomatics Database File (*.pix) 🆕
+  * Scalable Vector Graphics (*.svg) 🆕
+  * SQLite/SpatiaLite (*.sqlite *.db 🆕 *.sqlite3 🆕 *.db3 🆕 *.s3db 🆕 *.sl3 🆕)
+  * TopoJSON (*.json *.topojson) 🆕
+  * Virtual Datasource [VRT] (*.vrt *.ovf 🆕)
 
 
 * Rasters
@@ -151,7 +151,7 @@ The plugin supports the following file extensions:
   * Multi-resolution Seamless Image Database (*.sid)
 
 
-* Point Clouds
+* Point Clouds 🆕✨
   * COPC Point Clouds (*.copc.laz)
   * Entwine Point Clouds (*.ept.json)
   * PDAL Point Clouds (*.bpf, *.e57, *.las, *.laz)
@@ -190,9 +190,9 @@ After installation, Load Them All can be found in these places:
 
 ### ℹ️ More info
 
-More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
+ + More info about LoadThemAll at http://geotux.tuxfamily.org/index.php/en/geo-blogs/item/264-plugin-load-them-all-para-quantum-gis
 
-See the changelog at https://github.com/gacarrillor/loadthemall/blob/master/changelog.txt
+ + See the changelog at https://github.com/gacarrillor/loadthemall/blob/master/changelog.txt
 
 
 [1]: http://downloads.tuxfamily.org/tuxgis/geoblogs/plugin_LoadThemAll/imgs/LoadThemAll_v2_4.png
