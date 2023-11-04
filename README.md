@@ -177,7 +177,9 @@ After installation, Load Them All can be found in these places:
 
 ### 💻 For developers
 
+ + To build the plugin run this command on the `loadthemall/LoadThemAll` directory:
 
+   ```$ make clean;make;make build```
 
 ### 🙋‍♂️ Code contributors
 
