@@ -26,6 +26,6 @@ jobs:
         with:
           submodules: recursive
       - name: Build docker image
-        run: docker build . -f .docker/Dockerfile -t docker_qgis
+        run: docker build . -f .docker/Dockerfile -t docker_qgis --build-arg QGIS_TEST_VERSION=${QGIS_TEST_VERSION}
       - name: Test on QGIS
         run: docker run --rm -v ${GITHUB_WORKSPACE}:/usr/src docker_qgis
