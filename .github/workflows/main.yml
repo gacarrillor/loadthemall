@@ -1,0 +1,31 @@
+name: Continuous integration
+
+on:
+  push:
+    branches:
+      - master
+      - release-**
+  pull_request:
+    branches:
+      - "**"
+  release:
+    types: ["prereleased", "released"]
+
+jobs:
+  # Run unit tests
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        qgis_version: [final-3_28_13]  # We could eventually add more, e.g., latest
+    env:
+      QGIS_TEST_VERSION: ${{ matrix.qgis_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Build docker image
+        run: docker build . -f .docker/Dockerfile -t docker_qgis
+      - name: Test on QGIS
+        run: docker run --rm -v ${GITHUB_WORKSPACE}:/usr/src docker_qgis

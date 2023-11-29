@@ -14,4 +14,4 @@ COPY ./ /usr/src/
 
 RUN chmod a+x /usr/src/run-docker-tests.sh
 
-WORKDIR /
+ENTRYPOINT ["/usr/src/run-docker-tests.sh"]
