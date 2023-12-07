@@ -1,3 +1,7 @@
+![Unit tests](https://github.com/gacarrillor/loadthemall/actions/workflows/main.yml/badge.svg)
+[![Release](https://img.shields.io/github/v/release/gacarrillor/loadthemall.svg)](https://github.com/gacarrillor/loadthemall/releases)
+
+
 # Load Them All
 
 QGIS plugin that recursively loads **vector**, **raster**, and **point cloud** (🆕✨) layers stored in a directory structure, based on several filters.
