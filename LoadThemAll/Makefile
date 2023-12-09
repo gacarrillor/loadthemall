@@ -23,7 +23,7 @@ i18n/loadthemall_es.qm i18n/loadthemall_fr.qm: i18n/loadthemall.pro
 	lrelease i18n/loadthemall.pro
 
 build:
-	cd ..;zip -r /tmp/loadthemall.zip loadthemall -x loadthemall/.git/\* loadthemall/.idea/\* \
-	loadthemall/.gitignore loadthemall/README.md loadthemall/changelog.txt loadthemall/Makefile \
-	loadthemall/i18n/*.ts loadthemall/i18n/*.pro loadthemall/resources/resources.qrc \
-	loadthemall/ui/*.ui
+	cd ..;zip -r /tmp/LoadThemAll.zip LoadThemAll -x LoadThemAll/.git/\* LoadThemAll/.idea/\* \
+	LoadThemAll/.gitignore LoadThemAll/README.md LoadThemAll/changelog.txt LoadThemAll/Makefile \
+	LoadThemAll/i18n/*.ts LoadThemAll/i18n/*.pro LoadThemAll/resources/resources.qrc \
+	LoadThemAll/ui/*.ui
