@@ -35,9 +35,10 @@ from .gui.LoadThemAllDialog import LoadThemAllDialog
 
 
 class LoadThemAll:
-    def __init__(self, iface):
+    def __init__(self, iface, with_gui=True):
         # Save reference to the QGIS interface
         self.iface = iface
+        self.__with_gui = with_gui
 
         self.__default_action_location = True  # Default location: Plugin menu and plugin toolbar
         self.installTranslator()
@@ -64,17 +65,18 @@ class LoadThemAll:
         self.dockWidget = LoadThemAllDialog(self.iface.mainWindow(), self.iface)
 
     def unload(self):
-        # Remove the plugin menu item and icon
-        if not self.__default_action_location:
-            self.iface.dataSourceManagerToolBar().removeAction(self.action)
-            self.iface.addLayerMenu().removeAction(self.action)
-            self.iface.removePluginMenu("&Load them all", self.action)
-        else:
-            self.iface.removePluginMenu("&Load them all", self.action)
-            self.iface.removeToolBarIcon(self.action)
+        if self.__with_gui:
+            # Remove the plugin menu item and icon
+            if not self.__default_action_location:
+                self.iface.dataSourceManagerToolBar().removeAction(self.action)
+                self.iface.addLayerMenu().removeAction(self.action)
+                self.iface.removePluginMenu("&Load them all", self.action)
+            else:
+                self.iface.removePluginMenu("&Load them all", self.action)
+                self.iface.removeToolBarIcon(self.action)
 
-        self.dockWidget.close()
-        self.iface.removeDockWidget(self.dockWidget)
+            self.dockWidget.close()
+            self.iface.removeDockWidget(self.dockWidget)
 
     # run method that performs all the real work
     def run(self):
