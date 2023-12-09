@@ -358,22 +358,3 @@ def get_file_extension(file_path):
         extension = None
 
     return extension
-
-
-# assert(get_file_extension("abc.zip") == ".zip")
-# assert(get_file_extension("abc.shp") == ".shp")
-# assert(get_file_extension("abc.shp.zip") == ".shp.zip")
-# assert(get_file_extension("a.b.c.shp.zip") == ".shp.zip")
-# assert(get_file_extension("abc.gz") == ".gz")
-# assert(get_file_extension("a.b.c.gz") == ".gz")
-# assert(get_file_extension("abc.geojson.gz") == ".gz")
-# assert(get_file_extension("a.b.c.geojson") == ".geojson")
-# assert(get_file_extension("abc.tar.gz") == ".tar.gz")
-# assert(get_file_extension("a.b.c.tar.gz") == ".tar.gz")
-# assert(get_file_extension("abc.copc.laz") == ".copc.laz")
-# assert(get_file_extension("a.b.c.copc.laz") == ".copc.laz")
-# assert(get_file_extension("abc.laz") == ".laz")
-# assert(get_file_extension("a.b.c.laz") == ".laz")
-# assert(get_file_extension("abc.ept.json") == ".ept.json")
-# assert(get_file_extension("a.b.c.ept.json") == ".ept.json")
-# assert(get_file_extension("a.b.c.json") == ".json")
