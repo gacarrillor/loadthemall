@@ -280,10 +280,10 @@ def get_parent_folder(layer_path):
          'vsiSuffix': '/AA_PreQuat_NAD27z12.TAB'}
 
     For regular files:
-    path = '/docs/Regional/AA_PreQuat_NAD27z12.TAB'
+    path = '/docs/geodata/Map_Database_ZIP/Geology/Regional/AA_PreQuat_NAD27z12.TAB'
     {'layerId': None,
      'layerName': NULL,
-     'path': '/docs/geodata/Map_Database_ZIP/Geology/Regional/AA_PreQuat_NAD27z12.TAB'}
+     'path': '/docs/geodata/Map_Database_ZIP/Geology/Regional/'}
 
     :param layer_path: Full layer path
     :return: Folder in which we can find the layer
