@@ -21,8 +21,12 @@ class TestPluginUtils(unittest.TestCase):
         folder_path = "/docs/geodata/Map_Database_ZIP/Geology/Regional"
         self.assertEqual(os.path.normpath(get_parent_folder(file_path)), os.path.normpath(folder_path))
 
+        # Windows paths
+        file_path = "/vsizip/C:/Users/33769/Documents/germain/data/ZIP_data.zip/AA_PreQuat_NAD27z12.TAB"
+        folder_path = "C:/Users/33769/Documents/germain/data"
+        self.assertEqual(os.path.normpath(get_parent_folder(file_path)), os.path.normpath(folder_path))
+
         # TODO:
-        #   tests for Windows paths
         #   test paths with layername=abc suffixes
 
     def test_get_file_exceptions(self):
