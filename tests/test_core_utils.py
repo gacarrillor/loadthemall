@@ -47,6 +47,7 @@ class TestPluginUtils(unittest.TestCase):
         self.assertEqual(get_file_extension("a.b.c.laz"), ".laz")
         self.assertEqual(get_file_extension("abc.ept.json"), ".ept.json")
         self.assertEqual(get_file_extension("a.b.c.ept.json"), ".ept.json")
+        self.assertEqual(get_file_extension("ept-build.json"), ".json")
         self.assertEqual(get_file_extension("a.b.c.json"), ".json")
 
 
