@@ -345,10 +345,10 @@ def get_file_extension(file_path):
         if len(suffixes) == 1:
             # ept.json files get one suffix, let's see if we have
             # this special case and deal with it accordingly
-            if suffixes[0] == ".json" and file_path.endswith("ept.json"):
+            if suffixes[0].lower() == ".json" and file_path.lower().endswith("ept.json"):
                 extension = "ept.json"
             else:
-                extension = suffixes[0]
+                extension = suffixes[0].lower()
         elif len(suffixes) >= 2:
             tmp_extension = "".join(suffixes[-2:]).lower()
             if tmp_extension in [".shp.zip", ".tar.gz", ".copc.laz"]:
@@ -357,7 +357,7 @@ def get_file_extension(file_path):
 
         if extension is None:
             # Take the latest extension, chances are it's a filename with points in it
-            extension = suffixes[-1]
+            extension = suffixes[-1].lower()
 
     except UnicodeEncodeError as e:
         extension = None
