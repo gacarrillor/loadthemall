@@ -343,10 +343,15 @@ def get_file_extension(file_path):
             return None
 
         if len(suffixes) == 1:
-            extension = suffixes[0]
+            # ept.json files get one suffix, let's see if we have
+            # this special case and deal with it accordingly
+            if suffixes[0] == ".json" and file_path.endswith("ept.json"):
+                extension = "ept.json"
+            else:
+                extension = suffixes[0]
         elif len(suffixes) >= 2:
             tmp_extension = "".join(suffixes[-2:]).lower()
-            if tmp_extension in [".shp.zip", ".tar.gz", ".copc.laz", ".ept.json"]:
+            if tmp_extension in [".shp.zip", ".tar.gz", ".copc.laz"]:
                 # These are well-known 'double' extensions that QGIS will handle
                 extension = tmp_extension
 
