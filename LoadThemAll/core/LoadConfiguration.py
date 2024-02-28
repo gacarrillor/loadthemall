@@ -18,12 +18,14 @@ email                : gcarrillo@linuxmail.org
  *                                                                         *
  ***************************************************************************/
 """
+
+
 class LoadConfiguration:
     """ Load Them All configuration object """
     def __init__(self):
-        # Vector/Raster tab
+        # Vector/Raster/PointCloud tabs
         self.base_dir = ''
-        self.extension = ''
+        self.extension = []
 
         # Configuration tab
         self.b_groups = False
