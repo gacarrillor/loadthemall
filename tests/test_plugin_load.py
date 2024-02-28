@@ -12,7 +12,6 @@ class TestPluginLoad(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         print('\nINFO: Set up test_plugin_load')
-        iface = get_iface()
         from LoadThemAll.LoadThemAll import LoadThemAll
         cls.plugin = LoadThemAll(get_iface(), with_gui=False)
         # cls.plugin.initGui()  # No GUI for tests
