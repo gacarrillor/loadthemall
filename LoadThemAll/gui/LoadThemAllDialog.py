@@ -19,7 +19,9 @@ email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 """
 from qgis.PyQt.QtCore import (QSettings,
-                              QDateTime)
+                              QDateTime,
+                              pyqtSignal,
+                              pyqtSlot)
 from qgis.PyQt.QtWidgets import (QDockWidget,
                                  QMessageBox)
 from qgis.core import (QgsRectangle,
@@ -45,6 +47,9 @@ POINT_CLOUD_TAB_INDEX = 2
 
 
 class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
+
+    cancel_process_emitted = pyqtSignal(bool)  # b_cancel_process
+
     def __init__(self, parent, iface):
         QDockWidget.__init__(self, parent)
         self.setupUi(self)
@@ -58,7 +63,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
         self.updateControls()
         self.progressBar.setMinimum(0)
-        self.processStatus = True  # To handle a dialog cancel event
+        self.cancel_process_emitted.emit(False)
 
         self.tabWidget.currentChanged.connect(self.tabChanged)
         self.chkGroups.stateChanged.connect(self.saveConfigTabSettings)
@@ -90,6 +95,20 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
             self.tabWidget.setCurrentIndex(0)
 
         self.configureTabs(self.tabWidget.currentIndex())
+
+    @pyqtSlot(int)
+    def update_progressbar_value(self, value):
+        self.progressBar.setValue(value)
+
+    @pyqtSlot(int)
+    def update_progressbar_max_value(self, value):
+        self.progressBar.setMaximum(value)
+
+    @pyqtSlot()
+    def reset_progressbar(self):
+        self.progressBar.reset()
+        self.progressBar.setMaximum(100)
+        self.progressBar.setValue(0)
 
     def tabChanged(self, index):
         """ Save settings from the previous tab and prepare the current one """
@@ -231,7 +250,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             filter = BoundingBoxFilter(LayerType.VECTOR, extent, "intersects")
                         filterList.addFilter(filter)
 
-                    loader = LoadVectors(self.iface, self.progressBar, configuration)
+                    loader = LoadVectors(self.iface, configuration)
 
                 elif self.tabWidget.currentIndex() == RASTER_TAB_INDEX:
 
@@ -262,7 +281,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             filter = BoundingBoxFilter(LayerType.RASTER, extent, "intersects")
                         filterList.addFilter(filter)
 
-                    loader = LoadRasters(self.iface, self.progressBar, configuration)
+                    loader = LoadRasters(self.iface, configuration)
 
                 elif self.tabWidget.currentIndex() == POINT_CLOUD_TAB_INDEX:
 
@@ -280,11 +299,15 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             filter = BoundingBoxFilter(LayerType.POINTCLOUD, extent, "intersects")
                         filterList.addFilter(filter)
 
-                    loader = LoadPointClouds(self.iface, self.progressBar, configuration)
+                    loader = LoadPointClouds(self.iface, configuration)
                     if crs:
                         loader.set_default_crs(crs)
 
                 if loader:
+                    self.cancel_process_emitted.connect(loader.set_cancel_process)
+                    loader.update_progress_value_emitted.connect(self.update_progressbar_value)
+                    loader.update_progress_max_emitted.connect(self.update_progressbar_max_value)
+                    loader.reset_progressbar_emitted.connect(self.reset_progressbar)
                     loader.filterList = filterList
                     loader.loadLayers()
 
@@ -296,7 +319,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
 
     def load(self):
         """ Protect the Load Layers button and apply """
-        self.processStatus = True  # To handle a dialog cancel event
+        self.cancel_process_emitted.emit(False)
 
         settings = QSettings()
         # Take the "CRS for new layers" config, overwrite it while loading layers and...
@@ -315,7 +338,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.saveSettings()
 
     def cancelLoad(self):
-        self.processStatus = False  # To handle a dialog cancel event
+        self.cancel_process_emitted.emit(True)
         self.progressBar.reset()
         self.progressBar.setMaximum(100)
         self.progressBar.setValue(0)

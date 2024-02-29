@@ -24,7 +24,10 @@ from abc import (ABC,
                  abstractmethod)
 import pathlib
 
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (QCoreApplication,
+                              QObject,
+                              pyqtSignal,
+                              pyqtSlot)
 from qgis.PyQt.QtWidgets import (QApplication,
                                  QMessageBox)
 from qgis.core import (Qgis,
@@ -39,7 +42,8 @@ if Qgis.versionInt() >= 31800:
 from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 from .Filter import FilterList
 from .QGISLayerTree import QGISLayerTree
-from .Utils import (get_vector_layer,
+from .Utils import (AbstractQObjectMeta,
+                    get_vector_layer,
                     get_raster_layer,
                     get_point_cloud_layer,
                     get_compressed_files_to_load,
@@ -47,11 +51,17 @@ from .Utils import (get_vector_layer,
                     get_parent_folder)
 
 
-class LoadFiles(ABC):
-    """ Abstract Class to inherit two common methods to Vector and Raster Load classes """
+class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
+    """ Abstract Class to inherit common methods to Load classes
+        like Vector, Raster and Point Clouds
+    """
 
-    def __init__(self, iface, progressBar, configuration):
-        self.progressBar = progressBar
+    reset_progressbar_emitted = pyqtSignal()
+    update_progress_value_emitted = pyqtSignal(int)  # value
+    update_progress_max_emitted = pyqtSignal(int)  # value
+
+    def __init__(self, iface, configuration):
+        QObject.__init__(self)
         self.filterList = FilterList()
         self.iface = iface
         self.files_to_load = dict()  # {'layer_path_1': layer_obj_1, ...}
@@ -63,6 +73,8 @@ class LoadFiles(ABC):
         self.configuration = configuration
         self.tree = QGISLayerTree(configuration.base_dir, configuration.b_groups)
 
+        self._cancel_process = False  # Whether the process has been cancelled externally
+
     def loadLayers(self):
         if self._getFilesToLoad():
             self._loadLayers()
@@ -73,7 +85,7 @@ class LoadFiles(ABC):
 
     def _getFilesToLoad(self):
         """ Go through directories to fill a list with layers ready to be loaded """
-        self.progressBar.setMaximum(0)  # ProgressBar in busy mode
+        self.update_progress_max_emitted.emit(0)  # ProgressBar in busy mode
         layer_dict = dict()  # {'layer_path_1': layer_obj_1, ...}
 
         for root, dirs, files in os.walk(self.configuration.base_dir):
@@ -139,7 +151,7 @@ class LoadFiles(ABC):
                 else:
                     self.files_to_load[path] = layer_dict.get(path, None)
 
-        self.progressBar.setMaximum(len(self.files_to_load))
+        self.update_progress_max_emitted.emit(len(self.files_to_load))
         return True
 
     def _loadLayers(self):
@@ -228,7 +240,7 @@ class LoadFiles(ABC):
                             "Load Them All", Qgis.Warning)
 
                     step += 1
-                    self.progressBar.setValue(step)
+                    self.update_progress_value_emitted.emit(step)
 
                 if self.configuration.b_groups and self.configuration.b_layers_off:  # Parent group must be invisible
                     self.tree.set_parent_invisible()
@@ -262,9 +274,7 @@ class LoadFiles(ABC):
             self.tree.remove_empty_groups()
 
         if numLayers == 0:
-            self.progressBar.reset()
-            self.progressBar.setMaximum(100)
-            self.progressBar.setValue(0)
+            self.reset_progressbar_emitted.emit()
 
             if len(self.configuration.extension) == 1:
                 msgExtensions = str(self.configuration.extension[0])[1:]
@@ -281,8 +291,12 @@ class LoadFiles(ABC):
                                     QMessageBox.Ok)
         return True
 
+    @pyqtSlot(bool)
+    def set_cancel_process(self, cancel):
+        self._cancel_process = cancel
+
     def _process_cancelled(self):
-        return not self.progressBar.parent().parent().processStatus
+        return self._cancel_process
 
     def _sort_layers_to_load(self):
         """
@@ -327,8 +341,8 @@ class LoadFiles(ABC):
 class LoadVectors(LoadFiles):
     """ Subclass to load vector layers """
 
-    def __init__(self, iface, progressBar, configuration):
-        LoadFiles.__init__(self, iface, progressBar, configuration)
+    def __init__(self, iface, configuration):
+        LoadFiles.__init__(self, iface, configuration)
 
         self.dataType = 'vector'
 
@@ -352,8 +366,8 @@ class LoadVectors(LoadFiles):
 class LoadRasters(LoadFiles):
     """ Subclass to load raster layers """
 
-    def __init__(self, iface, progressBar, configuration):
-        LoadFiles.__init__(self, iface, progressBar, configuration)
+    def __init__(self, iface, configuration):
+        LoadFiles.__init__(self, iface, configuration)
 
         self.dataType = 'raster'
 
@@ -371,8 +385,8 @@ class LoadRasters(LoadFiles):
 class LoadPointClouds(LoadFiles):
     """ Subclass to load point cloud layers """
 
-    def __init__(self, iface, progressBar, configuration):
-        LoadFiles.__init__(self, iface, progressBar, configuration)
+    def __init__(self, iface, configuration):
+        LoadFiles.__init__(self, iface, configuration)
 
         self.dataType = 'point cloud'
 

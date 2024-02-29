@@ -20,6 +20,12 @@ email                : gcarrillo@linuxmail.org
 """
 import os.path
 import pathlib
+from abc import ABCMeta
+
+try:
+    from qgis.PyQt.QtCore import pyqtWrapperType
+except ImportError:
+    from sip import wrappertype as pyqtWrapperType
 
 from qgis.core import (QgsApplication,
                        QgsRasterLayer,
@@ -37,6 +43,11 @@ from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 
 
 _gdal_version = None  # Global variable, use get_gdal_version() instead
+
+
+class AbstractQObjectMeta(pyqtWrapperType, ABCMeta):
+    """Abstract class implementing QObject"""
+    pass
 
 
 def get_gdal_version():
