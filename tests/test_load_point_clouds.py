@@ -1,5 +1,4 @@
 import nose2
-from mock import Mock  # TODO: Ugly, to be removed!!!
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -40,7 +39,7 @@ class TestLoadPointClouds(unittest.TestCase):
         configuration.num_layers_to_confirm = 50
 
         # Load 1 layer
-        loader = LoadPointClouds(self.plugin.iface, Mock(), configuration)
+        loader = LoadPointClouds(self.plugin.iface, configuration)
         self.assertEqual(self.project.count(), 0)
         loader.loadLayers()
         self.assertTrue(self.project.count() > 0)
