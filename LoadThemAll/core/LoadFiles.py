@@ -39,8 +39,10 @@ from qgis.core import (Qgis,
 if Qgis.versionInt() >= 31800:
     from qgis.core import QgsPointCloudLayer
 
+from .Enums import EnumLoadThemAllResult
 from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 from .Filter import FilterList
+from .LoadThemAllResult import LoadThemAllResult
 from .QGISLayerTree import QGISLayerTree
 from .Utils import (AbstractQObjectMeta,
                     get_vector_layer,
@@ -77,7 +79,9 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
 
     def loadLayers(self):
         if self._getFilesToLoad():
-            self._loadLayers()
+            return self._loadLayers()
+
+        return LoadThemAllResult(EnumLoadThemAllResult.CANCELLED)
 
     def _applyFilter(self, layer_path, layer_dict):
         """ Method to encapsulate the filter's application  """
@@ -157,25 +161,28 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
     def _loadLayers(self):
         """ Load the layer to the map """
         if self._process_cancelled():
-            return False
+            return LoadThemAllResult(EnumLoadThemAllResult.CANCELLED)
 
         numLayers = len(self.files_to_load)
+        layersLoaded = 0
 
         if numLayers > 0:
             result = QMessageBox.Ok  # Convenient variable to pass an upcoming condition
 
             if numLayers >= self.configuration.num_layers_to_confirm:
-                result = QMessageBox.question(self.iface.mainWindow(),
-                                              QCoreApplication.translate("Load Them All", "Load Them All"),
-                                              QCoreApplication.translate("Load Them All",
-                                                                         "There are {} layers to load.\n Do you want to continue?").format(
-                                                  numLayers),
-                                              QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Ok)
+                if self.configuration.with_gui:
+                    result = QMessageBox.question(self.iface.mainWindow(),
+                                                  QCoreApplication.translate("Load Them All", "Load Them All"),
+                                                  QCoreApplication.translate("Load Them All",
+                                                                             "There are {} layers to load.\n Do you want to continue?").format(
+                                                      numLayers),
+                                                  QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Ok)
+                else:
+                    pass  # We cannot ask the user if we're in a non-GUI session
 
             if result == QMessageBox.Ok:
                 self.iface.mapCanvas().setRenderFlag(False)  # Start the loading process
                 step = 0
-                layersLoaded = 0
 
                 if self.configuration.b_sort:
                     self.files_to_load = self._sort_layers_to_load()
@@ -184,7 +191,7 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
                     QApplication.processEvents()
                     if self._process_cancelled():
                         self.iface.mapCanvas().setRenderFlag(True)
-                        return False
+                        return LoadThemAllResult(EnumLoadThemAllResult.CANCELLED)
 
                     # Finally add the layer and apply the options the user chose
                     if self.configuration.b_groups:
@@ -276,20 +283,22 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
         if numLayers == 0:
             self.reset_progressbar_emitted.emit()
 
-            if len(self.configuration.extension) == 1:
-                msgExtensions = str(self.configuration.extension[0])[1:]
-            else:
-                msgExtensions = ", ".join(str(x)[1:] for x in self.configuration.extension[:-1]) + \
-                                QCoreApplication.translate("Load Them All", " or ") + \
-                                str(self.configuration.extension[len(self.configuration.extension) - 1])[1:]
-            QMessageBox.information(self.iface.mainWindow(), "Load Them All",
-                                    QCoreApplication.translate("Load Them All", "There are no <i>") + msgExtensions +
-                                    QCoreApplication.translate("Load Them All",
-                                                               "</i> files to load from the base directory with this filter.\n") +
-                                    QCoreApplication.translate("Load Them All",
-                                                               "Change those parameters and try again."),
-                                    QMessageBox.Ok)
-        return True
+            if self.configuration.with_gui:
+                if len(self.configuration.extension) == 1:
+                    msgExtensions = str(self.configuration.extension[0])[1:]
+                else:
+                    msgExtensions = ", ".join(str(x)[1:] for x in self.configuration.extension[:-1]) + \
+                                    QCoreApplication.translate("Load Them All", " or ") + \
+                                    str(self.configuration.extension[len(self.configuration.extension) - 1])[1:]
+                QMessageBox.information(self.iface.mainWindow(), "Load Them All",
+                                        QCoreApplication.translate("Load Them All", "There are no <i>") + msgExtensions +
+                                        QCoreApplication.translate("Load Them All",
+                                                                   "</i> files to load from the base directory with this filter.\n") +
+                                        QCoreApplication.translate("Load Them All",
+                                                                   "Change those parameters and try again."),
+                                        QMessageBox.Ok)
+
+        return LoadThemAllResult(EnumLoadThemAllResult.SUCCESS, numLayers, layersLoaded)
 
     @pyqtSlot(bool)
     def set_cancel_process(self, cancel):
