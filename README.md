@@ -157,7 +157,7 @@ The plugin supports the following file extensions:
 
 * Point Clouds 🆕✨
   * COPC Point Clouds (*.copc.laz)
-  * Entwine Point Clouds (*.ept.json)
+  * Entwine Point Clouds (ept.json)
   * PDAL Point Clouds (*.bpf, *.e57, *.las, *.laz)
   * Virtual Point Clouds (*.vpc)
 
