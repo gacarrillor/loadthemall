@@ -71,7 +71,7 @@ class AlphanumericFilter(Filter):
             self.regExpPattern = self._getRegExpPattern()
 
         baseName = os.path.basename(layer_path)
-        layerBaseName = os.path.splitext(baseName)[0]
+        layerBaseName = self._get_layer_base_name(baseName)
         if '|layername=' in baseName and not baseName.endswith('|layername='):
             if self.bSearchParentLayer:
                 layerBaseName = "".join([layerBaseName, " ", os.path.basename(layer_path).split('|layername=')[1]])
@@ -87,6 +87,16 @@ class AlphanumericFilter(Filter):
                 pass  # This error is handled in LoadThemAllDialog
 
         return True if self.regExpPattern.search(layerBaseName) else False
+
+    def _get_layer_base_name(self, baseName):
+        """
+        For a layer like points.geojson.gz, we should compare against points,
+        instead of points.geojson. This method takes care of that.
+        """
+        if baseName.endswith(".gz") and not baseName.endswith("tar.gz"):
+            baseName = baseName[:-3]
+
+        return os.path.splitext(baseName)[0]
 
     def _getRegExpPattern(self):
         regExpString = ''

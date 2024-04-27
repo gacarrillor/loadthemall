@@ -124,7 +124,7 @@ def get_compressed_files_to_load(path, extensions):
     return files_to_load
 
 
-def get_zip_files_to_load(path, extensions):
+def get_zip_files_to_load(path: str, extensions: list[str]) -> list[str]:
     """
     Recursive function to get all the files inside a ZIP file that match the expected extensions.
 
