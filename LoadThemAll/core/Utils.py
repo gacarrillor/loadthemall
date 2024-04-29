@@ -212,8 +212,7 @@ def get_tar_files_to_load(path, extensions):
         elif extension in COMPRESSED_FILE_EXTENSIONS:
             files_to_load += get_compressed_files_to_load(file_, extensions)
 
-    if get_file_extension(path) in [".tar.gz", ".tgz"]:
-        tar.close()
+    tar.close()
 
     return files_to_load
 
