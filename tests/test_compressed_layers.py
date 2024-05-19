@@ -11,7 +11,7 @@ from LoadThemAll.core.Filter import (FilterList,
                                      AlphanumericFilter)
 from LoadThemAll.core.LoadFiles import (LoadVectors,
                                         LoadRasters)
-from LoadThemAll.core.LoadConfiguration import LoadConfiguration
+from tests.utils import get_configuration
 
 start_app()
 
@@ -25,30 +25,17 @@ class TestCompressedLayers(unittest.TestCase):
         cls.project = QgsProject.instance()
 
     def test_compressed_shp(self):
-        configuration = LoadConfiguration()
+        configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
         configuration.extension = [".shp"]
-        configuration.with_gui = False  # Non-default
-        configuration.b_sort = False  # Non-default
-
-        configuration.b_groups = False
         configuration.b_search_in_compressed_files = True
-        configuration.b_layers_off = False
-        configuration.b_not_empty = True
-        configuration.b_reverse_sort = False
-        configuration.b_case_insensitive = True
-        configuration.b_accent_insensitive = False
-        configuration.b_styles = False
-        configuration.b_search_parent_layer = False
-        configuration.b_add_parent_layer_name = False
-        configuration.num_layers_to_confirm = 50
 
         # Set filters for next session
         filter_list = FilterList()
         filter = AlphanumericFilter('EndsWith', 'points', configuration)
         filter_list.addFilter(filter)
 
-        # Load 1 layer
+        # Load layers
         loader = LoadVectors(self.plugin.iface, configuration)
         self.assertEqual(self.project.count(), 0)
         loader.filterList = filter_list
@@ -65,23 +52,10 @@ class TestCompressedLayers(unittest.TestCase):
         self.assertTrue(layers[0].isValid())
 
     def test_compressed_gz_geojson(self):
-        configuration = LoadConfiguration()
+        configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
         configuration.extension = [".geojson"]
-        configuration.with_gui = False  # Non-default
-        configuration.b_sort = False  # Non-default
-
-        configuration.b_groups = False
         configuration.b_search_in_compressed_files = True
-        configuration.b_layers_off = False
-        configuration.b_not_empty = True
-        configuration.b_reverse_sort = False
-        configuration.b_case_insensitive = True
-        configuration.b_accent_insensitive = False
-        configuration.b_styles = False
-        configuration.b_search_parent_layer = False
-        configuration.b_add_parent_layer_name = False
-        configuration.num_layers_to_confirm = 50
 
         # Set filters for next session
         filter_list = FilterList()
@@ -105,23 +79,10 @@ class TestCompressedLayers(unittest.TestCase):
         self.assertTrue(layers[0].isValid())
 
     def test_compressed_tif(self):
-        configuration = LoadConfiguration()
+        configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
         configuration.extension = [".tif"]
-        configuration.with_gui = False  # Non-default
-        configuration.b_sort = False  # Non-default
-
-        configuration.b_groups = False
         configuration.b_search_in_compressed_files = True
-        configuration.b_layers_off = False
-        configuration.b_not_empty = True
-        configuration.b_reverse_sort = False
-        configuration.b_case_insensitive = True
-        configuration.b_accent_insensitive = False
-        configuration.b_styles = False
-        configuration.b_search_parent_layer = False
-        configuration.b_add_parent_layer_name = False
-        configuration.num_layers_to_confirm = 50
 
         # Set filters for next session
         filter_list = FilterList()
