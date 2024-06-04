@@ -70,13 +70,41 @@ class TestCompressedLayers(unittest.TestCase):
         self.assertEqual(res.result, EnumLoadThemAllResult.SUCCESS)
         self.assertEqual(res.layers_found, 1)
         self.assertEqual(res.layers_loaded, 1)
-        self.assertTrue(self.project.count() > 0)
+        self.assertEqual(self.project.count(), 1)
 
         # Check loaded layer
         #print([l.source() for l in self.project.mapLayers().values()])
         layers = self.project.mapLayersByName("points3.geojson")
         self.assertTrue(bool(layers))
         self.assertTrue(layers[0].isValid())
+
+    def test_compressed_gz_geojson_2(self):
+        configuration = get_configuration()
+        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.extension = [".geojson"]
+        configuration.b_search_in_compressed_files = True
+
+        # Set filters for next session
+        filter_list = FilterList()
+        filter = AlphanumericFilter('EndsWith', 'points', configuration)
+        filter_list.addFilter(filter)
+
+        # Load 1 layer
+        loader = LoadVectors(self.plugin.iface, configuration)
+        self.assertEqual(self.project.count(), 0)
+        loader.filterList = filter_list
+        res = loader.loadLayers()
+        self.assertEqual(res.result, EnumLoadThemAllResult.SUCCESS)
+        self.assertEqual(res.layers_found, 2)
+        self.assertEqual(res.layers_loaded, 2)
+        self.assertEqual(self.project.count(), 2)
+
+        # Check loaded layer
+        #print([l.source() for l in self.project.mapLayers().values()])
+        layers = self.project.mapLayersByName("points")
+        self.assertTrue(bool(layers))
+        self.assertTrue(layers[0].isValid())
+
 
     def test_compressed_tif(self):
         configuration = get_configuration()
@@ -102,6 +130,33 @@ class TestCompressedLayers(unittest.TestCase):
         # Check loaded layers
         #print(self.project.mapLayers())
         layers = self.project.mapLayersByName("landsat_b2")
+        self.assertTrue(bool(layers))
+        self.assertTrue(layers[0].isValid())
+
+    def test_compressed_tif_2(self):
+        configuration = get_configuration()
+        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.extension = [".tif"]
+        configuration.b_search_in_compressed_files = True
+
+        # Set filters for next session
+        filter_list = FilterList()
+        filter = AlphanumericFilter('StartsWith', 'landsat_b1', configuration)
+        filter_list.addFilter(filter)
+
+        # Load 2 layers
+        loader = LoadRasters(self.plugin.iface, configuration)
+        self.assertEqual(self.project.count(), 0)
+        loader.filterList = filter_list
+        res = loader.loadLayers()
+        self.assertEqual(res.result, EnumLoadThemAllResult.SUCCESS)
+        self.assertEqual(res.layers_found, 5)
+        self.assertEqual(res.layers_loaded, 5)
+        self.assertTrue(self.project.count() > 0)
+
+        # Check loaded layers
+        #print(self.project.mapLayers())
+        layers = self.project.mapLayersByName("landsat_b1")
         self.assertTrue(bool(layers))
         self.assertTrue(layers[0].isValid())
 
