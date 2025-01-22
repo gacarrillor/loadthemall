@@ -8,9 +8,11 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /tmp/
-RUN pip3 install -r /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt --break-system-packages
 
 COPY ./ /usr/src/
+
+ENV PYTHONPATH=/usr/share/qgis/python/plugins
 
 RUN chmod a+x /usr/src/run-docker-tests.sh
 

@@ -2,5 +2,5 @@
 set -e
 
 pushd /usr/src/
-xvfb-run nose2-3
+xvfb-run python3 -m nose2
 popd
