@@ -1,7 +1,9 @@
-import nose2
+
 import os.path
 
 from qgis.testing import unittest, start_app
+
+from tests.utils import HAS_QGIS_TEST_DATA, qgis_test_data_path
 
 start_app()
 
@@ -71,46 +73,51 @@ class TestPluginUtils(unittest.TestCase):
         self.assertEqual(get_file_extension("a.b.c.json"), ".json")
         self.assertEqual(get_file_extension("A.B.C.JSON"), ".json")
 
+    @unittest.skipUnless(HAS_QGIS_TEST_DATA, "QGIS test data is not available")
     def test_get_zip_files_to_load(self):
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/landsat_b1.zip", [".tif"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/landsat_b1.zip/landsat_b1.tif"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/points2.zip", [".shp"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/points2.zip/points.shp"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/points2.zip", [".dbf"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/points2.zip/points.dbf"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/testzip.zip", [".geojson"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/testzip.zip/folder/points.geojson"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/testzip.zip", [".tif"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/testzip.zip/folder/folder2/landsat_b2.tif",
-                          "/vsizip//QGIS/tests/testdata/zip/testzip.zip/landsat_b1.tif"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/testzip.zip", [".shp"]),
-                         ["/vsizip//QGIS/tests/testdata/zip/testzip.zip/points.shp"])
-        self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/landsat_b1.zip", [".png"]),
+        zip_dir = qgis_test_data_path("zip").replace("\\", "/")
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/landsat_b1.zip", [".tif"]),
+                         [f"/vsizip/{zip_dir}/landsat_b1.zip/landsat_b1.tif"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/points2.zip", [".shp"]),
+                         [f"/vsizip/{zip_dir}/points2.zip/points.shp"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/points2.zip", [".dbf"]),
+                         [f"/vsizip/{zip_dir}/points2.zip/points.dbf"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/testzip.zip", [".geojson"]),
+                         [f"/vsizip/{zip_dir}/testzip.zip/folder/points.geojson"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/testzip.zip", [".tif"]),
+                         [f"/vsizip/{zip_dir}/testzip.zip/folder/folder2/landsat_b2.tif",
+                          f"/vsizip/{zip_dir}/testzip.zip/landsat_b1.tif"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/testzip.zip", [".shp"]),
+                         [f"/vsizip/{zip_dir}/testzip.zip/points.shp"])
+        self.assertEqual(get_zip_files_to_load(f"{zip_dir}/landsat_b1.zip", [".png"]),
                          [])
 
+    @unittest.skipUnless(HAS_QGIS_TEST_DATA, "QGIS test data is not available")
     def test_get_tar_files_to_load(self):
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/landsat_b1.tar", [".tif"]),
-                         ["/vsitar//QGIS/tests/testdata/zip/landsat_b1.tar/landsat_b1.tif"])
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/points2.tar", [".shp"]),
-                         ["/vsitar//QGIS/tests/testdata/zip/points2.tar/points.shp"])
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/testtar.tgz", [".tif"]),
-                         ["/vsitar//QGIS/tests/testdata/zip/testtar.tgz/folder/folder2/landsat_b2.tif",
-                          "/vsitar//QGIS/tests/testdata/zip/testtar.tgz/landsat_b1.tif"])
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/testtar.tgz", [".geojson"]),
-                         ["/vsitar//QGIS/tests/testdata/zip/testtar.tgz/folder/points.geojson"])
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/testtar.tgz", [".shp"]),
-                         ["/vsitar//QGIS/tests/testdata/zip/testtar.tgz/points.shp"])
-        self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/testtar.tgz", [".gpkg"]),
+        zip_dir = qgis_test_data_path("zip").replace("\\", "/")
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/landsat_b1.tar", [".tif"]),
+                         [f"/vsitar/{zip_dir}/landsat_b1.tar/landsat_b1.tif"])
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/points2.tar", [".shp"]),
+                         [f"/vsitar/{zip_dir}/points2.tar/points.shp"])
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/testtar.tgz", [".tif"]),
+                         [f"/vsitar/{zip_dir}/testtar.tgz/folder/folder2/landsat_b2.tif",
+                          f"/vsitar/{zip_dir}/testtar.tgz/landsat_b1.tif"])
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/testtar.tgz", [".geojson"]),
+                         [f"/vsitar/{zip_dir}/testtar.tgz/folder/points.geojson"])
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/testtar.tgz", [".shp"]),
+                         [f"/vsitar/{zip_dir}/testtar.tgz/points.shp"])
+        self.assertEqual(get_tar_files_to_load(f"{zip_dir}/testtar.tgz", [".gpkg"]),
                          [])
 
     def test_get_gzip_file_to_load(self):
-        self.assertEqual(get_gzip_file_to_load("/QGIS/tests/testdata/zip/points3.geojson.gz", [".geojson"]),
-                         ["/vsigzip//QGIS/tests/testdata/zip/points3.geojson.gz"])
-        self.assertEqual(get_gzip_file_to_load("/QGIS/tests/testdata/zip/landsat_b1.tif.gz", [".tif"]),
-                         ["/vsigzip//QGIS/tests/testdata/zip/landsat_b1.tif.gz"])
-        self.assertEqual(get_gzip_file_to_load("/QGIS/tests/testdata/zip/landsat_b1.tif.gz", [".png"]),
+        zip_dir = qgis_test_data_path("zip").replace("\\", "/")
+        self.assertEqual(get_gzip_file_to_load(f"{zip_dir}/points3.geojson.gz", [".geojson"]),
+                         [f"/vsigzip/{zip_dir}/points3.geojson.gz"])
+        self.assertEqual(get_gzip_file_to_load(f"{zip_dir}/landsat_b1.tif.gz", [".tif"]),
+                         [f"/vsigzip/{zip_dir}/landsat_b1.tif.gz"])
+        self.assertEqual(get_gzip_file_to_load(f"{zip_dir}/landsat_b1.tif.gz", [".png"]),
                          [])
 
 
 if __name__ == '__main__':
-    nose2.main()
+    unittest.main()

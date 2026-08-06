@@ -2,8 +2,9 @@
 name=Load Them All
 description=Loads files stored in a directory structure recursively, based on several filters
 about=QGIS plugin that recursively loads vector, raster, and point cloud layers stored in a directory structure, based on several filters.
-version=3.5.0-beta-2403011
+version=4.0.0
 qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
 category=Layers
 author=Germán Carrillo (GeoTux)
 email=gcarrillo@linuxmail.org
@@ -16,7 +17,11 @@ experimental=False
 deprecated=False
 
 
-changelog=3.5-beta (20240301):
+changelog=4.0 (20260806):
+    ...* Support QGIS 4 and PyQt 6.
+    ...* Retain compatibility with QGIS 3 and PyQt 5.
+
+    3.5-beta (20240301):
     ...* Support for Point Cloud Layers.
     ...* Support for searching layers in compressed files (optional)
     ......[ZIP, Gzip, 7zip, TAR, and RAR].

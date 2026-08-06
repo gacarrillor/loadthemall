@@ -1,5 +1,9 @@
 Changes:
 
+4.0 (20260806):
+    * Support QGIS 4 and PyQt 6.
+    * Retain compatibility with QGIS 3 and PyQt 5.
+
 3.5-beta (20231026):
     * Support for Point Cloud Layers.
     * Support for searching layers in compressed files (optional)

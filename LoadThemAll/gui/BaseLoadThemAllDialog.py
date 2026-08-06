@@ -19,15 +19,18 @@ email                : gcarrillo@linuxmail.org
  ***************************************************************************/
 """
 
-from qgis.PyQt.QtCore import (Qt,
-                              QSettings)
+from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtWidgets import (QApplication,
                                  QDialog,
                                  QFileDialog)
 
+from ..compat import (KEY_ESCAPE,
+                      SHOW_DIRS_ONLY,
+                      load_ui_class)
 from ..core.FileFormatConfiguration import VECTOR_FORMATS, RASTER_FORMATS, POINT_CLOUD_FORMATS
 from ..core.LayerTypes import LayerType
-from ..ui.Ui_Base_LoadThemAll import Ui_Base_LoadThemAll
+
+Ui_Base_LoadThemAll = load_ui_class("Ui_Base_LoadThemAll.ui")
 
 
 class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
@@ -59,7 +62,7 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
         path = QFileDialog.getExistingDirectory(self, self.tr("Select a base directory"),
                                                 settings.value(settings_name, "",
                                                                type=str),
-                                                QFileDialog.ShowDirsOnly)
+                                                SHOW_DIRS_ONLY)
 
         if path:
             self.txtBaseDir.setText(path)
@@ -99,5 +102,5 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
 
     def keyPressEvent(self, e):
         """ Handle the ESC key to avoid only the base dialog being closed """
-        if e.key() == Qt.Key_Escape:
+        if e.key() == KEY_ESCAPE:
             e.ignore()

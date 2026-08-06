@@ -1,4 +1,4 @@
-import nose2
+
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -6,13 +6,20 @@ from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
 from LoadThemAll.LoadThemAll import LoadThemAll
+from LoadThemAll.compat import QGIS_VERSION_INT
 from LoadThemAll.core.Enums import EnumLoadThemAllResult
 from LoadThemAll.core.LoadFiles import LoadPointClouds
-from tests.utils import get_configuration
+from tests.utils import (HAS_QGIS_TEST_DATA,
+                         get_configuration,
+                         qgis_test_data_path)
 
 start_app()
 
 
+@unittest.skipUnless(
+    HAS_QGIS_TEST_DATA and QGIS_VERSION_INT >= 31800,
+    "Point clouds require QGIS 3.18 and QGIS test data"
+)
 class TestLoadPointClouds(unittest.TestCase):
 
     @classmethod
@@ -23,7 +30,7 @@ class TestLoadPointClouds(unittest.TestCase):
 
     def test_load_point_clouds_single_ept(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/point_clouds/ept/rgb/"
+        configuration.base_dir = qgis_test_data_path("point_clouds", "ept", "rgb")
         configuration.extension = ["ept.json"]
 
         # Load 1 layer
@@ -42,7 +49,9 @@ class TestLoadPointClouds(unittest.TestCase):
 
     def test_load_point_clouds_ept_not_found(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/point_clouds/ept/rgb/ept-sources/"
+        configuration.base_dir = qgis_test_data_path(
+            "point_clouds", "ept", "rgb", "ept-sources"
+        )
         configuration.extension = ["ept.json"]
 
         # Load 1 layer
@@ -66,4 +75,4 @@ class TestLoadPointClouds(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    nose2.main()
+    unittest.main()

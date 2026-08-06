@@ -21,16 +21,21 @@ email                : gcarrillo@linuxmail.org
 import os
 
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
-from qgis.core import (QgsApplication,
-                       Qgis)
+from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import (QCoreApplication,
                               QFileInfo,
                               QSettings,
-                              Qt,
                               QTranslator)
 
-from .resources.resources_rc import *
+from .compat import (QGIS_VERSION_INT,
+                     QT_MAJOR_VERSION,
+                     RIGHT_DOCK_WIDGET_AREA)
+if QT_MAJOR_VERSION >= 6:
+    from qgis.PyQt.QtGui import QAction
+    from .resources import resources_rc as _resources_rc
+else:
+    from qgis.PyQt.QtWidgets import QAction
+    from .resources import resources_rc_qt5 as _resources_rc
 from .gui.LoadThemAllDialog import LoadThemAllDialog
 
 
@@ -80,10 +85,14 @@ class LoadThemAll:
 
     # run method that performs all the real work
     def run(self):
-        if Qgis.QGIS_VERSION_INT >= 31300:  # Use native addTabifiedDockWidget
-            self.iface.addTabifiedDockWidget(Qt.RightDockWidgetArea, self.dockWidget, raiseTab=True)
+        if QGIS_VERSION_INT >= 31300:
+            self.iface.addTabifiedDockWidget(
+                RIGHT_DOCK_WIDGET_AREA,
+                self.dockWidget,
+                raiseTab=True
+            )
         else:
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
+            self.iface.addDockWidget(RIGHT_DOCK_WIDGET_AREA, self.dockWidget)
 
     def installTranslator(self):
         userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall/i18n")

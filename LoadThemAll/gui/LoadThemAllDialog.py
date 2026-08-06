@@ -24,9 +24,12 @@ from qgis.PyQt.QtCore import (QSettings,
                               pyqtSlot)
 from qgis.PyQt.QtWidgets import (QDockWidget,
                                  QMessageBox)
-from qgis.core import (QgsRectangle,
-                       Qgis)
+from qgis.core import QgsRectangle
 
+from ..compat import (MESSAGE_BOX_CANCEL,
+                      MESSAGE_BOX_OK,
+                      QGIS_VERSION_INT,
+                      load_ui_class)
 from .BaseLoadThemAllDialog import BaseLoadThemAllDialog
 from ..core.LayerTypes import LayerType
 from ..core.LoadConfiguration import LoadConfiguration
@@ -38,7 +41,8 @@ from ..core.Filter import (AlphanumericFilter,
                            RasterTypeFilter)
 from ..core.LoadFiles import *
 from ..core.Utils import has_point_cloud_provider
-from ..ui.Ui_DockWidget import Ui_DockWidget
+
+Ui_DockWidget = load_ui_class("Ui_DockWidget.ui")
 
 
 VECTOR_TAB_INDEX = 0
@@ -83,7 +87,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
         self.btnCancel.setVisible(False)
         self.btnCancel.clicked.connect(self.cancelLoad)
 
-        if Qgis.versionInt() < 31800 or not has_point_cloud_provider():
+        if QGIS_VERSION_INT < 31800 or not has_point_cloud_provider():
             self.tabWidget.widget(2).setEnabled(False)
 
     def updateControls(self):
@@ -191,8 +195,9 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                                                           self.tr("You have chosen to ignore accents in the alphanumeric filter, but first") +
                                                           self.tr(" you need to install the Python library 'unidecode'.\n\n") +
                                                           self.tr("Should we continue loading layers without ignoring accents?"),
-                                                          QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Cancel)
-                            if result == QMessageBox.Cancel:
+                                                          MESSAGE_BOX_OK | MESSAGE_BOX_CANCEL,
+                                                          MESSAGE_BOX_CANCEL)
+                            if result == MESSAGE_BOX_CANCEL:
                                 return
 
                 # Bounding Box Filter (part 1 out of 2)
@@ -208,7 +213,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             QMessageBox.warning(self.parent, "Load Them All",
                                                 self.tr("The bounding box coordinates are not correct!\n") +
                                                 self.tr("Please adjust the bounding box settings."),
-                                                QMessageBox.Ok, QMessageBox.Ok)
+                                                MESSAGE_BOX_OK, MESSAGE_BOX_OK)
                             return
                         extent = QgsRectangle(xMin, yMin, xMax, yMax)
                         bBoundingBoxFilter = True
@@ -216,7 +221,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                         QMessageBox.warning(self.parent, "Load Them All",
                                             self.tr("Some bounding box coordinates are missing!\n") +
                                             self.tr("Please set all bounding box coordinates."),
-                                            QMessageBox.Ok, QMessageBox.Ok)
+                                            MESSAGE_BOX_OK, MESSAGE_BOX_OK)
                         return
 
                 # Date Modified Filter
@@ -267,7 +272,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             QMessageBox.warning(self.parent, "Load Them All",
                                                 self.tr("No layer will match the filter!\n") +
                                                 self.tr("Select a raster type or uncheck the Raster type filter."),
-                                                QMessageBox.Ok, QMessageBox.Ok)
+                                                MESSAGE_BOX_OK, MESSAGE_BOX_OK)
                             return
 
                         filter = RasterTypeFilter(lstItemTypes)
@@ -315,7 +320,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                 QMessageBox.warning(self.parent, "Load Them All",
                                     self.tr("The specified directory could not be found!\n") +
                                     self.tr("Please select an existing directory."),
-                                    QMessageBox.Ok, QMessageBox.Ok)
+                                    MESSAGE_BOX_OK, MESSAGE_BOX_OK)
 
     def load(self):
         """ Protect the Load Layers button and apply """

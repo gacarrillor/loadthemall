@@ -21,31 +21,34 @@ email                : gcarrillo@linuxmail.org
 import os.path
 import pathlib
 from abc import ABCMeta
+from typing import List
 
-try:
-    from qgis.PyQt.QtCore import pyqtWrapperType
-except ImportError:
-    from sip import wrappertype as pyqtWrapperType
+from qgis.PyQt.QtCore import QObject
 
 from qgis.core import (QgsApplication,
                        QgsRasterLayer,
                        QgsVectorLayer,
                        QgsCoordinateReferenceSystem,
                        QgsProviderRegistry,
-                       Qgis,
-                       QgsMapLayerType)
-if Qgis.versionInt() >= 31800:
-    from qgis.core import QgsPointCloudLayer
+                       Qgis)
 
+from ..compat import (QGIS_MESSAGE_WARNING,
+                      QGIS_VERSION_INT)
+if QGIS_VERSION_INT >= 31800:
+    from qgis.core import QgsPointCloudLayer
+if 31800 <= QGIS_VERSION_INT < 33000:
+    from qgis.core import QgsMapLayerType
 from processing.algs.gdal.GdalUtils import GdalUtils
 
 from .FileFormatConfiguration import COMPRESSED_FILE_EXTENSIONS
 
 
 _gdal_version = None  # Global variable, use get_gdal_version() instead
+_LOG_TAG = "Load Them All"
+_ARCHIVE_LOAD_ERROR = "Unable to load layers from '{}'!"
 
 
-class AbstractQObjectMeta(pyqtWrapperType, ABCMeta):
+class AbstractQObjectMeta(type(QObject), ABCMeta):
     """Abstract class implementing QObject"""
     pass
 
@@ -79,7 +82,7 @@ def get_raster_layer(layer_path, layer_name, layer_dict, rename=False):
 
 
 def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, default_crs: QgsCoordinateReferenceSystem = None):
-    if Qgis.versionInt() < 31800:
+    if QGIS_VERSION_INT < 31800:
         return None
 
     res = layer_dict[layer_path]
@@ -87,7 +90,7 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
         provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
         if not provider:
             QgsApplication.messageLog().logMessage(
-                "No provider found for layer '{}'!".format(layer_path), "Load Them All", Qgis.Warning)
+                "No provider found for layer '{}'!".format(layer_path), _LOG_TAG, QGIS_MESSAGE_WARNING)
             return None
         res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
     elif rename:
@@ -124,7 +127,7 @@ def get_compressed_files_to_load(path, extensions):
     return files_to_load
 
 
-def get_zip_files_to_load(path: str, extensions: list[str]) -> list[str]:
+def get_zip_files_to_load(path: str, extensions: List[str]) -> List[str]:
     """
     Recursive function to get all the files inside a ZIP file that match the expected extensions.
 
@@ -158,20 +161,20 @@ def get_rar_files_to_load(path, extensions):
     # Check GDAL >= v3.7
     if get_gdal_version() < 3070000:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            _ARCHIVE_LOAD_ERROR.format(path), _LOG_TAG, QGIS_MESSAGE_WARNING)
         QgsApplication.messageLog().logMessage(
-            "To load RAR files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
-            Qgis.Warning)
+            "To load RAR files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), _LOG_TAG,
+            QGIS_MESSAGE_WARNING)
         return []
 
     try:
         import rarfile
     except ModuleNotFoundError as e:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            _ARCHIVE_LOAD_ERROR.format(path), _LOG_TAG, QGIS_MESSAGE_WARNING)
         QgsApplication.messageLog().logMessage(
             "To search inside RAR files you need to install the module 'rarfile' (e.g., pip install rarfile)!",
-            "Load Them All", Qgis.Warning)
+            _LOG_TAG, QGIS_MESSAGE_WARNING)
         return []
 
     rf = rarfile.RarFile(path)
@@ -247,20 +250,20 @@ def get_7zip_files_to_load(path, extensions):
     # Check GDAL >= v3.7
     if get_gdal_version() < 3070000:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            _ARCHIVE_LOAD_ERROR.format(path), _LOG_TAG, QGIS_MESSAGE_WARNING)
         QgsApplication.messageLog().logMessage(
-            "To load 7zip files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
-            Qgis.Warning)
+            "To load 7zip files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), _LOG_TAG,
+            QGIS_MESSAGE_WARNING)
         return []
 
     try:
         import py7zr
     except ModuleNotFoundError as e:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            _ARCHIVE_LOAD_ERROR.format(path), _LOG_TAG, QGIS_MESSAGE_WARNING)
         QgsApplication.messageLog().logMessage(
             "To search inside 7z files you need to install the module 'py7zr' (e.g., pip install py7zr)!",
-            "Load Them All", Qgis.Warning)
+            _LOG_TAG, QGIS_MESSAGE_WARNING)
         return []
 
     zip = py7zr.SevenZipFile(path)
@@ -298,24 +301,41 @@ def get_parent_folder(layer_path):
     :param layer_path: Full layer path
     :return: Folder in which we can find the layer
     """
-    folder = ''
-    if layer_path.startswith('/vsirar/'):  # TODO: Verify if we need this with GDAL v3.7+
-        import re
-        base = re.split("\\.rar", layer_path[8:], flags=re.IGNORECASE)[0]  # Get rid of prefix & case-insensitive split
-        folder = os.path.dirname(base)
-    else:
-        parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
-        folder = os.path.dirname(parts['path'])
+    archive_extensions = {
+        '/vsi7z/': ('.7z',),
+        '/vsigzip/': ('.gz',),
+        '/vsirar/': ('.rar',),
+        '/vsitar/': ('.tar.gz', '.tgz', '.tar'),
+        '/vsizip/': ('.zip',),
+    }
+    for prefix, extensions in archive_extensions.items():
+        if not layer_path.startswith(prefix):
+            continue
 
-    return folder
+        archive_path = layer_path[len(prefix):]
+        lower_path = archive_path.lower()
+        archive_ends = [
+            lower_path.find(extension) + len(extension)
+            for extension in extensions
+            if lower_path.find(extension) >= 0
+        ]
+        if archive_ends:
+            return os.path.dirname(archive_path[:min(archive_ends)])
+        break
+
+    parts = QgsProviderRegistry.instance().decodeUri('ogr', layer_path)
+    return os.path.dirname(parts['path'])
 
 
 def has_point_cloud_provider() -> bool:
-    if Qgis.versionInt() < 33000:
-        point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(QgsMapLayerType.PointCloudLayer)
+    if QGIS_VERSION_INT < 31800:
+        return False
+    if QGIS_VERSION_INT < 33000:
+        layer_type = QgsMapLayerType.PointCloudLayer
     else:
-        point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(Qgis.LayerType.PointCloud)
+        layer_type = Qgis.LayerType.PointCloud
 
+    point_cloud_providers = QgsProviderRegistry.instance().providersForLayerType(layer_type)
     return bool(point_cloud_providers)
 
 

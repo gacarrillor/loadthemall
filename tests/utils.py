@@ -1,4 +1,16 @@
+import os
+
 from LoadThemAll.core.LoadConfiguration import LoadConfiguration
+
+
+QGIS_TEST_DATA_PATH = os.environ.get(
+    "QGIS_TEST_DATA_PATH", "/QGIS/tests/testdata"
+)
+HAS_QGIS_TEST_DATA = os.path.isdir(QGIS_TEST_DATA_PATH)
+
+
+def qgis_test_data_path(*parts):
+    return os.path.join(QGIS_TEST_DATA_PATH, *parts)
 
 
 def get_configuration() -> LoadConfiguration:

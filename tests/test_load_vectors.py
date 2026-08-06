@@ -1,4 +1,4 @@
-import nose2
+
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -10,11 +10,14 @@ from LoadThemAll.core.Enums import EnumLoadThemAllResult
 from LoadThemAll.core.Filter import (FilterList,
                                      AlphanumericFilter)
 from LoadThemAll.core.LoadFiles import LoadVectors
-from tests.utils import get_configuration
+from tests.utils import (HAS_QGIS_TEST_DATA,
+                         get_configuration,
+                         qgis_test_data_path)
 
 start_app()
 
 
+@unittest.skipUnless(HAS_QGIS_TEST_DATA, "QGIS test data is not available")
 class TestLoadVectors(unittest.TestCase):
 
     @classmethod
@@ -25,7 +28,7 @@ class TestLoadVectors(unittest.TestCase):
 
     def test_load_vectors(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/provider/"
+        configuration.base_dir = qgis_test_data_path("provider")
         configuration.extension = [".gpkg"]
 
         # Set filters for next session
@@ -59,4 +62,4 @@ class TestLoadVectors(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    nose2.main()
+    unittest.main()

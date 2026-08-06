@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        qgis_version: [final-3_28_13]  # We could eventually add more, e.g., latest
+        qgis_version: [final-3_4_15, final-3_28_13, 4.0.3, 4.2.1]
     env:
       QGIS_TEST_VERSION: ${{ matrix.qgis_version }}
     steps:

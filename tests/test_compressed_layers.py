@@ -1,4 +1,4 @@
-import nose2
+
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -11,11 +11,14 @@ from LoadThemAll.core.Filter import (FilterList,
                                      AlphanumericFilter)
 from LoadThemAll.core.LoadFiles import (LoadVectors,
                                         LoadRasters)
-from tests.utils import get_configuration
+from tests.utils import (HAS_QGIS_TEST_DATA,
+                         get_configuration,
+                         qgis_test_data_path)
 
 start_app()
 
 
+@unittest.skipUnless(HAS_QGIS_TEST_DATA, "QGIS test data is not available")
 class TestCompressedLayers(unittest.TestCase):
 
     @classmethod
@@ -26,7 +29,7 @@ class TestCompressedLayers(unittest.TestCase):
 
     def test_compressed_shp(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.base_dir = qgis_test_data_path("zip")
         configuration.extension = [".shp"]
         configuration.b_search_in_compressed_files = True
 
@@ -53,7 +56,7 @@ class TestCompressedLayers(unittest.TestCase):
 
     def test_compressed_gz_geojson(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.base_dir = qgis_test_data_path("zip")
         configuration.extension = [".geojson"]
         configuration.b_search_in_compressed_files = True
 
@@ -80,7 +83,7 @@ class TestCompressedLayers(unittest.TestCase):
 
     def test_compressed_gz_geojson_2(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.base_dir = qgis_test_data_path("zip")
         configuration.extension = [".geojson"]
         configuration.b_search_in_compressed_files = True
 
@@ -108,7 +111,7 @@ class TestCompressedLayers(unittest.TestCase):
 
     def test_compressed_tif(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.base_dir = qgis_test_data_path("zip")
         configuration.extension = [".tif"]
         configuration.b_search_in_compressed_files = True
 
@@ -135,7 +138,7 @@ class TestCompressedLayers(unittest.TestCase):
 
     def test_compressed_tif_2(self):
         configuration = get_configuration()
-        configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        configuration.base_dir = qgis_test_data_path("zip")
         configuration.extension = [".tif"]
         configuration.b_search_in_compressed_files = True
 
@@ -171,4 +174,4 @@ class TestCompressedLayers(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    nose2.main()
+    unittest.main()

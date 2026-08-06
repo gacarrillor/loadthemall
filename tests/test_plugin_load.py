@@ -1,5 +1,3 @@
-import nose2
-
 from qgis.core import QgsApplication
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
@@ -27,4 +25,4 @@ class TestPluginLoad(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    nose2.main()
+    unittest.main()
