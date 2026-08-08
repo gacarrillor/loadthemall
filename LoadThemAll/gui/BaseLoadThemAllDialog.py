@@ -59,7 +59,7 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
         path = QFileDialog.getExistingDirectory(self, self.tr("Select a base directory"),
                                                 settings.value(settings_name, "",
                                                                type=str),
-                                                QFileDialog.ShowDirsOnly)
+                                                QFileDialog.Option.ShowDirsOnly)
 
         if path:
             self.txtBaseDir.setText(path)
@@ -99,5 +99,5 @@ class BaseLoadThemAllDialog(QDialog, Ui_Base_LoadThemAll):
 
     def keyPressEvent(self, e):
         """ Handle the ESC key to avoid only the base dialog being closed """
-        if e.key() == Qt.Key_Escape:
+        if e.key() == Qt.Key.Key_Escape:
             e.ignore()

@@ -167,7 +167,7 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
         layersLoaded = 0
 
         if numLayers > 0:
-            result = QMessageBox.Ok  # Convenient variable to pass an upcoming condition
+            result = QMessageBox.StandardButton.Ok  # Convenient variable to pass an upcoming condition
 
             if numLayers >= self.configuration.num_layers_to_confirm:
                 if self.configuration.with_gui:
@@ -176,11 +176,11 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
                                                   QCoreApplication.translate("Load Them All",
                                                                              "There are {} layers to load.\n Do you want to continue?").format(
                                                       numLayers),
-                                                  QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Ok)
+                                                  QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel, QMessageBox.StandardButton.Ok)
                 else:
                     pass  # We cannot ask the user if we're in a non-GUI session
 
-            if result == QMessageBox.Ok:
+            if result == QMessageBox.StandardButton.Ok:
                 self.iface.mapCanvas().setRenderFlag(False)  # Start the loading process
                 step = 0
 
@@ -230,21 +230,21 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
                                     bStyleFound = True
                                     QgsApplication.messageLog().logMessage(
                                         "QML for group '{}' applied to layer '{}'".format(
-                                            aBaseGroup, ml.name()), "Load Them All", Qgis.Info)
+                                            aBaseGroup, ml.name()), "Load Them All", Qgis.MessageLevel.Info)
 
                             if bStyleFound:
                                 self.iface.layerTreeView().refreshLayerSymbology(ml.id())
                             else:
                                 QgsApplication.messageLog().logMessage(
                                     "No style found for layer group '{}' or 'create groups' option is disabled!".format(
-                                        aBaseGroup), "Load Them All", Qgis.Warning)
+                                        aBaseGroup), "Load Them All", Qgis.MessageLevel.Warning)
                             # End Styles
 
                     else:
                         QgsApplication.messageLog().logMessage(
                             "Layer '{}' couldn't be created properly and wasn't loaded into QGIS. Is the layer data valid? Is the corresponding provider properly installed?".format(
                                 layer_path),
-                            "Load Them All", Qgis.Warning)
+                            "Load Them All", Qgis.MessageLevel.Warning)
 
                     step += 1
                     self.update_progress_value_emitted.emit(step)
@@ -296,7 +296,7 @@ class LoadFiles(QObject, metaclass=AbstractQObjectMeta):
                                                                    "</i> files to load from the base directory with this filter.\n") +
                                         QCoreApplication.translate("Load Them All",
                                                                    "Change those parameters and try again."),
-                                        QMessageBox.Ok)
+                                        QMessageBox.StandardButton.Ok)
 
         return LoadThemAllResult(EnumLoadThemAllResult.SUCCESS, numLayers, layersLoaded)
 
@@ -366,7 +366,7 @@ class LoadVectors(LoadFiles):
         if layer_dict[layer_path] is None:
             layer_dict[layer_path] = get_vector_layer(layer_path, '', layer_dict)
 
-        if layer_dict[layer_path].type() == QgsMapLayer.VectorLayer:
+        if layer_dict[layer_path].type() == QgsMapLayer.LayerType.VectorLayer:
             if layer_dict[layer_path].featureCount() == 0:
                 return True
         return False

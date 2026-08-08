@@ -191,8 +191,8 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                                                           self.tr("You have chosen to ignore accents in the alphanumeric filter, but first") +
                                                           self.tr(" you need to install the Python library 'unidecode'.\n\n") +
                                                           self.tr("Should we continue loading layers without ignoring accents?"),
-                                                          QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Cancel)
-                            if result == QMessageBox.Cancel:
+                                                          QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel, QMessageBox.StandardButton.Cancel)
+                            if result == QMessageBox.StandardButton.Cancel:
                                 return
 
                 # Bounding Box Filter (part 1 out of 2)
@@ -208,7 +208,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             QMessageBox.warning(self.parent, "Load Them All",
                                                 self.tr("The bounding box coordinates are not correct!\n") +
                                                 self.tr("Please adjust the bounding box settings."),
-                                                QMessageBox.Ok, QMessageBox.Ok)
+                                                QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Ok)
                             return
                         extent = QgsRectangle(xMin, yMin, xMax, yMax)
                         bBoundingBoxFilter = True
@@ -216,7 +216,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                         QMessageBox.warning(self.parent, "Load Them All",
                                             self.tr("Some bounding box coordinates are missing!\n") +
                                             self.tr("Please set all bounding box coordinates."),
-                                            QMessageBox.Ok, QMessageBox.Ok)
+                                            QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Ok)
                         return
 
                 # Date Modified Filter
@@ -267,7 +267,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                             QMessageBox.warning(self.parent, "Load Them All",
                                                 self.tr("No layer will match the filter!\n") +
                                                 self.tr("Select a raster type or uncheck the Raster type filter."),
-                                                QMessageBox.Ok, QMessageBox.Ok)
+                                                QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Ok)
                             return
 
                         filter = RasterTypeFilter(lstItemTypes)
@@ -315,7 +315,7 @@ class LoadThemAllDialog(QDockWidget, Ui_DockWidget):
                 QMessageBox.warning(self.parent, "Load Them All",
                                     self.tr("The specified directory could not be found!\n") +
                                     self.tr("Please select an existing directory."),
-                                    QMessageBox.Ok, QMessageBox.Ok)
+                                    QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Ok)
 
     def load(self):
         """ Protect the Load Layers button and apply """

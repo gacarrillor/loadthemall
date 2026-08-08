@@ -232,14 +232,14 @@ class GeometryTypeFilter(TypeFilter):
     """ Filter based on the layer's geometry type """
     def __init__(self, itemTypes):
         TypeFilter.__init__(self, itemTypes)
-        if 'Point' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.PointGeometry)
-        if 'Line' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.LineGeometry)
-        if 'Polygon' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.PolygonGeometry)
+        if 'Point' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.GeometryType.PointGeometry)
+        if 'Line' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.GeometryType.LineGeometry)
+        if 'Polygon' in itemTypes: self.lstFilterItems.append(QgsWkbTypes.GeometryType.PolygonGeometry)
 
         if not self.lstFilterItems:
             # The user created a Geometry Filter but doesn't want points, lines nor polygons.
             # In conclusion, he/she wants geometryless layers.
-            self.lstFilterItems.append(QgsWkbTypes.NullGeometry)  # Alphanumeric tables
+            self.lstFilterItems.append(QgsWkbTypes.GeometryType.NullGeometry)  # Alphanumeric tables
 
     def getItemType(self, layer_path, layer_dict):
         """ Get the layer's geometry type """

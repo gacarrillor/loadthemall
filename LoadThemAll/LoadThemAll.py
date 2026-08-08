@@ -81,9 +81,9 @@ class LoadThemAll:
     # run method that performs all the real work
     def run(self):
         if Qgis.QGIS_VERSION_INT >= 31300:  # Use native addTabifiedDockWidget
-            self.iface.addTabifiedDockWidget(Qt.RightDockWidgetArea, self.dockWidget, raiseTab=True)
+            self.iface.addTabifiedDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.dockWidget, raiseTab=True)
         else:
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockWidget)
+            self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.dockWidget)
 
     def installTranslator(self):
         userPluginPath = os.path.join(os.path.dirname(str(QgsApplication.qgisUserDatabaseFilePath())), "python/plugins/loadthemall/i18n")

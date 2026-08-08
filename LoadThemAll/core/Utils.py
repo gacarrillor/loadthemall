@@ -23,7 +23,7 @@ import pathlib
 from abc import ABCMeta
 
 try:
-    from qgis.PyQt.QtCore import pyqtWrapperType
+    from qgis.PyQt.sip import wrappertype as pyqtWrapperType
 except ImportError:
     from sip import wrappertype as pyqtWrapperType
 
@@ -87,7 +87,7 @@ def get_point_cloud_layer(layer_path, layer_name, layer_dict, rename=False, defa
         provider = QgsProviderRegistry.instance().preferredProvidersForUri(layer_path)
         if not provider:
             QgsApplication.messageLog().logMessage(
-                "No provider found for layer '{}'!".format(layer_path), "Load Them All", Qgis.Warning)
+                "No provider found for layer '{}'!".format(layer_path), "Load Them All", Qgis.MessageLevel.Warning)
             return None
         res = QgsPointCloudLayer(layer_path, layer_name, provider[0].metadata().key())
     elif rename:
@@ -158,20 +158,20 @@ def get_rar_files_to_load(path, extensions):
     # Check GDAL >= v3.7
     if get_gdal_version() < 3070000:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.MessageLevel.Warning)
         QgsApplication.messageLog().logMessage(
             "To load RAR files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
-            Qgis.Warning)
+            Qgis.MessageLevel.Warning)
         return []
 
     try:
         import rarfile
     except ModuleNotFoundError as e:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.MessageLevel.Warning)
         QgsApplication.messageLog().logMessage(
             "To search inside RAR files you need to install the module 'rarfile' (e.g., pip install rarfile)!",
-            "Load Them All", Qgis.Warning)
+            "Load Them All", Qgis.MessageLevel.Warning)
         return []
 
     rf = rarfile.RarFile(path)
@@ -247,20 +247,20 @@ def get_7zip_files_to_load(path, extensions):
     # Check GDAL >= v3.7
     if get_gdal_version() < 3070000:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.MessageLevel.Warning)
         QgsApplication.messageLog().logMessage(
             "To load 7zip files you need GDAL >= v3.7 (yours is v{})!".format(get_gdal_version()), "Load Them All",
-            Qgis.Warning)
+            Qgis.MessageLevel.Warning)
         return []
 
     try:
         import py7zr
     except ModuleNotFoundError as e:
         QgsApplication.messageLog().logMessage(
-            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.Warning)
+            "Unable to load layers from '{}'!".format(path), "Load Them All", Qgis.MessageLevel.Warning)
         QgsApplication.messageLog().logMessage(
             "To search inside 7z files you need to install the module 'py7zr' (e.g., pip install py7zr)!",
-            "Load Them All", Qgis.Warning)
+            "Load Them All", Qgis.MessageLevel.Warning)
         return []
 
     zip = py7zr.SevenZipFile(path)
