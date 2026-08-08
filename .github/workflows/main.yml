@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        qgis_version: [latest,3.40.3-noble]  # We could eventually add more, e.g., latest
+        qgis_version: [latest,3.44.10-noble]
     env:
       QGIS_TEST_VERSION: ${{ matrix.qgis_version }}
     steps:
