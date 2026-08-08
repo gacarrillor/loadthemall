@@ -14,6 +14,10 @@ from LoadThemAll.core.Utils import (get_parent_folder,
 
 class TestPluginUtils(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        print('\nINFO: Set up test_core_utils')
+
     def test_get_parent_folder(self):
         print('INFO: Validating get parent folder...')
         file_path = "/vsizip//docs/Regional/ZIP_data.zip/AA_PreQuat_NAD27z12.TAB"
@@ -72,6 +76,12 @@ class TestPluginUtils(unittest.TestCase):
         self.assertEqual(get_file_extension("A.B.C.JSON"), ".json")
 
     def test_get_zip_files_to_load(self):
+        print('INFO: Validating get ZIP files to load...')
+        testdata_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir(testdata_dir):
+            print(f"  WARNING: Testdata dir ('{testdata_dir}') NOT present in the docker image!!! Skipping 'test_get_zip_files_to_load' tests...")
+            return
+
         self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/landsat_b1.zip", [".tif"]),
                          ["/vsizip//QGIS/tests/testdata/zip/landsat_b1.zip/landsat_b1.tif"])
         self.assertEqual(get_zip_files_to_load("/QGIS/tests/testdata/zip/points2.zip", [".shp"]),
@@ -89,6 +99,11 @@ class TestPluginUtils(unittest.TestCase):
                          [])
 
     def test_get_tar_files_to_load(self):
+        testdata_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir(testdata_dir):
+            print(f"  WARNING: Testdata dir ('{testdata_dir}') NOT present in the docker image!!! Skipping 'test_get_tar_files_to_load' tests...")
+            return
+
         self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/landsat_b1.tar", [".tif"]),
                          ["/vsitar//QGIS/tests/testdata/zip/landsat_b1.tar/landsat_b1.tif"])
         self.assertEqual(get_tar_files_to_load("/QGIS/tests/testdata/zip/points2.tar", [".shp"]),
@@ -104,6 +119,7 @@ class TestPluginUtils(unittest.TestCase):
                          [])
 
     def test_get_gzip_file_to_load(self):
+        print('INFO: Validating get GZIP file to load...')
         self.assertEqual(get_gzip_file_to_load("/QGIS/tests/testdata/zip/points3.geojson.gz", [".geojson"]),
                          ["/vsigzip//QGIS/tests/testdata/zip/points3.geojson.gz"])
         self.assertEqual(get_gzip_file_to_load("/QGIS/tests/testdata/zip/landsat_b1.tif.gz", [".tif"]),

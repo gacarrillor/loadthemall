@@ -1,4 +1,5 @@
 import nose2
+import os.path
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -27,6 +28,11 @@ class TestCompressedLayers(unittest.TestCase):
     def test_compressed_shp(self):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_compressed_shp' tests...")
+            return
+
         configuration.extension = [".shp"]
         configuration.b_search_in_compressed_files = True
 
@@ -54,6 +60,11 @@ class TestCompressedLayers(unittest.TestCase):
     def test_compressed_gz_geojson(self):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_compressed_gz_geojson' tests...")
+            return
+
         configuration.extension = [".geojson"]
         configuration.b_search_in_compressed_files = True
 
@@ -81,6 +92,11 @@ class TestCompressedLayers(unittest.TestCase):
     def test_compressed_gz_geojson_2(self):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_compressed_gz_geojson_2' tests...")
+            return
+
         configuration.extension = [".geojson"]
         configuration.b_search_in_compressed_files = True
 
@@ -109,6 +125,11 @@ class TestCompressedLayers(unittest.TestCase):
     def test_compressed_tif(self):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_compressed_tif' tests...")
+            return
+
         configuration.extension = [".tif"]
         configuration.b_search_in_compressed_files = True
 
@@ -136,6 +157,11 @@ class TestCompressedLayers(unittest.TestCase):
     def test_compressed_tif_2(self):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/zip/"
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_compressed_tif_2' tests...")
+            return
+
         configuration.extension = [".tif"]
         configuration.b_search_in_compressed_files = True
 

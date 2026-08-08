@@ -1,4 +1,5 @@
 import nose2
+import os.path
 
 from qgis.core import (QgsApplication,
                        QgsProject)
@@ -27,6 +28,11 @@ class TestLoadRasters(unittest.TestCase):
         configuration = get_configuration()
         configuration.base_dir = "/QGIS/tests/testdata/raster/"
         configuration.extension = [".png"]
+
+        if not os.path.isdir( configuration.base_dir ):
+            print(
+                f"  WARNING: Testdata dir ('{configuration.base_dir}') NOT present in the docker image!!! Skipping 'test_load_rasters' tests...")
+            return
 
         # Set filters for next session
         filter_list = FilterList()
