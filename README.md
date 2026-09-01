@@ -190,7 +190,7 @@ After installation, Load Them All can be found in these places:
  + To run Unit Tests locally, first install Docker, then set these 2 environment variables:
 
        export GITHUB_WORKSPACE=/path/to/loadthemall/
-       export QGIS_TEST_VERSION="final-3_28_13"
+       export QGIS_TEST_VERSION="latest"
 
    Build the docker image (from plugin repo's root folder):
 
